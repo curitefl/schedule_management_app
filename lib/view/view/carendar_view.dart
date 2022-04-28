@@ -22,6 +22,7 @@ class CalendarView extends StatelessWidget {
             firstDay: CalendarConstants.calendarFirstDay,
             lastDay: CalendarConstants.calendarEndDay,
             focusedDay: DateTime.now(),
+            startingDayOfWeek: StartingDayOfWeek.monday,
             headerStyle: const HeaderStyle(
               titleCentered: true,
               formatButtonVisible: false,
