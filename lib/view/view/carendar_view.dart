@@ -33,18 +33,16 @@ class CalendarView extends StatelessWidget {
             ),
             calendarBuilders: CalendarBuilders(
               dowBuilder: (BuildContext context, DateTime day) {
-                if (day.weekday == DateTime.sunday) {
-                  final text = DateFormat.E(CalendarConstants.calendarLocale).format(day);
+                final text = DateFormat.E(CalendarConstants.calendarLocale).format(day);
 
-                  return Center(
-                    child: Text(
-                      text,
-                      style: TextStyle(
-                          color: _textColor(day),
-                      ),
+                return Center(
+                  child: Text(
+                    text,
+                    style: TextStyle(
+                      color: _textColor(day),
                     ),
-                  );
-                }
+                  ),
+                );
               },
               defaultBuilder: (BuildContext context, DateTime day, DateTime focusedDay) {
                 return AnimatedContainer(
