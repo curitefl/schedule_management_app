@@ -11,6 +11,15 @@ class ScheduleCreateView extends StatelessWidget {
         title: const Text(TextConstants.scheduleCreateViewAppBarTitle),
         centerTitle: true,
       ),
+      body: Column(
+        children: const [
+          TextField(
+            decoration: InputDecoration(
+              hintText: TextConstants.scheduleCreateViewHintText,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
