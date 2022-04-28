@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:schedule_management_app/view/view/carender_view.dart';
+import 'package:schedule_management_app/view/view/carendar_view.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 void main() {
-  runApp(const MyApp());
+  initializeDateFormatting().then((value) => runApp(const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const CalenderView(),
+      home: const CalendarView(),
     );
   }
 }

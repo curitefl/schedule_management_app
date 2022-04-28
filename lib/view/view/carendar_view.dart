@@ -16,6 +16,7 @@ class CalendarView extends StatelessWidget {
         centerTitle: true,
       ),
       body: TableCalendar(
+        locale: CalendarConstants.calendarLocale,
         firstDay: CalendarConstants.calendarFirstDay,
         lastDay: CalendarConstants.calendarEndDay,
         focusedDay: DateTime.now(),
