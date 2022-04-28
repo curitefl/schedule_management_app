@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:schedule_management_app/view/view/carender_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,11 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('title'),
-        ),
-      ),
+      home: const CalenderView(),
     );
   }
 }
