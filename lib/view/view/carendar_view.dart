@@ -34,7 +34,6 @@ class CalendarView extends StatelessWidget {
             calendarBuilders: CalendarBuilders(
               dowBuilder: (BuildContext context, DateTime day) {
                 final text = DateFormat.E(CalendarConstants.calendarLocale).format(day);
-
                 return Center(
                   child: Text(
                     text,
@@ -45,9 +44,10 @@ class CalendarView extends StatelessWidget {
                 );
               },
               defaultBuilder: (BuildContext context, DateTime day, DateTime focusedDay) {
+                final text = day.day.toString();
                 return Center(
                   child: Text(
-                    day.day.toString(),
+                    text,
                     style: TextStyle(
                       color: _textColor(day),
                     ),
