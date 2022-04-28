@@ -7,4 +7,5 @@ class TextConstants {
   // 予定の追加画面
   static const String scheduleCreateViewAppBarTitle = '予定追加';
   static const String scheduleCreateViewHintText = 'タイトルを入力してください';
+  static const String scheduleCreateViewWholeDay = '終日';
 }

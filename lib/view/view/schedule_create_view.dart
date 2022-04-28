@@ -12,12 +12,24 @@ class ScheduleCreateView extends StatelessWidget {
         centerTitle: true,
       ),
       body: Column(
-        children: const [
-          TextField(
+        children: [
+          const TextField(
             autofocus: true,
             decoration: InputDecoration(
               hintText: TextConstants.scheduleCreateViewHintText,
             ),
+          ),
+          Row(
+            children: [
+              const Text(TextConstants.scheduleCreateViewWholeDay),
+              Switch(
+                  value: false,
+                  onChanged: (value) {
+                    // TODO 終日スイッチがオフの場合は、オンにする。
+                    // TODO 終日スイッチがオンの場合は、オフにする。
+                  },
+              ),
+            ],
           ),
         ],
       ),
