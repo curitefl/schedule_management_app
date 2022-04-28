@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:schedule_management_app/view/constants/text_constants.dart';
 
 class ScheduleCreateView extends StatelessWidget {
@@ -23,11 +24,29 @@ class ScheduleCreateView extends StatelessWidget {
             children: [
               const Text(TextConstants.scheduleCreateViewWholeDay),
               Switch(
-                  value: false,
-                  onChanged: (value) {
-                    // TODO 終日スイッチがオフの場合は、オンにする。
-                    // TODO 終日スイッチがオンの場合は、オフにする。
-                  },
+                value: false,
+                onChanged: (value) {
+                  // TODO 終日スイッチがオフの場合は、オンにする。
+                  // TODO 終日スイッチがオンの場合は、オフにする。
+                },
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              const Text(TextConstants.scheduleCreateViewStart),
+              TextButton(
+                child: Text(
+                  // TODO 予定追加の場合は、選択された日付、現在の時間を表示する。
+                  DateFormat(TextConstants.wholeDaySwitchOffDateFormat).format(DateTime.now()),
+                  // TODO 終日スイッチがオンの場合は、「yyyy-MM-dd 」形式で表示する。
+                  style: const TextStyle(
+                    color: Colors.black,
+                  ),
+                ),
+                onPressed: () {
+                  // TODO 開始時間ピッカーの動作実装
+                },
               ),
             ],
           ),

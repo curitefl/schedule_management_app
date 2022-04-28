@@ -8,4 +8,6 @@ class TextConstants {
   static const String scheduleCreateViewAppBarTitle = '予定追加';
   static const String scheduleCreateViewHintText = 'タイトルを入力してください';
   static const String scheduleCreateViewWholeDay = '終日';
+  static const String scheduleCreateViewStart = '開始';
+  static const String wholeDaySwitchOffDateFormat = 'yyyy-MM-dd HH:mm';
 }
