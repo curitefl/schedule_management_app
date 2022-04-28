@@ -25,11 +25,12 @@ class CalendarView extends StatelessWidget {
             focusedDay: DateTime.now(),
             startingDayOfWeek: StartingDayOfWeek.monday,
             daysOfWeekHeight: 20.0,
-            headerStyle: const HeaderStyle(
+            headerStyle: HeaderStyle(
               titleCentered: true,
+              titleTextFormatter: (date, locale) => DateFormat('yyyy年MM月').format(date),
               formatButtonVisible: false,
               leftChevronVisible: false,
-              rightChevronIcon: Icon(Icons.arrow_drop_down),
+              rightChevronIcon: const Icon(Icons.arrow_drop_down),
             ),
             calendarBuilders: CalendarBuilders(
               dowBuilder: (BuildContext context, DateTime day) {
