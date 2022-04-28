@@ -33,10 +33,10 @@ class CalendarView extends StatelessWidget {
             ),
             calendarBuilders: CalendarBuilders(
               dowBuilder: (BuildContext context, DateTime day) {
-                final text = DateFormat.E(CalendarConstants.calendarLocale).format(day);
+                final dayOfWeek = DateFormat.E(CalendarConstants.calendarLocale).format(day);
                 return Center(
                   child: Text(
-                    text,
+                    dayOfWeek,
                     style: TextStyle(
                       color: _textColor(day),
                     ),
@@ -44,10 +44,10 @@ class CalendarView extends StatelessWidget {
                 );
               },
               defaultBuilder: (BuildContext context, DateTime day, DateTime focusedDay) {
-                final text = day.day.toString();
+                final date = day.day.toString();
                 return Center(
                   child: Text(
-                    text,
+                    date,
                     style: TextStyle(
                       color: _textColor(day),
                     ),
