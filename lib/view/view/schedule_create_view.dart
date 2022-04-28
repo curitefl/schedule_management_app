@@ -17,7 +17,7 @@ class ScheduleCreateView extends StatelessWidget {
           const TextField(
             autofocus: true,
             decoration: InputDecoration(
-              hintText: TextConstants.scheduleCreateViewHintText,
+              hintText: TextConstants.scheduleCreateViewTitleHintText,
             ),
           ),
           Row(
@@ -34,6 +34,15 @@ class ScheduleCreateView extends StatelessWidget {
           ),
           buildDatePickerButton(TextConstants.scheduleCreateViewStart, DateTime.now()),
           buildDatePickerButton(TextConstants.scheduleCreateViewEnd, DateTime.now()),
+          const Expanded(
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: TextConstants.scheduleCreateViewCommentHintText,
+              ),
+              keyboardType: TextInputType.multiline,
+              maxLines: null,
+            ),
+          ),
         ],
       ),
     );
