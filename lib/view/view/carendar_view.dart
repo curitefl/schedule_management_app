@@ -45,8 +45,7 @@ class CalendarView extends StatelessWidget {
                 );
               },
               defaultBuilder: (BuildContext context, DateTime day, DateTime focusedDay) {
-                return AnimatedContainer(
-                  duration: const Duration(milliseconds: 250),
+                return Center(
                   child: Text(
                     day.day.toString(),
                     style: TextStyle(
