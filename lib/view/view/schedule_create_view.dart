@@ -14,6 +14,7 @@ class ScheduleCreateView extends StatelessWidget {
       body: Column(
         children: const [
           TextField(
+            autofocus: true,
             decoration: InputDecoration(
               hintText: TextConstants.scheduleCreateViewHintText,
             ),
