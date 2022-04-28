@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:schedule_management_app/view/constants/calendar_constants.dart';
 import 'package:schedule_management_app/view/constants/text_constants.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -31,6 +32,20 @@ class CalendarView extends StatelessWidget {
               rightChevronIcon: Icon(Icons.arrow_drop_down),
             ),
             calendarBuilders: CalendarBuilders(
+              dowBuilder: (BuildContext context, DateTime day) {
+                if (day.weekday == DateTime.sunday) {
+                  final text = DateFormat.E(CalendarConstants.calendarLocale).format(day);
+
+                  return Center(
+                    child: Text(
+                      text,
+                      style: TextStyle(
+                          color: _textColor(day),
+                      ),
+                    ),
+                  );
+                }
+              },
               defaultBuilder: (BuildContext context, DateTime day, DateTime focusedDay) {
                 return AnimatedContainer(
                   duration: const Duration(milliseconds: 250),
