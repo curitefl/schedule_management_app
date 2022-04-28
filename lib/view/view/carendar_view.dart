@@ -30,6 +30,19 @@ class CalendarView extends StatelessWidget {
               leftChevronVisible: false,
               rightChevronIcon: Icon(Icons.arrow_drop_down),
             ),
+            calendarBuilders: CalendarBuilders(
+              defaultBuilder: (BuildContext context, DateTime day, DateTime focusedDay) {
+                return AnimatedContainer(
+                  duration: const Duration(milliseconds: 250),
+                  child: Text(
+                    day.day.toString(),
+                    style: TextStyle(
+                      color: _textColor(day),
+                    ),
+                  ),
+                );
+              },
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -48,4 +61,16 @@ class CalendarView extends StatelessWidget {
       ),
     );
   }
+}
+
+Color _textColor(DateTime day) {
+  const _defaultTextColor = Colors.black87;
+
+  if (day.weekday == DateTime.sunday) {
+    return Colors.red;
+  }
+  if (day.weekday == DateTime.saturday) {
+    return Colors.blue[600]!;
+  }
+  return _defaultTextColor;
 }
