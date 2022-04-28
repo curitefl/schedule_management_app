@@ -11,6 +11,16 @@ class ScheduleCreateView extends StatelessWidget {
       appBar: AppBar(
         title: const Text(TextConstants.scheduleCreateViewAppBarTitle),
         centerTitle: true,
+        actions: const [
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: ElevatedButton(
+              child: Text(TextConstants.scheduleCreateViewSave),
+              // TODO 保存ボタンをタップしたときの処理
+              onPressed: null,
+            ),
+          ),
+        ],
       ),
       body: Column(
         children: [

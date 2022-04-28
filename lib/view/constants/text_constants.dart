@@ -12,4 +12,5 @@ class TextConstants {
   static const String wholeDaySwitchOffDateFormat = 'yyyy-MM-dd HH:mm';
   static const String scheduleCreateViewEnd = '終了';
   static const String scheduleCreateViewCommentHintText = 'コメントを入力してください';
+  static const String scheduleCreateViewSave = '保存';
 }
