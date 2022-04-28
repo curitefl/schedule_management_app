@@ -15,15 +15,34 @@ class CalendarView extends StatelessWidget {
         title: const Text(TextConstants.calendarViewAppBarTitle),
         centerTitle: true,
       ),
-      body: TableCalendar(
-        locale: CalendarConstants.calendarLocale,
-        firstDay: CalendarConstants.calendarFirstDay,
-        lastDay: CalendarConstants.calendarEndDay,
-        focusedDay: DateTime.now(),
-        headerStyle: const HeaderStyle(
-          titleCentered: true,
-          formatButtonVisible: false,
-        ),
+      body: Stack(
+        children: [
+          TableCalendar(
+            locale: CalendarConstants.calendarLocale,
+            firstDay: CalendarConstants.calendarFirstDay,
+            lastDay: CalendarConstants.calendarEndDay,
+            focusedDay: DateTime.now(),
+            headerStyle: const HeaderStyle(
+              titleCentered: true,
+              formatButtonVisible: false,
+              leftChevronVisible: false,
+              rightChevronVisible: false,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: OutlinedButton(
+              child: const Text(TextConstants.today),
+              style: OutlinedButton.styleFrom(
+                primary: Colors.black,
+                shape: const StadiumBorder(),
+              ),
+              onPressed: () {
+                // TODO 今日にフォーカスする
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
