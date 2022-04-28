@@ -32,26 +32,31 @@ class ScheduleCreateView extends StatelessWidget {
               ),
             ],
           ),
-          Row(
-            children: [
-              const Text(TextConstants.scheduleCreateViewStart),
-              TextButton(
-                child: Text(
-                  // TODO 予定追加の場合は、選択された日付、現在の時間を表示する。
-                  DateFormat(TextConstants.wholeDaySwitchOffDateFormat).format(DateTime.now()),
-                  // TODO 終日スイッチがオンの場合は、「yyyy-MM-dd 」形式で表示する。
-                  style: const TextStyle(
-                    color: Colors.black,
-                  ),
-                ),
-                onPressed: () {
-                  // TODO 開始時間ピッカーの動作実装
-                },
-              ),
-            ],
-          ),
+          buildDatePickerButton(TextConstants.scheduleCreateViewStart, DateTime.now()),
+          buildDatePickerButton(TextConstants.scheduleCreateViewEnd, DateTime.now()),
         ],
       ),
+    );
+  }
+
+  Row buildDatePickerButton(String title, DateTime dateTime) {
+    return Row(
+      children: [
+        Text(title),
+        TextButton(
+          child: Text(
+            // TODO 予定追加の場合は、選択された日付、現在の時間を表示する。
+            DateFormat(TextConstants.wholeDaySwitchOffDateFormat).format(dateTime),
+            // TODO 終日スイッチがオンの場合は、「yyyy-MM-dd 」形式で表示する。
+            style: const TextStyle(
+              color: Colors.black,
+            ),
+          ),
+          onPressed: () {
+            // TODO 時間ピッカーの動作実装
+          },
+        ),
+      ],
     );
   }
 }
