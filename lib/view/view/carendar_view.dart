@@ -20,6 +20,10 @@ class CalendarView extends StatelessWidget {
         firstDay: CalendarConstants.calendarFirstDay,
         lastDay: CalendarConstants.calendarEndDay,
         focusedDay: DateTime.now(),
+        headerStyle: const HeaderStyle(
+          titleCentered: true,
+          formatButtonVisible: false,
+        ),
       ),
     );
   }
