@@ -26,8 +26,10 @@ class CalendarView extends StatelessWidget {
             startingDayOfWeek: StartingDayOfWeek.monday,
             daysOfWeekHeight: 20.0,
             headerStyle: HeaderStyle(
+              titleTextFormatter: (date, locale) {
+                return DateFormat(TextConstants.calendarDateFormat).format(date);
+              },
               titleCentered: true,
-              titleTextFormatter: (date, locale) => DateFormat('yyyy年MM月').format(date),
               formatButtonVisible: false,
               leftChevronVisible: false,
               rightChevronIcon: const Icon(Icons.arrow_drop_down),
