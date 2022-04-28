@@ -26,7 +26,7 @@ class CalendarView extends StatelessWidget {
               titleCentered: true,
               formatButtonVisible: false,
               leftChevronVisible: false,
-              rightChevronVisible: false,
+              rightChevronIcon: Icon(Icons.arrow_drop_down),
             ),
           ),
           Padding(
