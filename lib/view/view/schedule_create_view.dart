@@ -11,6 +11,12 @@ class ScheduleCreateView extends StatelessWidget {
       appBar: AppBar(
         title: const Text(TextConstants.scheduleCreateViewAppBarTitle),
         centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(Icons.close),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         actions: const [
           Padding(
             padding: EdgeInsets.all(8.0),
