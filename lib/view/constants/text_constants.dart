@@ -13,4 +13,7 @@ class TextConstants {
   static const String scheduleCreateViewEnd = '終了';
   static const String scheduleCreateViewCommentHintText = 'コメントを入力してください';
   static const String scheduleCreateViewSave = '保存';
+
+  // 日別予定一覧画面
+  static const String scheduleListViewDateFormat = 'yyyy/MM/dd (E)';
 }
