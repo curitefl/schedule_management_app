@@ -5,6 +5,7 @@ import 'package:month_picker_dialog/month_picker_dialog.dart';
 import 'package:schedule_management_app/view/constants/calendar_constants.dart';
 import 'package:schedule_management_app/view/constants/text_constants.dart';
 import 'package:schedule_management_app/view/view/schedule_list_view.dart';
+import 'package:schedule_management_app/view/view_model/current_day_model.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:schedule_management_app/view/view_model/focused_day_model.dart';
 
@@ -44,6 +45,7 @@ class CalendarView extends HookConsumerWidget {
             firstDay: CalendarConstants.calendarFirstDay,
             lastDay: CalendarConstants.calendarEndDay,
             focusedDay: ref.watch(focusedDayProvider),
+            currentDay: ref.watch(currentDayProvider),
             startingDayOfWeek: StartingDayOfWeek.monday,
             daysOfWeekHeight: 20.0,
             headerStyle: HeaderStyle(
@@ -102,7 +104,7 @@ class CalendarView extends HookConsumerWidget {
                 shape: const StadiumBorder(),
               ),
               onPressed: () {
-                // TODO 今日にフォーカスする
+                ref.read(currentDayProvider.notifier).setToday();
               },
             ),
           ),
