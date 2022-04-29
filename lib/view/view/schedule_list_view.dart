@@ -32,6 +32,29 @@ class ScheduleListView extends StatelessWidget {
           ),
         ],
       ),
+      children: [
+        Column(
+          // TODO for文で回す
+          children: [
+            Row(
+              children: [
+                Column(
+                  children: [
+                    Text(DateFormat(
+                      TextConstants.scheduleListViewTimeFormat,
+                      ScheduleListConstants.scheduleListLocale,
+                    ).format(DateTime.now()),),
+                    Text(DateFormat(
+                      TextConstants.scheduleListViewTimeFormat,
+                      ScheduleListConstants.scheduleListLocale,
+                    ).format(DateTime.now()),),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+      ],
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
           Radius.circular(20.0),

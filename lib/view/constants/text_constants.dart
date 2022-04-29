@@ -16,4 +16,5 @@ class TextConstants {
 
   // 日別予定一覧画面
   static const String scheduleListViewDateFormat = 'yyyy/MM/dd (E)';
+  static const String scheduleListViewTimeFormat = 'HH:mm';
 }
