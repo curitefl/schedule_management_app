@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:month_picker_dialog/month_picker_dialog.dart';
 import 'package:schedule_management_app/view/constants/calendar_constants.dart';
 import 'package:schedule_management_app/view/constants/text_constants.dart';
-import 'package:schedule_management_app/view/view/schedule_create_view.dart';
 import 'package:schedule_management_app/view/view/schedule_list_view.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -27,7 +27,7 @@ class CalendarView extends StatelessWidget {
               showDialog(
                 context: context,
                 builder: (builder) {
-                  return ScheduleListView();
+                  return const ScheduleListView();
                 },
               );
             },
@@ -38,45 +38,55 @@ class CalendarView extends StatelessWidget {
       body: Stack(
         children: [
           TableCalendar(
-            locale: CalendarConstants.calendarLocale,
-            firstDay: CalendarConstants.calendarFirstDay,
-            lastDay: CalendarConstants.calendarEndDay,
-            focusedDay: DateTime.now(),
-            startingDayOfWeek: StartingDayOfWeek.monday,
-            daysOfWeekHeight: 20.0,
-            headerStyle: HeaderStyle(
-              titleTextFormatter: (date, locale) {
-                return DateFormat(TextConstants.calendarDateFormat).format(date);
-              },
-              titleCentered: true,
-              formatButtonVisible: false,
-              leftChevronVisible: false,
-              rightChevronIcon: const Icon(Icons.arrow_drop_down),
-            ),
-            calendarBuilders: CalendarBuilders(
-              dowBuilder: (BuildContext context, DateTime day) {
-                final dayOfWeek = DateFormat.E(CalendarConstants.calendarLocale).format(day);
-                return Center(
-                  child: Text(
-                    dayOfWeek,
-                    style: TextStyle(
-                      color: _textColor(day),
+              locale: CalendarConstants.calendarLocale,
+              firstDay: CalendarConstants.calendarFirstDay,
+              lastDay: CalendarConstants.calendarEndDay,
+              focusedDay: DateTime.now(),
+              startingDayOfWeek: StartingDayOfWeek.monday,
+              daysOfWeekHeight: 20.0,
+              headerStyle: HeaderStyle(
+                titleTextFormatter: (date, locale) {
+                  return DateFormat(TextConstants.calendarDateFormat).format(date);
+                },
+                titleCentered: true,
+                formatButtonVisible: false,
+                leftChevronVisible: false,
+                rightChevronIcon: const Icon(Icons.arrow_drop_down),
+              ),
+              calendarBuilders: CalendarBuilders(
+                dowBuilder: (BuildContext context, DateTime day) {
+                  final dayOfWeek = DateFormat.E(CalendarConstants.calendarLocale).format(day);
+                  return Center(
+                    child: Text(
+                      dayOfWeek,
+                      style: TextStyle(
+                        color: _textColor(day),
+                      ),
                     ),
-                  ),
+                  );
+                },
+                defaultBuilder: (BuildContext context, DateTime day, DateTime focusedDay) {
+                  final date = day.day.toString();
+                  return Center(
+                    child: Text(
+                      date,
+                      style: TextStyle(
+                        color: _textColor(day),
+                      ),
+                    ),
+                  );
+                },
+              ),
+              onHeaderTapped: (dateTime) {
+                showMonthPicker(context: context, initialDate: DateTime.now()).then((date) {
+                  if (date == null) {
+                    return;
+                  }
+                  // TODO 正式対応する
+                  print(date);
+                },
                 );
               },
-              defaultBuilder: (BuildContext context, DateTime day, DateTime focusedDay) {
-                final date = day.day.toString();
-                return Center(
-                  child: Text(
-                    date,
-                    style: TextStyle(
-                      color: _textColor(day),
-                    ),
-                  ),
-                );
-              },
-            ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
