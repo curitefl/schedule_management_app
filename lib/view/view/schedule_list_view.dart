@@ -50,6 +50,7 @@ class ScheduleListView extends StatelessWidget {
                     ).format(DateTime.now()),),
                   ],
                 ),
+                const Text('スケジュールタイトル'),
               ],
             ),
           ],
