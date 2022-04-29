@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:schedule_management_app/view/constants/calendar_constants.dart';
 import 'package:schedule_management_app/view/constants/text_constants.dart';
+import 'package:schedule_management_app/view/view/schedule_create_view.dart';
+import 'package:schedule_management_app/view/view/schedule_list_view.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarView extends StatelessWidget {
@@ -13,8 +15,25 @@ class CalendarView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(TextConstants.calendarViewAppBarTitle),
+        title: const Text(
+          TextConstants.calendarViewAppBarTitle,
+          maxLines: 1,
+        ),
         centerTitle: true,
+        // 仮で動作確認できるように以下のボタンを追加
+        actions: [
+          ElevatedButton(
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (builder) {
+                  return ScheduleListView();
+                },
+              );
+            },
+            child: const Text('移動'),
+          ),
+        ],
       ),
       body: Stack(
         children: [
@@ -62,7 +81,10 @@ class CalendarView extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: OutlinedButton(
-              child: const Text(TextConstants.today),
+              child: const Text(
+                TextConstants.today,
+                maxLines: 1,
+              ),
               style: OutlinedButton.styleFrom(
                 primary: Colors.black,
                 shape: const StadiumBorder(),
