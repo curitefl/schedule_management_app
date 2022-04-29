@@ -6,7 +6,7 @@ import 'package:schedule_management_app/view/constants/calendar_constants.dart';
 import 'package:schedule_management_app/view/constants/text_constants.dart';
 import 'package:schedule_management_app/view/view/schedule_list_view.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:schedule_management_app/view/view_model/calendar_view_model.dart';
+import 'package:schedule_management_app/view/view_model/focused_day_model.dart';
 
 class CalendarView extends HookConsumerWidget {
   const CalendarView({
