@@ -1,14 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:schedule_management_app/provider/schedule_list_provider.dart';
 import 'package:schedule_management_app/view/constants/schedule_list_constants.dart';
 import 'package:schedule_management_app/view/constants/text_constants.dart';
 
-class ScheduleListView extends StatelessWidget {
+class ScheduleListView extends HookConsumerWidget {
   const ScheduleListView({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final viewModel = ref.watch(scheduleListStateProvider);
     return SimpleDialog(
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -17,7 +20,7 @@ class ScheduleListView extends StatelessWidget {
             DateFormat(
               TextConstants.scheduleListViewDateFormat,
               ScheduleListConstants.scheduleListLocale,
-            ).format(DateTime.now()),
+            ).format(viewModel.dateTime!),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),

@@ -1,19 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:month_picker_dialog/month_picker_dialog.dart';
+import 'package:schedule_management_app/provider/calendar_provider.dart';
+import 'package:schedule_management_app/provider/schedule_list_provider.dart';
 import 'package:schedule_management_app/view/constants/calendar_constants.dart';
 import 'package:schedule_management_app/view/constants/text_constants.dart';
+import 'package:schedule_management_app/view/view/schedule_list_view.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class CalendarView extends StatelessWidget {
+class CalendarView extends HookConsumerWidget {
   const CalendarView({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final viewModel = ref.watch(calendarStateProvider);
+    final state = ref.read(calendarStateProvider.notifier);
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text(TextConstants.calendarViewAppBarTitle),
+        title: const Text(
+          TextConstants.calendarViewAppBarTitle,
+          maxLines: 1,
+        ),
         centerTitle: true,
       ),
       body: Stack(
@@ -22,7 +33,8 @@ class CalendarView extends StatelessWidget {
             locale: CalendarConstants.calendarLocale,
             firstDay: CalendarConstants.calendarFirstDay,
             lastDay: CalendarConstants.calendarEndDay,
-            focusedDay: DateTime.now(),
+            focusedDay: viewModel.focusedDay,
+            currentDay: viewModel.currentDay,
             startingDayOfWeek: StartingDayOfWeek.monday,
             daysOfWeekHeight: 20.0,
             headerStyle: HeaderStyle(
@@ -58,17 +70,40 @@ class CalendarView extends StatelessWidget {
                 );
               },
             ),
+            onHeaderTapped: (dateTime) {
+              showMonthPicker(context: context, initialDate: DateTime.now()).then(
+                (date) {
+                  if (date == null) {
+                    return;
+                  }
+                  state.focusMonth(date);
+                },
+              );
+            },
+            onDaySelected: (dateTime1, dateTime2){
+              state.setCurrentDay(dateTime2);
+              ref.read(scheduleListStateProvider.notifier).setDateTime(dateTime2);
+              showDialog(
+                context: context,
+                builder: (builder) {
+                  return const ScheduleListView();
+                },
+              );
+            },
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: OutlinedButton(
-              child: const Text(TextConstants.today),
+              child: const Text(
+                TextConstants.today,
+                maxLines: 1,
+              ),
               style: OutlinedButton.styleFrom(
                 primary: Colors.black,
                 shape: const StadiumBorder(),
               ),
               onPressed: () {
-                // TODO 今日にフォーカスする
+                state.focusToday();
               },
             ),
           ),
