@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
+import 'package:schedule_management_app/provider/calendar_provider.dart';
 import 'package:schedule_management_app/view/constants/calendar_constants.dart';
 import 'package:schedule_management_app/view/constants/text_constants.dart';
 import 'package:schedule_management_app/view/view/schedule_list_view.dart';
-import 'package:schedule_management_app/view/view_model/current_day_model.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:schedule_management_app/view/view_model/focused_day_model.dart';
 
 class CalendarView extends HookConsumerWidget {
   const CalendarView({
@@ -16,6 +15,9 @@ class CalendarView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final viewModel = ref.watch(calendarStateProvider);
+    final state = ref.read(calendarStateProvider.notifier);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -44,8 +46,8 @@ class CalendarView extends HookConsumerWidget {
             locale: CalendarConstants.calendarLocale,
             firstDay: CalendarConstants.calendarFirstDay,
             lastDay: CalendarConstants.calendarEndDay,
-            focusedDay: ref.watch(focusedDayProvider),
-            currentDay: ref.watch(currentDayProvider),
+            focusedDay: viewModel.focusedDay,
+            currentDay: viewModel.currentDay,
             startingDayOfWeek: StartingDayOfWeek.monday,
             daysOfWeekHeight: 20.0,
             headerStyle: HeaderStyle(
@@ -87,7 +89,7 @@ class CalendarView extends HookConsumerWidget {
                   if (date == null) {
                     return;
                   }
-                  ref.read(focusedDayProvider.notifier).setDateTime(date);
+                  state.focusMonth(date);
                 },
               );
             },
@@ -104,7 +106,7 @@ class CalendarView extends HookConsumerWidget {
                 shape: const StadiumBorder(),
               ),
               onPressed: () {
-                ref.read(currentDayProvider.notifier).setToday();
+                state.focusToday();
               },
             ),
           ),
