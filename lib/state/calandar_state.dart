@@ -13,4 +13,9 @@ class CalendarState extends StateNotifier<CalendarViewModel> {
     state.focusMonth(dateTime);
     state = state.copy();
   }
+
+  void setCurrentDay(DateTime dateTime) {
+    state.setCurrentDay(dateTime);
+    state = state.copy();
+  }
 }

@@ -93,6 +93,9 @@ class CalendarView extends HookConsumerWidget {
                 },
               );
             },
+            onDaySelected: (dateTime1, dateTime2){
+              state.setCurrentDay(dateTime2);
+            },
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
