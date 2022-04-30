@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
 import 'package:schedule_management_app/provider/calendar_provider.dart';
+import 'package:schedule_management_app/provider/schedule_list_provider.dart';
 import 'package:schedule_management_app/view/constants/calendar_constants.dart';
 import 'package:schedule_management_app/view/constants/text_constants.dart';
 import 'package:schedule_management_app/view/view/schedule_list_view.dart';
@@ -25,20 +26,6 @@ class CalendarView extends HookConsumerWidget {
           maxLines: 1,
         ),
         centerTitle: true,
-        // 仮で動作確認できるように以下のボタンを追加
-        actions: [
-          ElevatedButton(
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (builder) {
-                  return const ScheduleListView();
-                },
-              );
-            },
-            child: const Text('移動'),
-          ),
-        ],
       ),
       body: Stack(
         children: [
@@ -95,6 +82,13 @@ class CalendarView extends HookConsumerWidget {
             },
             onDaySelected: (dateTime1, dateTime2){
               state.setCurrentDay(dateTime2);
+              ref.read(scheduleListStateProvider.notifier).setDateTime(dateTime2);
+              showDialog(
+                context: context,
+                builder: (builder) {
+                  return const ScheduleListView();
+                },
+              );
             },
           ),
           Padding(
