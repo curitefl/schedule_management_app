@@ -5,17 +5,15 @@ class CalendarState extends StateNotifier<CalendarViewModel> {
   CalendarState(state) : super(state);
 
   void focusToday() {
-    state.focusToday();
-    state = state.copy();
+    var now = DateTime.now();
+    state = state.copyWith(focusedDay: now, currentDay: now);
   }
 
   void focusMonth(DateTime dateTime) {
-    state.focusMonth(dateTime);
-    state = state.copy();
+    state = state.copyWith(focusedDay: dateTime);
   }
 
   void setCurrentDay(DateTime dateTime) {
-    state.setCurrentDay(dateTime);
-    state = state.copy();
+    state = state.copyWith(focusedDay: dateTime, currentDay: dateTime);
   }
 }

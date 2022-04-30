@@ -1,25 +1,12 @@
-class CalendarViewModel {
-  DateTime focusedDay;
-  DateTime currentDay;
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:flutter/foundation.dart';
 
-  CalendarViewModel(this.focusedDay, this.currentDay);
+part 'calendar_view_model.freezed.dart';
 
-  void focusToday() {
-    var now = DateTime.now();
-    focusedDay = now;
-    currentDay = now;
-  }
-
-  void focusMonth(DateTime dateTime) {
-    focusedDay = dateTime;
-  }
-
-  void setCurrentDay(DateTime dateTime) {
-    focusedDay = dateTime;
-    currentDay = dateTime;
-  }
-
-  CalendarViewModel copy() {
-    return CalendarViewModel(currentDay, focusedDay);
-  }
+@freezed
+abstract class CalendarViewModel with _$CalendarViewModel {
+  const factory CalendarViewModel({
+    required DateTime focusedDay,
+    required DateTime currentDay}
+      ) = _CalendarViewModel;
 }
