@@ -46,6 +46,12 @@ class CalendarView extends HookConsumerWidget {
               leftChevronVisible: false,
               rightChevronIcon: const Icon(Icons.arrow_drop_down),
             ),
+            calendarStyle: const CalendarStyle(
+                todayDecoration: BoxDecoration(
+                  color: Colors.blue,
+                  shape: BoxShape.circle,
+                )
+            ),
             calendarBuilders: CalendarBuilders(
               dowBuilder: (BuildContext context, DateTime day) {
                 final dayOfWeek = DateFormat.E(CalendarConstants.calendarLocale).format(day);
