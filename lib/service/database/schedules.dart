@@ -9,10 +9,15 @@ part 'schedules.g.dart';
 
 class Schedules extends Table {
   IntColumn get id => integer().autoIncrement()();
+
   TextColumn get title => text()();
+
   BoolColumn get isWholeDay => boolean()();
+
   DateTimeColumn get startDateTime => dateTime()();
+
   DateTimeColumn get endDateTime => dateTime()();
+
   TextColumn get description => text()();
 }
 
@@ -22,6 +27,59 @@ class CalendarDatabase extends _$CalendarDatabase {
 
   @override
   int get schemaVersion => 1;
+
+  // TODO drift_sample_view.dartを消すときに消す
+  Stream<List<Schedule>> watchEntries() {
+    return (select(schedules)).watch();
+  }
+
+  // TODO drift_sample_view.dartを消すときに消す
+  Future<List<Schedule>> get allScheduleEntries => select(schedules).get();
+
+  Future<List<Schedule>> getMonthScheduleEntries (int month) {
+    return (select(schedules)..where((tbl) => tbl.startDateTime.month.equals(month))).get();
+  }
+
+  Future<int> addSchedule(
+    String title,
+    bool isWholeDay,
+    DateTime startDateTime,
+    DateTime endDateTime,
+    String description,
+  ) {
+    return into(schedules).insert(
+      SchedulesCompanion(
+        title: Value(title),
+        isWholeDay: Value(isWholeDay),
+        startDateTime: Value(startDateTime),
+        endDateTime: Value(endDateTime),
+        description: Value(description),
+      ),
+    );
+  }
+
+  Future<int> updateSchedule(
+    Schedule schedule,
+    String title,
+    bool isWholeDay,
+    DateTime startDateTime,
+    DateTime endDateTime,
+    String description,
+  ) {
+    return (update(schedules)..where((tbl) => tbl.id.equals(schedule.id))).write(
+      SchedulesCompanion(
+        title: Value(title),
+        isWholeDay: Value(isWholeDay),
+        startDateTime: Value(startDateTime),
+        endDateTime: Value(endDateTime),
+        description: Value(description),
+      ),
+    );
+  }
+
+  Future<void> deleteSchedule(Schedule schedule) {
+    return (delete(schedules)..where((tbl) => tbl.id.equals(schedule.id))).go();
+  }
 }
 
 LazyDatabase _openConnection() {
