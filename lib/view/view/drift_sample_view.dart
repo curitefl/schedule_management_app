@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:schedule_management_app/domain/use_case/calendar_use_case.dart';
-import 'package:schedule_management_app/provider/repository_provider.dart';
+import 'package:schedule_management_app/provider/calendar_provider.dart';
 import 'package:schedule_management_app/provider/use_case_provider.dart';
-import 'package:schedule_management_app/service/database/schedules.dart';
 
 /// TODO サンプルなので後で消す
 class DriftSampleView extends HookConsumerWidget {
@@ -14,6 +12,7 @@ class DriftSampleView extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final calendarUseCase = ref.watch(calendarUseCaseProvider);
+    final calendarViewModel = ref.watch(calendarStateProvider);
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -22,43 +21,47 @@ class DriftSampleView extends HookConsumerWidget {
             Expanded(
               //10
               //以下、Container()をStreamBuilder(...)に置き換え
-              child: StreamBuilder(
-                stream: calendarUseCase.watchEntries(),
-                builder: (BuildContext context, AsyncSnapshot<List<Schedule>> snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                  return ListView.builder(
-                    //11
-                    itemCount: snapshot.data!.length,
-                    itemBuilder: (context, index) {
-                      var currentData = snapshot.data![index];
-                      return Container(
-                        child: Column(
-                          children: [
-                            Text('title:${currentData.title}'),
-                            Text('isWholeDay:${currentData.isWholeDay}'),
-                            Text('startDateTime:${currentData.startDateTime}'),
-                            Text('endDateTime:${currentData.endDateTime}'),
-                            Text('description:${currentData.description}'),
-                            TextButton(
-                              onPressed: () async {
-                                await calendarUseCase.updateSchedule(
-                                    currentData,
-                                    '${currentData.title}(Updated)',
-                                    !currentData.isWholeDay,
-                                    currentData.startDateTime.add(Duration(minutes: 30)),
-                                    currentData.endDateTime.add(Duration(minutes: 30)),
-                                    '${currentData.description}(Updated)');
-                              },
-                              child: Text('Update'),
-                            ),
-                          ],
+              child: ListView.builder(
+                //11
+                itemCount: calendarViewModel.scheduleViewModelList.length,
+                itemBuilder: (context, index) {
+                  var currentData = calendarViewModel.scheduleViewModelList[index];
+                  return Container(
+                    child: Column(
+                      children: [
+                        for (var i = 0;
+                            i < calendarViewModel.scheduleViewModelList.length;
+                            ++i) ...{
+                          Text('title:${currentData.title}'),
+                          Text('isWholeDay:${currentData.isWholeDay}'),
+                          Text('startDateTime:${currentData.startDateTime}'),
+                          Text('endDateTime:${currentData.endDateTime}'),
+                          Text('description:${currentData.description}'),
+                        },
+                        TextButton(
+                          onPressed: () async {
+                            await calendarUseCase.updateSchedule(
+                                5,
+                                currentData.id,
+                                '${currentData.title}(Updated)',
+                                !currentData.isWholeDay,
+                                currentData.startDateTime.add(Duration(minutes: 30)),
+                                currentData.endDateTime.add(Duration(minutes: 30)),
+                                '${currentData.description}(Updated)');
+                          },
+                          child: const Text('Update'),
                         ),
-                        // onPressed: () async {
-                        // },
-                      );
-                    },
+                        TextButton(
+                          onPressed: () async {
+                            await calendarUseCase.deleteSchedule(
+                              5,
+                              currentData.id,
+                            );
+                          },
+                          child: const Text('Delete'),
+                        ),
+                      ],
+                    ),
                   );
                 },
               ),
@@ -73,6 +76,7 @@ class DriftSampleView extends HookConsumerWidget {
                       child: const Text('Add'),
                       onPressed: () async {
                         await calendarUseCase.addSchedule(
+                          5,
                           'test test test',
                           false,
                           DateTime.now(),
@@ -87,11 +91,13 @@ class DriftSampleView extends HookConsumerWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8),
                     child: ElevatedButton(
-                        child: const Text('remove'),
+                        child: const Text('5月'),
                         onPressed: () async {
-                          final list = await calendarUseCase.allScheduleEntries;
+                          final list = await calendarUseCase.getMonthScheduleEntries(5);
                           if (list.isNotEmpty) {
-                            await calendarUseCase.deleteSchedule(list[list.length - 1]);
+                            for (var i = 0; i < list.length; ++i) {
+                              print('${list[i]}\n');
+                            }
                           }
                         }),
                   ),
@@ -100,15 +106,11 @@ class DriftSampleView extends HookConsumerWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8),
                     child: ElevatedButton(
-                        child: const Text('5月'),
-                        onPressed: () async {
-                          final list = await calendarUseCase.getMonthScheduleEntries(5);
-                          if (list.isNotEmpty) {
-                            for(var i = 0; i < list.length; ++i) {
-                              print('${list[i]}\n');
-                            }
-                          }
-                        }),
+                      child: const Text('Refresh'),
+                      onPressed: () async {
+                        await calendarUseCase.refreshViewModel(5);
+                      },
+                    ),
                   ),
                 ),
               ],

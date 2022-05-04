@@ -5,13 +5,9 @@ class ScheduleRepository {
 
   ScheduleRepository(this._calendarDatabase);
 
-  // TODO drift_sample_view.dartを消すときに消す
-  Stream<List<Schedule>> watchEntries() {
-    return _calendarDatabase.watchEntries();
+  Future<Schedule> getSchedule(int id) {
+    return _calendarDatabase.getScheduleById(id);
   }
-
-  // TODO drift_sample_view.dartを消すときに消す
-  Future<List<Schedule>> get allScheduleEntries => _calendarDatabase.allScheduleEntries;
 
   Future<List<Schedule>> getMonthScheduleEntries(int month) {
     return _calendarDatabase.getMonthScheduleEntries(month);
@@ -29,18 +25,20 @@ class ScheduleRepository {
   }
 
   Future updateSchedule(
-      Schedule schedule,
+      int id,
       String title,
       bool isWholeDay,
       DateTime startDateTime,
       DateTime endDateTime,
       String description,
-      ) {
+      ) async {
+    var schedule = await getSchedule(id);
     return _calendarDatabase.updateSchedule(
         schedule, title, isWholeDay, startDateTime, endDateTime, description);
   }
 
-  Future<void> deleteSchedule(Schedule schedule) {
+  Future<void> deleteSchedule(int id) async {
+    var schedule = await getSchedule(id);
     return _calendarDatabase.deleteSchedule(schedule);
   }
 }

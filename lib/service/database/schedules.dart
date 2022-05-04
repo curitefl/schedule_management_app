@@ -28,13 +28,9 @@ class CalendarDatabase extends _$CalendarDatabase {
   @override
   int get schemaVersion => 1;
 
-  // TODO drift_sample_view.dartを消すときに消す
-  Stream<List<Schedule>> watchEntries() {
-    return (select(schedules)).watch();
+  Future<Schedule> getScheduleById(int id) {
+    return (select(schedules)..where((tbl) => tbl.id.equals(id))).getSingle();
   }
-
-  // TODO drift_sample_view.dartを消すときに消す
-  Future<List<Schedule>> get allScheduleEntries => select(schedules).get();
 
   Future<List<Schedule>> getMonthScheduleEntries (int month) {
     return (select(schedules)..where((tbl) => tbl.startDateTime.month.equals(month))).get();
