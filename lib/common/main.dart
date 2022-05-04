@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:schedule_management_app/view/constants/calendar_constants.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:schedule_management_app/view/view/drift_sample_view.dart';
+import 'package:schedule_management_app/view/view/carendar_view.dart';
 
 void main() {
   runApp(
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const DriftSampleView(),
+      home: const CalendarView(),
     );
   }
 }
