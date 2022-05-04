@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:schedule_management_app/domain/use_case/calendar_use_case.dart';
 import 'package:schedule_management_app/provider/repository_provider.dart';
+import 'package:schedule_management_app/provider/use_case_provider.dart';
 import 'package:schedule_management_app/service/database/schedules.dart';
 
 /// TODO サンプルなので後で消す
@@ -11,7 +13,7 @@ class DriftSampleView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final scheduleRepository = ref.watch(scheduleRepositoryProvider);
+    final calendarUseCase = ref.watch(calendarUseCaseProvider);
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -21,7 +23,7 @@ class DriftSampleView extends HookConsumerWidget {
               //10
               //以下、Container()をStreamBuilder(...)に置き換え
               child: StreamBuilder(
-                stream: scheduleRepository.watchEntries(),
+                stream: calendarUseCase.watchEntries(),
                 builder: (BuildContext context, AsyncSnapshot<List<Schedule>> snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
@@ -41,7 +43,7 @@ class DriftSampleView extends HookConsumerWidget {
                             Text('description:${currentData.description}'),
                             TextButton(
                               onPressed: () async {
-                                await scheduleRepository.updateSchedule(
+                                await calendarUseCase.updateSchedule(
                                     currentData,
                                     '${currentData.title}(Updated)',
                                     !currentData.isWholeDay,
@@ -70,7 +72,7 @@ class DriftSampleView extends HookConsumerWidget {
                     child: ElevatedButton(
                       child: const Text('Add'),
                       onPressed: () async {
-                        await scheduleRepository.addSchedule(
+                        await calendarUseCase.addSchedule(
                           'test test test',
                           false,
                           DateTime.now(),
@@ -87,9 +89,9 @@ class DriftSampleView extends HookConsumerWidget {
                     child: ElevatedButton(
                         child: const Text('remove'),
                         onPressed: () async {
-                          final list = await scheduleRepository.allScheduleEntries;
+                          final list = await calendarUseCase.allScheduleEntries;
                           if (list.isNotEmpty) {
-                            await scheduleRepository.deleteSchedule(list[list.length - 1]);
+                            await calendarUseCase.deleteSchedule(list[list.length - 1]);
                           }
                         }),
                   ),
@@ -100,7 +102,7 @@ class DriftSampleView extends HookConsumerWidget {
                     child: ElevatedButton(
                         child: const Text('5月'),
                         onPressed: () async {
-                          final list = await scheduleRepository.getMonthScheduleEntries(5);
+                          final list = await calendarUseCase.getMonthScheduleEntries(5);
                           if (list.isNotEmpty) {
                             for(var i = 0; i < list.length; ++i) {
                               print('${list[i]}\n');
