@@ -4,6 +4,14 @@ import 'package:schedule_management_app/presentation/view/view_model/schedule_cr
 class ScheduleCreateState extends StateNotifier<ScheduleCreateViewModel> {
   ScheduleCreateState(state) : super(state);
 
+  void setSelectedDay(DateTime dateTime) {
+    state = state.copyWith(
+      selectedDay: dateTime,
+      startDateTime: dateTime,
+      endDateTime: dateTime.add(const Duration(hours: 1)),
+    );
+  }
+
   void setTitle(String title) {
     state = state.copyWith(title: title);
     _updateCanSave();

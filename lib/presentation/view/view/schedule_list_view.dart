@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:schedule_management_app/domain/provider/schedule_create_providers.dart';
 import 'package:schedule_management_app/domain/provider/schedule_list_provider.dart';
 import 'package:schedule_management_app/presentation/view/constants/schedule_list_constants.dart';
 import 'package:schedule_management_app/presentation/view/constants/text_constants.dart';
@@ -13,6 +14,7 @@ class ScheduleListView extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final viewModel = ref.watch(scheduleListStateProvider);
+
     return SimpleDialog(
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -31,6 +33,8 @@ class ScheduleListView extends HookConsumerWidget {
               color: Colors.blue,
             ),
             onPressed: () {
+              // TODO Presenterで処理する
+              ref.read(scheduleCreateStateProvider.notifier).setSelectedDay(viewModel.dateTime!);
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (BuildContext context) {

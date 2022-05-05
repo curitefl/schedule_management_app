@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:schedule_management_app/domain/provider/schedule_create_providers.dart';
+import 'package:schedule_management_app/presentation/presenter/schedule_create_presenter.dart';
 import 'package:schedule_management_app/presentation/view/constants/text_constants.dart';
 
 class ScheduleCreateView extends HookConsumerWidget {
@@ -12,6 +13,7 @@ class ScheduleCreateView extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final viewModel = ref.watch(scheduleCreateStateProvider);
     final presenter = ref.watch(scheduleCreatePresenterProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(TextConstants.scheduleCreateViewAppBarTitle),
@@ -31,7 +33,7 @@ class ScheduleCreateView extends HookConsumerWidget {
             padding: const EdgeInsets.all(8.0),
             child: ElevatedButton(
               child: const Text(TextConstants.scheduleCreateViewSave),
-              onPressed: presenter.getSaveCallback(),
+              onPressed: _save(presenter, context),
             ),
           ),
         ],
@@ -54,8 +56,8 @@ class ScheduleCreateView extends HookConsumerWidget {
               ),
             ],
           ),
-          _buildDatePickerButton(TextConstants.scheduleCreateViewStart, DateTime.now()),
-          _buildDatePickerButton(TextConstants.scheduleCreateViewEnd, DateTime.now()),
+          _buildDatePickerButton(TextConstants.scheduleCreateViewStart, viewModel.startDateTime),
+          _buildDatePickerButton(TextConstants.scheduleCreateViewEnd, viewModel.endDateTime),
           Expanded(
             child: TextField(
               decoration: const InputDecoration(
@@ -69,6 +71,18 @@ class ScheduleCreateView extends HookConsumerWidget {
         ],
       ),
     );
+  }
+
+  VoidCallback? _save(ScheduleCreatePresenter presenter, BuildContext context) {
+    var callback = presenter.getSaveCallback();
+    if (callback == null) {
+      return null;
+    }
+
+    return () {
+      callback();
+      Navigator.pop(context);
+    };
   }
 
   Future<dynamic> _showModifiedPopup(BuildContext context) {
