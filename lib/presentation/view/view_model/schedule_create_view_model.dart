@@ -11,5 +11,6 @@ abstract class ScheduleCreateViewModel with _$ScheduleCreateViewModel {
     required DateTime endDateTime,
     required String description,
     required bool canSave,
+    required bool isModified,
   }) = _ScheduleCreateViewModel;
 }

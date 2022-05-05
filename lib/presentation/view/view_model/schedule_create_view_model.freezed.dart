@@ -22,6 +22,7 @@ mixin _$ScheduleCreateViewModel {
   DateTime get endDateTime => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   bool get canSave => throw _privateConstructorUsedError;
+  bool get isModified => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ScheduleCreateViewModelCopyWith<ScheduleCreateViewModel> get copyWith =>
@@ -39,7 +40,8 @@ abstract class $ScheduleCreateViewModelCopyWith<$Res> {
       DateTime startDateTime,
       DateTime endDateTime,
       String description,
-      bool canSave});
+      bool canSave,
+      bool isModified});
 }
 
 /// @nodoc
@@ -59,6 +61,7 @@ class _$ScheduleCreateViewModelCopyWithImpl<$Res>
     Object? endDateTime = freezed,
     Object? description = freezed,
     Object? canSave = freezed,
+    Object? isModified = freezed,
   }) {
     return _then(_value.copyWith(
       title: title == freezed
@@ -85,6 +88,10 @@ class _$ScheduleCreateViewModelCopyWithImpl<$Res>
           ? _value.canSave
           : canSave // ignore: cast_nullable_to_non_nullable
               as bool,
+      isModified: isModified == freezed
+          ? _value.isModified
+          : isModified // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -102,7 +109,8 @@ abstract class _$ScheduleCreateViewModelCopyWith<$Res>
       DateTime startDateTime,
       DateTime endDateTime,
       String description,
-      bool canSave});
+      bool canSave,
+      bool isModified});
 }
 
 /// @nodoc
@@ -125,6 +133,7 @@ class __$ScheduleCreateViewModelCopyWithImpl<$Res>
     Object? endDateTime = freezed,
     Object? description = freezed,
     Object? canSave = freezed,
+    Object? isModified = freezed,
   }) {
     return _then(_ScheduleCreateViewModel(
       title: title == freezed
@@ -151,6 +160,10 @@ class __$ScheduleCreateViewModelCopyWithImpl<$Res>
           ? _value.canSave
           : canSave // ignore: cast_nullable_to_non_nullable
               as bool,
+      isModified: isModified == freezed
+          ? _value.isModified
+          : isModified // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -164,7 +177,8 @@ class _$_ScheduleCreateViewModel implements _ScheduleCreateViewModel {
       required this.startDateTime,
       required this.endDateTime,
       required this.description,
-      required this.canSave});
+      required this.canSave,
+      required this.isModified});
 
   @override
   final String title;
@@ -178,10 +192,12 @@ class _$_ScheduleCreateViewModel implements _ScheduleCreateViewModel {
   final String description;
   @override
   final bool canSave;
+  @override
+  final bool isModified;
 
   @override
   String toString() {
-    return 'ScheduleCreateViewModel(title: $title, isWholeDay: $isWholeDay, startDateTime: $startDateTime, endDateTime: $endDateTime, description: $description, canSave: $canSave)';
+    return 'ScheduleCreateViewModel(title: $title, isWholeDay: $isWholeDay, startDateTime: $startDateTime, endDateTime: $endDateTime, description: $description, canSave: $canSave, isModified: $isModified)';
   }
 
   @override
@@ -198,7 +214,9 @@ class _$_ScheduleCreateViewModel implements _ScheduleCreateViewModel {
                 .equals(other.endDateTime, endDateTime) &&
             const DeepCollectionEquality()
                 .equals(other.description, description) &&
-            const DeepCollectionEquality().equals(other.canSave, canSave));
+            const DeepCollectionEquality().equals(other.canSave, canSave) &&
+            const DeepCollectionEquality()
+                .equals(other.isModified, isModified));
   }
 
   @override
@@ -209,7 +227,8 @@ class _$_ScheduleCreateViewModel implements _ScheduleCreateViewModel {
       const DeepCollectionEquality().hash(startDateTime),
       const DeepCollectionEquality().hash(endDateTime),
       const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(canSave));
+      const DeepCollectionEquality().hash(canSave),
+      const DeepCollectionEquality().hash(isModified));
 
   @JsonKey(ignore: true)
   @override
@@ -225,7 +244,8 @@ abstract class _ScheduleCreateViewModel implements ScheduleCreateViewModel {
       required final DateTime startDateTime,
       required final DateTime endDateTime,
       required final String description,
-      required final bool canSave}) = _$_ScheduleCreateViewModel;
+      required final bool canSave,
+      required final bool isModified}) = _$_ScheduleCreateViewModel;
 
   @override
   String get title => throw _privateConstructorUsedError;
@@ -239,6 +259,8 @@ abstract class _ScheduleCreateViewModel implements ScheduleCreateViewModel {
   String get description => throw _privateConstructorUsedError;
   @override
   bool get canSave => throw _privateConstructorUsedError;
+  @override
+  bool get isModified => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$ScheduleCreateViewModelCopyWith<_ScheduleCreateViewModel> get copyWith =>

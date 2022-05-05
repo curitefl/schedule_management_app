@@ -7,6 +7,7 @@ class ScheduleCreateState extends StateNotifier<ScheduleCreateViewModel> {
   void setTitle(String title) {
     state = state.copyWith(title: title);
     _updateCanSave();
+    _updateIsModified();
   }
 
   void setWholeDay(bool isWholeDay) {
@@ -24,10 +25,16 @@ class ScheduleCreateState extends StateNotifier<ScheduleCreateViewModel> {
   void setDescription(String description) {
     state = state.copyWith(description: description);
     _updateCanSave();
+    _updateIsModified();
   }
 
   void _updateCanSave() {
     var canSave = state.title.isNotEmpty && state.description.isNotEmpty;
     state = state.copyWith(canSave: canSave);
+  }
+
+  void _updateIsModified() {
+    var isModified = state.title.isNotEmpty || state.description.isNotEmpty;
+    state = state.copyWith(isModified: isModified);
   }
 }

@@ -12,6 +12,7 @@ final scheduleCreateViewModelProvider = Provider(
     endDateTime: DateTime.now(),
     description: '',
     canSave: false,
+    isModified: false,
   ),
 );
 

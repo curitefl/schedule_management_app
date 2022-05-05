@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -9,6 +10,7 @@ class ScheduleCreateView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final viewModel = ref.watch(scheduleCreateStateProvider);
     final presenter = ref.watch(scheduleCreatePresenterProvider);
     return Scaffold(
       appBar: AppBar(
@@ -17,7 +19,11 @@ class ScheduleCreateView extends HookConsumerWidget {
         leading: IconButton(
           icon: const Icon(Icons.close),
           onPressed: () {
-            Navigator.pop(context);
+            if (viewModel.isModified) {
+              _showModifiedPopup(context);
+            } else {
+              Navigator.pop(context);
+            }
           },
         ),
         actions: [
@@ -48,8 +54,8 @@ class ScheduleCreateView extends HookConsumerWidget {
               ),
             ],
           ),
-          buildDatePickerButton(TextConstants.scheduleCreateViewStart, DateTime.now()),
-          buildDatePickerButton(TextConstants.scheduleCreateViewEnd, DateTime.now()),
+          _buildDatePickerButton(TextConstants.scheduleCreateViewStart, DateTime.now()),
+          _buildDatePickerButton(TextConstants.scheduleCreateViewEnd, DateTime.now()),
           Expanded(
             child: TextField(
               decoration: const InputDecoration(
@@ -65,7 +71,33 @@ class ScheduleCreateView extends HookConsumerWidget {
     );
   }
 
-  Row buildDatePickerButton(String title, DateTime dateTime) {
+  Future<dynamic> _showModifiedPopup(BuildContext context) {
+    return showCupertinoModalPopup(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoActionSheet(
+          actions: [
+            CupertinoActionSheetAction(
+              onPressed: () {
+                // TODO 2回ポップするもっと良い方法を調べる
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              },
+              child: const Text(TextConstants.scheduleCreateViewActionSheetDiscardChanges),
+            ),
+            CupertinoActionSheetAction(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text(TextConstants.scheduleCreateViewActionSheetCancel),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Row _buildDatePickerButton(String title, DateTime dateTime) {
     return Row(
       children: [
         Text(title),
