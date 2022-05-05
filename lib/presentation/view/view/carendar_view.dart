@@ -4,9 +4,9 @@ import 'package:intl/intl.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
 import 'package:schedule_management_app/domain/provider/calendar_providers.dart';
 import 'package:schedule_management_app/domain/provider/schedule_list_provider.dart';
-import 'package:schedule_management_app/view/constants/calendar_constants.dart';
-import 'package:schedule_management_app/view/constants/text_constants.dart';
-import 'package:schedule_management_app/view/view/schedule_list_view.dart';
+import 'package:schedule_management_app/presentation/view/constants/calendar_constants.dart';
+import 'package:schedule_management_app/presentation/view/constants/text_constants.dart';
+import 'package:schedule_management_app/presentation/view/view/schedule_list_view.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarView extends HookConsumerWidget {

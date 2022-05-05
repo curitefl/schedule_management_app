@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
-import 'package:schedule_management_app/view/view_model/schedule_view_model.dart';
+import 'package:schedule_management_app/presentation/view/view_model/schedule_view_model.dart';
 
 part 'calendar_view_model.freezed.dart';
 

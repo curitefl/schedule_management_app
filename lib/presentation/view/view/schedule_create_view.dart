@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:schedule_management_app/view/constants/text_constants.dart';
+import 'package:schedule_management_app/presentation/view/constants/text_constants.dart';
 
 class ScheduleCreateView extends StatelessWidget {
   const ScheduleCreateView({Key? key}) : super(key: key);

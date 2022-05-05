@@ -1,6 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:schedule_management_app/view/view_model/calendar_view_model.dart';
-import 'package:schedule_management_app/view/view_model/schedule_view_model.dart';
+import 'package:schedule_management_app/presentation/view/view_model/calendar_view_model.dart';
+import 'package:schedule_management_app/presentation/view/view_model/schedule_view_model.dart';
 
 class CalendarState extends StateNotifier<CalendarViewModel> {
   CalendarState(state) : super(state);

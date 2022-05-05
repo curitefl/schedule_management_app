@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:schedule_management_app/domain/provider/schedule_list_provider.dart';
-import 'package:schedule_management_app/view/constants/schedule_list_constants.dart';
-import 'package:schedule_management_app/view/constants/text_constants.dart';
+import 'package:schedule_management_app/presentation/view/constants/schedule_list_constants.dart';
+import 'package:schedule_management_app/presentation/view/constants/text_constants.dart';
 
 class ScheduleListView extends HookConsumerWidget {
   const ScheduleListView({Key? key}) : super(key: key);
