@@ -19,6 +19,7 @@ class CalendarView extends HookConsumerWidget {
     final presenter = ref.watch(calendarPresenterProvider);
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text(
           TextConstants.calendarViewAppBarTitle,
@@ -85,14 +86,14 @@ class CalendarView extends HookConsumerWidget {
                     },
                   );
                 },
-                onDaySelected: (dateTime1, dateTime2) {
+                onDaySelected: (dateTime1, dateTime2) async {
                   presenter.setCurrentDay(dateTime1);
-                  showDialog(
+                  await showDialog(
                     context: context,
                     builder: (builder) {
                       return const ScheduleListView();
                     },
-                  );
+                  ).then((value) => presenter.refresh());
                 },
               ),
               Padding(

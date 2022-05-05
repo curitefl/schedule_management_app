@@ -16,7 +16,7 @@ class CalendarState extends StateNotifier<CalendarViewModel> {
 
   void setCurrentDay(DateTime dateTime) {
     state = state.copyWith(focusedDay: dateTime, currentDay: dateTime);
-}
+  }
 
   void updateScheduleViewModel(List<ScheduleViewModel> modelList) {
     state = state.copyWith(scheduleViewModelList: modelList);
