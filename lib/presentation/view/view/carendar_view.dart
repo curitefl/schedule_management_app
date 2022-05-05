@@ -3,7 +3,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
 import 'package:schedule_management_app/domain/provider/calendar_providers.dart';
-import 'package:schedule_management_app/domain/provider/schedule_list_provider.dart';
 import 'package:schedule_management_app/presentation/view/constants/calendar_constants.dart';
 import 'package:schedule_management_app/presentation/view/constants/text_constants.dart';
 import 'package:schedule_management_app/presentation/view/view/schedule_list_view.dart';
@@ -17,8 +16,7 @@ class CalendarView extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final viewModel = ref.watch(calendarStateProvider);
-    final state = ref.read(calendarStateProvider.notifier);
-    final useCase = ref.watch(calendarUseCaseProvider);
+    final presenter = ref.watch(calendarPresenterProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -33,7 +31,7 @@ class CalendarView extends HookConsumerWidget {
           Stack(
             children: [
               TableCalendar(
-                eventLoader: useCase.getEventsForDay,
+                eventLoader: presenter.getEventsForDay,
                 locale: CalendarConstants.calendarLocale,
                 firstDay: CalendarConstants.calendarFirstDay,
                 lastDay: CalendarConstants.calendarEndDay,
@@ -51,10 +49,10 @@ class CalendarView extends HookConsumerWidget {
                   rightChevronIcon: const Icon(Icons.arrow_drop_down),
                 ),
                 calendarStyle: const CalendarStyle(
-                    todayDecoration: BoxDecoration(
-                      color: Colors.blue,
-                      shape: BoxShape.circle,
-                    )
+                  todayDecoration: BoxDecoration(
+                    color: Colors.blue,
+                    shape: BoxShape.circle,
+                  ),
                 ),
                 calendarBuilders: CalendarBuilders(
                   dowBuilder: (BuildContext context, DateTime day) {
@@ -80,19 +78,15 @@ class CalendarView extends HookConsumerWidget {
                     );
                   },
                 ),
-                onHeaderTapped: (dateTime) {
+                onHeaderTapped: (_) {
                   showMonthPicker(context: context, initialDate: DateTime.now()).then(
                     (date) {
-                      if (date == null) {
-                        return;
-                      }
-                      state.focusMonth(date);
+                      presenter.focusMonth(date);
                     },
                   );
                 },
-                onDaySelected: (dateTime1, dateTime2){
-                  state.setCurrentDay(dateTime2);
-                  ref.read(scheduleListStateProvider.notifier).setDateTime(dateTime2);
+                onDaySelected: (dateTime1, dateTime2) {
+                  presenter.setCurrentDay(dateTime1);
                   showDialog(
                     context: context,
                     builder: (builder) {
@@ -113,7 +107,7 @@ class CalendarView extends HookConsumerWidget {
                     shape: const StadiumBorder(),
                   ),
                   onPressed: () {
-                    state.focusToday();
+                    presenter.focusToday();
                   },
                 ),
               ),
@@ -131,7 +125,7 @@ class CalendarView extends HookConsumerWidget {
                 shape: const StadiumBorder(),
               ),
               onPressed: () async {
-                await useCase.refreshViewModel(5);
+                await presenter.refresh();
               },
             ),
           ),

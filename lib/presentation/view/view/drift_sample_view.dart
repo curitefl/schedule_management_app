@@ -40,6 +40,7 @@ class DriftSampleView extends HookConsumerWidget {
                         TextButton(
                           onPressed: () async {
                             await calendarUseCase.updateSchedule(
+                              /// TODO 月を直で入れているところを改修する
                                 5,
                                 currentData.id,
                                 '${currentData.title}(Updated)',
@@ -53,6 +54,7 @@ class DriftSampleView extends HookConsumerWidget {
                         TextButton(
                           onPressed: () async {
                             await calendarUseCase.deleteSchedule(
+                              /// TODO 月を直で入れているところを改修する
                               5,
                               currentData.id,
                             );
@@ -75,6 +77,7 @@ class DriftSampleView extends HookConsumerWidget {
                       child: const Text('Add'),
                       onPressed: () async {
                         await calendarUseCase.addSchedule(
+                          /// TODO 月を直で入れているところを改修する
                           5,
                           'test test test',
                           false,
@@ -92,6 +95,7 @@ class DriftSampleView extends HookConsumerWidget {
                     child: ElevatedButton(
                         child: const Text('5月'),
                         onPressed: () async {
+                          /// TODO 月を直で入れているところを改修する
                           final list = await calendarUseCase.getMonthScheduleEntries(5);
                           if (list.isNotEmpty) {
                             for (var i = 0; i < list.length; ++i) {
@@ -107,6 +111,7 @@ class DriftSampleView extends HookConsumerWidget {
                     child: ElevatedButton(
                       child: const Text('Refresh'),
                       onPressed: () async {
+                        /// TODO 月を直で入れているところを改修する
                         await calendarUseCase.refreshViewModel(5);
                       },
                     ),
