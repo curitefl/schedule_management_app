@@ -342,8 +342,8 @@ class $SchedulesTable extends Schedules
   }
 }
 
-abstract class _$CalendarDatabase extends GeneratedDatabase {
-  _$CalendarDatabase(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
+abstract class _$CalendarDataStore extends GeneratedDatabase {
+  _$CalendarDataStore(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
   late final $SchedulesTable schedules = $SchedulesTable(this);
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();

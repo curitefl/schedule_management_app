@@ -1,16 +1,16 @@
-import 'package:schedule_management_app/service/database/schedules.dart';
+import 'package:schedule_management_app/service/data_store/schedules.dart';
 
 class ScheduleRepository {
-  final CalendarDatabase _calendarDatabase;
+  final CalendarDataStore _calendarDataStore;
 
-  ScheduleRepository(this._calendarDatabase);
+  ScheduleRepository(this._calendarDataStore);
 
   Future<Schedule> getSchedule(int id) {
-    return _calendarDatabase.getScheduleById(id);
+    return _calendarDataStore.getScheduleById(id);
   }
 
   Future<List<Schedule>> getMonthScheduleEntries(int month) {
-    return _calendarDatabase.getMonthScheduleEntries(month);
+    return _calendarDataStore.getMonthScheduleEntries(month);
   }
 
   Future addSchedule(
@@ -20,7 +20,7 @@ class ScheduleRepository {
     DateTime endDateTime,
     String description,
   ) {
-    return _calendarDatabase.addSchedule(
+    return _calendarDataStore.addSchedule(
         title, isWholeDay, startDateTime, endDateTime, description);
   }
 
@@ -33,12 +33,12 @@ class ScheduleRepository {
       String description,
       ) async {
     var schedule = await getSchedule(id);
-    return _calendarDatabase.updateSchedule(
+    return _calendarDataStore.updateSchedule(
         schedule, title, isWholeDay, startDateTime, endDateTime, description);
   }
 
   Future<void> deleteSchedule(int id) async {
     var schedule = await getSchedule(id);
-    return _calendarDatabase.deleteSchedule(schedule);
+    return _calendarDataStore.deleteSchedule(schedule);
   }
 }

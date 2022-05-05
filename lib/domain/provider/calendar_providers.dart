@@ -9,7 +9,7 @@ import 'package:schedule_management_app/presentation/view/view_model/calendar_vi
 
 final scheduleRepositoryProvider = Provider(
   (ref) => ScheduleRepository(
-    ref.watch(calendarDataBaseProvider),
+    ref.watch(calendarDataStoreProvider),
   ),
 );
 

@@ -1,53 +1,60 @@
 import 'dart:collection';
-
+import 'dart:ui';
 import 'package:schedule_management_app/data/repository/schedule_repository.dart';
 import 'package:schedule_management_app/presentation/state/calandar_state.dart';
-import 'package:schedule_management_app/presentation/view/view_model/calendar_view_model.dart';
 import 'package:schedule_management_app/presentation/view/view_model/schedule_view_model.dart';
 import 'package:schedule_management_app/service/data_store/schedules.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class CalendarUseCase {
-  final ScheduleRepository _scheduleRepository;
-  final CalendarViewModel _calendarViewModel;
+class ScheduleCreateUseCase {
+  final ScheduleRepository _repository;
+  final ScheduleCreateViewModel _viewModel;
+  final ScheduleCreateState _scheduleCreateState;
   final CalendarState _calendarState;
   LinkedHashMap<DateTime, List<String>>? _eventHashMap;
 
-  CalendarUseCase(this._scheduleRepository, this._calendarViewModel, this._calendarState);
+  ScheduleCreateUseCase(
+    this._repository,
+    this._viewModel,
+    this._scheduleCreateState,
+    this._calendarState,
+  );
+
+  VoidCallback? getSaveCallback() {
+    if (!_viewModel.canSave) {
+      return null;
+    }
+    return _save;
+  }
+
+  void setTitle(String title) {
+    _scheduleCreateState.setTitle(title);
+  }
+
+  void setDescription(String description) {
+    _scheduleCreateState.setDescription(description);
+  }
 
   Future refreshViewModel() async {
     _eventHashMap ??= LinkedHashMap<DateTime, List<String>>(
-        equals: isSameDay,
-        hashCode: _getHashCode,
-      );
+      equals: isSameDay,
+      hashCode: _getHashCode,
+    );
 
-    var entries = await _scheduleRepository.getMonthScheduleEntries(_getFocusedMonth());
+    var entries = await _repository.getMonthScheduleEntries(_getFocusedMonth());
     var hashMap = LinkedHashMap.fromIterables(
-        entries.map((entry) => entry.startDateTime),
-        entries.map((entry) => [entry.title]));
+        entries.map((entry) => entry.startDateTime), entries.map((entry) => [entry.title]));
     _eventHashMap!.addAll(hashMap);
     await updateMonthEntries();
   }
 
   Future<List<Schedule>> getMonthScheduleEntries(int month) {
-    return _scheduleRepository.getMonthScheduleEntries(month);
-  }
-
-  Future addSchedule(
-    String title,
-    bool isWholeDay,
-    DateTime startDateTime,
-    DateTime endDateTime,
-    String description,
-  ) async {
-    await _scheduleRepository.addSchedule(
-        title, isWholeDay, startDateTime, endDateTime, description);
-
-    await updateMonthEntries();
-    await refreshViewModel();
+    // TODO Scheduleのモデルを定義する
+    return _repository.getMonthScheduleEntries(month);
   }
 
   Future updateMonthEntries() async {
+    // TODO calendar_use_case.dartと共通化する
     var entries = await getMonthScheduleEntries(_getFocusedMonth());
     var modelList = entries
         .map(
@@ -72,22 +79,9 @@ class CalendarUseCase {
     DateTime endDateTime,
     String description,
   ) async {
-    await _scheduleRepository.updateSchedule(
+    await _repository.updateSchedule(
         id, title, isWholeDay, startDateTime, endDateTime, description);
     await updateMonthEntries();
-  }
-
-  Future<void> deleteSchedule(int id) async {
-    await _scheduleRepository.deleteSchedule(id);
-    await updateMonthEntries();
-  }
-
-
-  List<String> getEventsForDay(DateTime day) {
-    if(_eventHashMap == null) {
-      return [];
-    }
-    return _eventHashMap![day] ?? [];
   }
 
   int _getHashCode(DateTime key) {
@@ -95,6 +89,19 @@ class CalendarUseCase {
   }
 
   int _getFocusedMonth() {
-    return _calendarViewModel.focusedDay.month;
+    return _viewModel.selectedDay.month;
+  }
+
+  Future _save() async {
+    await _repository.addSchedule(
+      _viewModel.title,
+      _viewModel.isWholeDay,
+      _viewModel.startDateTime,
+      _viewModel.endDateTime,
+      _viewModel.description,
+    );
+
+    await updateMonthEntries();
+    await refreshViewModel();
   }
 }

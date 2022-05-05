@@ -22,8 +22,8 @@ class Schedules extends Table {
 }
 
 @DriftDatabase(tables: [Schedules])
-class CalendarDatabase extends _$CalendarDatabase {
-  CalendarDatabase() : super(_openConnection());
+class CalendarDataStore extends _$CalendarDataStore {
+  CalendarDataStore() : super(_openConnection());
 
   @override
   int get schemaVersion => 1;
@@ -80,8 +80,8 @@ class CalendarDatabase extends _$CalendarDatabase {
 
 LazyDatabase _openConnection() {
   return LazyDatabase(() async {
-    final databaseDirectory = await getApplicationDocumentsDirectory();
-    final file = File(p.join(databaseDirectory.path, 'db.sqlite'));
+    final dataStoreDirectory = await getApplicationDocumentsDirectory();
+    final file = File(p.join(dataStoreDirectory.path, 'db.sqlite'));
     return NativeDatabase(file);
   });
 }

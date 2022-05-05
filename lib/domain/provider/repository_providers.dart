@@ -1,4 +1,4 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:schedule_management_app/service/database/schedules.dart';
+import 'package:schedule_management_app/service/data_store/schedules.dart';
 
-final calendarDataBaseProvider = Provider((ref) => CalendarDatabase());
+final calendarDataStoreProvider = Provider((ref) => CalendarDataStore());
