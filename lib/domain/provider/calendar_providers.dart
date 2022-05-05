@@ -2,8 +2,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:schedule_management_app/data/repository/schedule_repository.dart';
 import 'package:schedule_management_app/domain/provider/repository_providers.dart';
 import 'package:schedule_management_app/domain/use_case/calendar_use_case.dart';
+import 'package:schedule_management_app/presentation/state/calandar_state.dart';
 import 'package:schedule_management_app/presentation/view/view_model/calendar_view_model.dart';
-import 'package:schedule_management_app/state/calandar_state.dart';
 
 final scheduleRepositoryProvider = Provider(
   (ref) => ScheduleRepository(

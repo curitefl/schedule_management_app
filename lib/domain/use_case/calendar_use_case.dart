@@ -1,9 +1,9 @@
 import 'dart:collection';
 
 import 'package:schedule_management_app/data/repository/schedule_repository.dart';
+import 'package:schedule_management_app/presentation/state/calandar_state.dart';
 import 'package:schedule_management_app/presentation/view/view_model/schedule_view_model.dart';
 import 'package:schedule_management_app/service/database/schedules.dart';
-import 'package:schedule_management_app/state/calandar_state.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarUseCase {
