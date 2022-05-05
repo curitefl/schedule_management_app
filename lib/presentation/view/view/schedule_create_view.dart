@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:schedule_management_app/domain/provider/schedule_create_providers.dart';
 import 'package:schedule_management_app/presentation/view/constants/text_constants.dart';
 
-class ScheduleCreateView extends StatelessWidget {
+class ScheduleCreateView extends HookConsumerWidget {
   const ScheduleCreateView({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final presenter = ref.watch(scheduleCreatePresenterProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Text(TextConstants.scheduleCreateViewAppBarTitle),
@@ -17,46 +20,44 @@ class ScheduleCreateView extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
-        actions: const [
+        actions: [
           Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
             child: ElevatedButton(
-              child: Text(TextConstants.scheduleCreateViewSave),
-              // TODO 保存ボタンをタップしたときの処理
-              onPressed: null,
+              child: const Text(TextConstants.scheduleCreateViewSave),
+              onPressed: presenter.getSaveCallback(),
             ),
           ),
         ],
       ),
       body: Column(
         children: [
-          const TextField(
+          TextField(
             autofocus: true,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               hintText: TextConstants.scheduleCreateViewTitleHintText,
             ),
+            onChanged: presenter.setTitle,
           ),
           Row(
             children: [
               const Text(TextConstants.scheduleCreateViewWholeDay),
               Switch(
                 value: false,
-                onChanged: (value) {
-                  // TODO 終日スイッチがオフの場合は、オンにする。
-                  // TODO 終日スイッチがオンの場合は、オフにする。
-                },
+                onChanged: presenter.setWholeDay,
               ),
             ],
           ),
           buildDatePickerButton(TextConstants.scheduleCreateViewStart, DateTime.now()),
           buildDatePickerButton(TextConstants.scheduleCreateViewEnd, DateTime.now()),
-          const Expanded(
+          Expanded(
             child: TextField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: TextConstants.scheduleCreateViewCommentHintText,
               ),
               keyboardType: TextInputType.multiline,
               maxLines: null,
+              onChanged: presenter.setDescription,
             ),
           ),
         ],

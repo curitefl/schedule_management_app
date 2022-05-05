@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:schedule_management_app/domain/provider/schedule_list_provider.dart';
 import 'package:schedule_management_app/presentation/view/constants/schedule_list_constants.dart';
 import 'package:schedule_management_app/presentation/view/constants/text_constants.dart';
+import 'package:schedule_management_app/presentation/view/view/schedule_create_view.dart';
 
 class ScheduleListView extends HookConsumerWidget {
   const ScheduleListView({Key? key}) : super(key: key);
@@ -30,7 +31,13 @@ class ScheduleListView extends HookConsumerWidget {
               color: Colors.blue,
             ),
             onPressed: () {
-              // TODO 予定追加画面を表示する
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return const ScheduleCreateView();
+                  },
+                ),
+              );
             },
           ),
         ],
