@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:schedule_management_app/provider/calendar_provider.dart';
-import 'package:schedule_management_app/provider/use_case_provider.dart';
+import 'package:schedule_management_app/domain/provider/calendar_providers.dart';
 
 /// TODO サンプルなので後で消す
 class DriftSampleView extends HookConsumerWidget {
