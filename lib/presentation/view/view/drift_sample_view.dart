@@ -40,8 +40,6 @@ class DriftSampleView extends HookConsumerWidget {
                         TextButton(
                           onPressed: () async {
                             await calendarUseCase.updateSchedule(
-                              /// TODO 月を直で入れているところを改修する
-                                5,
                                 currentData.id,
                                 '${currentData.title}(Updated)',
                                 !currentData.isWholeDay,
@@ -54,8 +52,6 @@ class DriftSampleView extends HookConsumerWidget {
                         TextButton(
                           onPressed: () async {
                             await calendarUseCase.deleteSchedule(
-                              /// TODO 月を直で入れているところを改修する
-                              5,
                               currentData.id,
                             );
                           },
@@ -77,8 +73,6 @@ class DriftSampleView extends HookConsumerWidget {
                       child: const Text('Add'),
                       onPressed: () async {
                         await calendarUseCase.addSchedule(
-                          /// TODO 月を直で入れているところを改修する
-                          5,
                           'test test test',
                           false,
                           DateTime.now(),
@@ -95,8 +89,7 @@ class DriftSampleView extends HookConsumerWidget {
                     child: ElevatedButton(
                         child: const Text('5月'),
                         onPressed: () async {
-                          /// TODO 月を直で入れているところを改修する
-                          final list = await calendarUseCase.getMonthScheduleEntries(5);
+                          final list = await calendarUseCase.getMonthScheduleEntries(calendarViewModel.focusedDay.month);
                           if (list.isNotEmpty) {
                             for (var i = 0; i < list.length; ++i) {
                               print('${list[i]}\n');
@@ -111,8 +104,7 @@ class DriftSampleView extends HookConsumerWidget {
                     child: ElevatedButton(
                       child: const Text('Refresh'),
                       onPressed: () async {
-                        /// TODO 月を直で入れているところを改修する
-                        await calendarUseCase.refreshViewModel(5);
+                        await calendarUseCase.refreshViewModel();
                       },
                     ),
                   ),

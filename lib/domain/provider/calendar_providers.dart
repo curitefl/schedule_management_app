@@ -17,6 +17,7 @@ final calendarUseCaseProvider = Provider(
   (ref) {
     return CalendarUseCase(
       ref.watch(scheduleRepositoryProvider),
+      ref.watch(calendarViewModelProvider),
       ref.read(calendarStateProvider.notifier),
     );
   },

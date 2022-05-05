@@ -10,8 +10,7 @@ class CalendarPresenter {
   CalendarPresenter(this._calendarUseCase, this._calendarState, this._scheduleListState);
 
   Future refresh() {
-    /// TODO 月を直で入れているところを改修する
-    return _calendarUseCase.refreshViewModel(5);
+    return _calendarUseCase.refreshViewModel();
   }
 
   List<String> getEventsForDay(DateTime day) {
