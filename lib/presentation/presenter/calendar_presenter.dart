@@ -3,18 +3,18 @@ import 'package:schedule_management_app/presentation/state/calandar_state.dart';
 import 'package:schedule_management_app/presentation/state/schedule_list_state.dart';
 
 class CalendarPresenter {
-  final CalendarUseCase _calendarUseCase;
+  final CalendarUseCase _useCase;
   final CalendarState _calendarState;
   final ScheduleListState _scheduleListState;
 
-  CalendarPresenter(this._calendarUseCase, this._calendarState, this._scheduleListState);
+  CalendarPresenter(this._useCase, this._calendarState, this._scheduleListState);
 
   Future refresh() {
-    return _calendarUseCase.refreshViewModel();
+    return _useCase.refreshViewModel();
   }
 
   List<String> getEventsForDay(DateTime day) {
-    return _calendarUseCase.getEventsForDay(day);
+    return _useCase.getEventsForDay(day);
   }
 
   void focusToday() {

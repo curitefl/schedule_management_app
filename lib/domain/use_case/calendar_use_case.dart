@@ -8,12 +8,12 @@ import 'package:schedule_management_app/service/data_store/schedules.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarUseCase {
-  final ScheduleRepository _scheduleRepository;
-  final CalendarViewModel _calendarViewModel;
-  final CalendarState _calendarState;
+  final ScheduleRepository _repository;
+  final CalendarViewModel _viewModel;
+  final CalendarState _state;
   LinkedHashMap<DateTime, List<String>>? _eventHashMap;
 
-  CalendarUseCase(this._scheduleRepository, this._calendarViewModel, this._calendarState);
+  CalendarUseCase(this._repository, this._viewModel, this._state);
 
   Future refreshViewModel() async {
     _eventHashMap ??= LinkedHashMap<DateTime, List<String>>(
@@ -21,7 +21,7 @@ class CalendarUseCase {
         hashCode: _getHashCode,
       );
 
-    var entries = await _scheduleRepository.getMonthScheduleEntries(_getFocusedMonth());
+    var entries = await _repository.getMonthScheduleEntries(_getFocusedMonth());
     var hashMap = LinkedHashMap.fromIterables(
         entries.map((entry) => entry.startDateTime),
         entries.map((entry) => [entry.title]));
@@ -30,7 +30,7 @@ class CalendarUseCase {
   }
 
   Future<List<Schedule>> getMonthScheduleEntries(int month) {
-    return _scheduleRepository.getMonthScheduleEntries(month);
+    return _repository.getMonthScheduleEntries(month);
   }
 
   Future addSchedule(
@@ -40,7 +40,7 @@ class CalendarUseCase {
     DateTime endDateTime,
     String description,
   ) async {
-    await _scheduleRepository.addSchedule(
+    await _repository.addSchedule(
         title, isWholeDay, startDateTime, endDateTime, description);
 
     await updateMonthEntries();
@@ -61,7 +61,7 @@ class CalendarUseCase {
           ),
         )
         .toList();
-    _calendarState.updateScheduleViewModel(modelList);
+    _state.updateScheduleViewModel(modelList);
   }
 
   Future updateSchedule(
@@ -72,13 +72,13 @@ class CalendarUseCase {
     DateTime endDateTime,
     String description,
   ) async {
-    await _scheduleRepository.updateSchedule(
+    await _repository.updateSchedule(
         id, title, isWholeDay, startDateTime, endDateTime, description);
     await updateMonthEntries();
   }
 
   Future<void> deleteSchedule(int id) async {
-    await _scheduleRepository.deleteSchedule(id);
+    await _repository.deleteSchedule(id);
     await updateMonthEntries();
   }
 
@@ -95,6 +95,6 @@ class CalendarUseCase {
   }
 
   int _getFocusedMonth() {
-    return _calendarViewModel.focusedDay.month;
+    return _viewModel.focusedDay.month;
   }
 }
