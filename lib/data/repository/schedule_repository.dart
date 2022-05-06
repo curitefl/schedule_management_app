@@ -5,10 +5,6 @@ class ScheduleRepository {
 
   ScheduleRepository(this._calendarDataStore);
 
-  Future<Schedule> getSchedule(int id) {
-    return _calendarDataStore.getScheduleById(id);
-  }
-
   Future<List<Schedule>> getMonthScheduleEntries(int month) {
     return _calendarDataStore.getMonthScheduleEntries(month);
   }
@@ -32,13 +28,17 @@ class ScheduleRepository {
       DateTime endDateTime,
       String description,
       ) async {
-    var schedule = await getSchedule(id);
+    var schedule = await _getSchedule(id);
     return _calendarDataStore.updateSchedule(
         schedule, title, isWholeDay, startDateTime, endDateTime, description);
   }
 
   Future<void> deleteSchedule(int id) async {
-    var schedule = await getSchedule(id);
+    var schedule = await _getSchedule(id);
     return _calendarDataStore.deleteSchedule(schedule);
+  }
+
+  Future<Schedule> _getSchedule(int id) {
+    return _calendarDataStore.getScheduleById(id);
   }
 }
