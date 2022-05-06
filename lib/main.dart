@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:schedule_management_app/presentation/view/constants/calendar_constants.dart';
-import 'package:schedule_management_app/presentation/view/view/carendar_view.dart';
+import 'package:schedule_management_app/presentation/view/view/calendar_view.dart';
 
 void main() {
   runApp(
