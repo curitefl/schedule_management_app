@@ -16,10 +16,6 @@ final scheduleRepositoryProvider = Provider(
 final calendarUseCaseProvider = Provider(
   (ref) => CalendarUseCase(
     ref.watch(scheduleRepositoryProvider),
-    // TODO ↓が正しいはず
-    ref.watch(calendarViewModelProvider),
-    // TODO ↓にすると黒点が表示されなくなる
-    // ref.watch(calendarStateProvider),
     ref.read(calendarStateProvider.notifier),
   ),
 );

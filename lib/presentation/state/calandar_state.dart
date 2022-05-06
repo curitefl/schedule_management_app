@@ -5,6 +5,8 @@ import 'package:schedule_management_app/presentation/view/view_model/schedule_vi
 class CalendarState extends StateNotifier<CalendarViewModel> {
   CalendarState(CalendarViewModel state) : super(state);
 
+  CalendarViewModel get viewModel => state;
+
   void focusToday() {
     var now = DateTime.now();
     state = state.copyWith(focusedDay: now, currentDay: now);
