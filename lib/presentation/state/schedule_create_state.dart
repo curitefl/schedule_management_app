@@ -4,6 +4,8 @@ import 'package:schedule_management_app/presentation/view/view_model/schedule_cr
 class ScheduleCreateState extends StateNotifier<ScheduleCreateViewModel> {
   ScheduleCreateState(ScheduleCreateViewModel state) : super(state);
 
+  ScheduleCreateViewModel get viewModel => state;
+
   void setSelectedDay(DateTime dateTime) {
     state = state.copyWith(
       selectedDay: dateTime,

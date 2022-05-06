@@ -10,14 +10,14 @@ import 'package:table_calendar/table_calendar.dart';
 
 class ScheduleCreateUseCase {
   final ScheduleRepository _repository;
-  final ScheduleCreateViewModel _viewModel;
   final ScheduleCreateState _scheduleCreateState;
   final CalendarState _calendarState;
   LinkedHashMap<DateTime, List<String>>? _eventHashMap;
+  ScheduleCreateViewModel get _viewModel => _scheduleCreateState.viewModel;
+  int get _focusedMonth => _viewModel.selectedDay.month;
 
   ScheduleCreateUseCase(
     this._repository,
-    this._viewModel,
     this._scheduleCreateState,
     this._calendarState,
   );
@@ -43,7 +43,7 @@ class ScheduleCreateUseCase {
       hashCode: _getHashCode,
     );
 
-    var entries = await _repository.getMonthScheduleEntries(_getFocusedMonth());
+    var entries = await _repository.getMonthScheduleEntries(_focusedMonth);
     var hashMap = LinkedHashMap.fromIterables(
         entries.map((entry) => entry.startDateTime), entries.map((entry) => [entry.title]));
     _eventHashMap!.addAll(hashMap);
@@ -57,7 +57,7 @@ class ScheduleCreateUseCase {
 
   Future updateMonthEntries() async {
     // TODO calendar_use_case.dartと共通化する
-    var entries = await getMonthScheduleEntries(_getFocusedMonth());
+    var entries = await getMonthScheduleEntries(_focusedMonth);
     var modelList = entries
         .map(
           (entry) => ScheduleViewModel(
@@ -88,10 +88,6 @@ class ScheduleCreateUseCase {
 
   int _getHashCode(DateTime key) {
     return key.day * 1000000 + key.month * 10000 + key.year;
-  }
-
-  int _getFocusedMonth() {
-    return _viewModel.selectedDay.month;
   }
 
   Future _save() async {
