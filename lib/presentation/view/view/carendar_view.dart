@@ -80,7 +80,7 @@ class CalendarView extends HookConsumerWidget {
                   },
                 ),
                 onHeaderTapped: (_) {
-                  showMonthPicker(context: context, initialDate: DateTime.now()).then(
+                  showMonthPicker(context: context, initialDate: viewModel.focusedDay).then(
                     (date) {
                       presenter.focusMonth(date);
                     },
@@ -95,6 +95,9 @@ class CalendarView extends HookConsumerWidget {
                     },
                   ).then((value) => presenter.refresh());
                 },
+                onPageChanged: (dateTime) {
+                  presenter.focusMonth(dateTime);
+                }
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
