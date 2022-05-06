@@ -3,7 +3,7 @@ import 'package:schedule_management_app/presentation/view/view_model/calendar_vi
 import 'package:schedule_management_app/presentation/view/view_model/schedule_view_model.dart';
 
 class CalendarState extends StateNotifier<CalendarViewModel> {
-  CalendarState(state) : super(state);
+  CalendarState(CalendarViewModel state) : super(state);
 
   void focusToday() {
     var now = DateTime.now();

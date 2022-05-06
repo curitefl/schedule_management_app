@@ -86,8 +86,8 @@ class CalendarView extends HookConsumerWidget {
                     },
                   );
                 },
-                onDaySelected: (dateTime1, dateTime2) async {
-                  presenter.setCurrentDay(dateTime1);
+                onDaySelected: (selectedDay, focusedDay) async {
+                  presenter.setCurrentDay(selectedDay);
                   await showDialog(
                     context: context,
                     builder: (builder) {

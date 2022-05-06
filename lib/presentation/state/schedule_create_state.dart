@@ -2,7 +2,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:schedule_management_app/presentation/view/view_model/schedule_create_view_model.dart';
 
 class ScheduleCreateState extends StateNotifier<ScheduleCreateViewModel> {
-  ScheduleCreateState(state) : super(state);
+  ScheduleCreateState(ScheduleCreateViewModel state) : super(state);
 
   void setSelectedDay(DateTime dateTime) {
     state = state.copyWith(
