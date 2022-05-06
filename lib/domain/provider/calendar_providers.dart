@@ -14,14 +14,14 @@ final scheduleRepositoryProvider = Provider(
 );
 
 final calendarUseCaseProvider = Provider(
-  (ref) {
-    return CalendarUseCase(
-      ref.watch(scheduleRepositoryProvider),
-      // TODO ref.watchの書き方をもう一度考える
-      ref.watch(calendarViewModelProvider),
-      ref.read(calendarStateProvider.notifier),
-    );
-  },
+  (ref) => CalendarUseCase(
+    ref.watch(scheduleRepositoryProvider),
+    // TODO ↓が正しいはず
+    ref.watch(calendarViewModelProvider),
+    // TODO ↓にすると黒点が表示されなくなる
+    // ref.watch(calendarStateProvider),
+    ref.read(calendarStateProvider.notifier),
+  ),
 );
 
 final calendarViewModelProvider = Provider(

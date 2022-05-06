@@ -31,7 +31,10 @@ final scheduleCreateStateProvider =
 final scheduleCreateUseCaseProvider = Provider(
   (ref) => ScheduleCreateUseCase(
     ref.watch(scheduleRepositoryProvider),
+    // TODO ↓が正しいはず
     ref.watch(scheduleCreateStateProvider),
+    // TODO ↓は保存ボタンの活性非活性が切り替わらない
+    // ref.watch(scheduleCreateViewModelProvider),
     ref.read(scheduleCreateStateProvider.notifier),
     ref.read(calendarStateProvider.notifier),
   ),
