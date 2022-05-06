@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'schedules.dart';
+part of 'calendar_data_store.dart';
 
 // **************************************************************************
 // MoorGenerator
@@ -343,7 +343,8 @@ class $SchedulesTable extends Schedules
 }
 
 abstract class _$CalendarDataStore extends GeneratedDatabase {
-  _$CalendarDataStore(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
+  _$CalendarDataStore(QueryExecutor e)
+      : super(SqlTypeSystem.defaultInstance, e);
   late final $SchedulesTable schedules = $SchedulesTable(this);
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();

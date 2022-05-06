@@ -5,7 +5,7 @@ import 'package:drift/native.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
-part 'schedules.g.dart';
+part 'calendar_data_store.g.dart';
 
 class Schedules extends Table {
   IntColumn get id => integer().autoIncrement()();

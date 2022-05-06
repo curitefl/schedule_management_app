@@ -5,7 +5,7 @@ import 'package:schedule_management_app/presentation/state/calandar_state.dart';
 import 'package:schedule_management_app/presentation/state/schedule_create_state.dart';
 import 'package:schedule_management_app/presentation/view/view_model/schedule_create_view_model.dart';
 import 'package:schedule_management_app/presentation/view/view_model/schedule_view_model.dart';
-import 'package:schedule_management_app/service/data_store/schedules.dart';
+import 'package:schedule_management_app/service/data_store/calendar_data_store.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class ScheduleCreateUseCase {

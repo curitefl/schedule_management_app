@@ -1,4 +1,4 @@
-import 'package:schedule_management_app/service/data_store/schedules.dart';
+import 'package:schedule_management_app/service/data_store/calendar_data_store.dart';
 
 class ScheduleRepository {
   final CalendarDataStore _calendarDataStore;
