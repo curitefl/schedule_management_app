@@ -31,6 +31,10 @@ class ScheduleCreateUseCase {
     _scheduleCreateState.setDescription(description);
   }
 
+  void setWholeDay(bool isWholeDay) {
+    _scheduleCreateState.setWholeDay(isWholeDay);
+  }
+
   void refreshState(WidgetRef ref) {
     ref.refresh(scheduleCreateStateProvider);
   }

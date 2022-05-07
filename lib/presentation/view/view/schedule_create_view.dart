@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:schedule_management_app/domain/provider/schedule_create_providers.dart';
-import 'package:schedule_management_app/presentation/presenter/schedule_create_presenter.dart';
 import 'package:schedule_management_app/presentation/view/constants/text_constants.dart';
 
 class ScheduleCreateView extends HookConsumerWidget {
@@ -51,13 +49,13 @@ class ScheduleCreateView extends HookConsumerWidget {
             children: [
               const Text(TextConstants.scheduleCreateViewWholeDay),
               Switch(
-                value: false,
+                value: viewModel.isWholeDay,
                 onChanged: presenter.setWholeDay,
               ),
             ],
           ),
-          _buildDatePickerButton(TextConstants.scheduleCreateViewStart, viewModel.startDateTime),
-          _buildDatePickerButton(TextConstants.scheduleCreateViewEnd, viewModel.endDateTime),
+          _buildDatePickerButton(TextConstants.scheduleCreateViewStart, viewModel.startDateTimeText),
+          _buildDatePickerButton(TextConstants.scheduleCreateViewEnd, viewModel.endDateTimeText),
           Expanded(
             child: TextField(
               decoration: const InputDecoration(
@@ -99,15 +97,13 @@ class ScheduleCreateView extends HookConsumerWidget {
     );
   }
 
-  Row _buildDatePickerButton(String title, DateTime dateTime) {
+  Row _buildDatePickerButton(String title, String dateTimeText) {
     return Row(
       children: [
         Text(title),
         TextButton(
           child: Text(
-            // TODO 予定追加の場合は、選択された日付、現在の時間を表示する。
-            DateFormat(TextConstants.wholeDaySwitchOffDateFormat).format(dateTime),
-            // TODO 終日スイッチがオンの場合は、「yyyy-MM-dd 」形式で表示する。
+            dateTimeText,
             style: const TextStyle(
               color: Colors.black,
             ),

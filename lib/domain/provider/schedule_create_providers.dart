@@ -16,6 +16,8 @@ final scheduleCreateStateProvider =
         isWholeDay: false,
         startDateTime: now,
         endDateTime: now,
+        startDateTimeText: '',
+        endDateTimeText: '',
         description: '',
         canSave: false,
         isModified: false,

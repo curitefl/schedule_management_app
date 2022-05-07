@@ -29,7 +29,6 @@ class ScheduleCreatePresenter {
   }
 
   void setWholeDay(bool isWholeDay) {
-    // TODO 終日スイッチがオフの場合は、オンにする。
-    // TODO 終日スイッチがオンの場合は、オフにする。
+    _scheduleCreateUseCase.setWholeDay(isWholeDay);
   }
 }

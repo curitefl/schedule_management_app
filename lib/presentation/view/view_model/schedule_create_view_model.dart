@@ -10,6 +10,8 @@ abstract class ScheduleCreateViewModel with _$ScheduleCreateViewModel {
     required bool isWholeDay,
     required DateTime startDateTime,
     required DateTime endDateTime,
+    required String startDateTimeText,
+    required String endDateTimeText,
     required String description,
     required bool canSave,
     required bool isModified,

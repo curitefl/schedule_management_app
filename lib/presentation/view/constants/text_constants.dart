@@ -9,6 +9,7 @@ class TextConstants {
   static const String scheduleCreateViewTitleHintText = 'タイトルを入力してください';
   static const String scheduleCreateViewWholeDay = '終日';
   static const String scheduleCreateViewStart = '開始';
+  static const String wholeDaySwitchOnDateFormat = 'yyyy-MM-dd';
   static const String wholeDaySwitchOffDateFormat = 'yyyy-MM-dd HH:mm';
   static const String scheduleCreateViewEnd = '終了';
   static const String scheduleCreateViewCommentHintText = 'コメントを入力してください';
