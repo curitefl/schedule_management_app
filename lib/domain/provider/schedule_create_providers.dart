@@ -27,7 +27,7 @@ final scheduleCreateStateProvider =
 final scheduleCreateUseCaseProvider = Provider(
   (ref) => ScheduleCreateUseCase(
     ref.watch(scheduleRepositoryProvider),
-    ref.read(scheduleCreateStateProvider.notifier),
+    ref.watch(scheduleCreateStateProvider.notifier),
   ),
 );
 

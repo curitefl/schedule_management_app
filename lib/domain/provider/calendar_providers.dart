@@ -16,7 +16,7 @@ final scheduleRepositoryProvider = Provider(
 final calendarUseCaseProvider = Provider(
   (ref) => CalendarUseCase(
     ref.watch(scheduleRepositoryProvider),
-    ref.read(calendarStateProvider.notifier),
+    ref.watch(calendarStateProvider.notifier),
   ),
 );
 
@@ -33,7 +33,7 @@ final calendarStateProvider = StateNotifierProvider<CalendarState, CalendarViewM
 final calendarPresenterProvider = Provider(
   (ref) => CalendarPresenter(
     ref.watch(calendarUseCaseProvider),
-    ref.read(calendarStateProvider.notifier),
-    ref.read(scheduleListStateProvider.notifier),
+    ref.watch(calendarStateProvider.notifier),
+    ref.watch(scheduleListStateProvider.notifier),
   ),
 );
