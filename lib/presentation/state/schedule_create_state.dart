@@ -13,7 +13,7 @@ class ScheduleCreateState extends StateNotifier<ScheduleCreateViewModel> {
   void setSelectedDay(DateTime dateTime) {
     var now = DateTime.now();
     var startDateTime = DateTime(dateTime.year, dateTime.month, dateTime.day, now.hour, now.minute);
-    var endDateTime = startDateTime.add(const Duration(hours: 1));
+    var endDateTime = startDateTime;
 
     state = state.copyWith(
       selectedDay: startDateTime,
