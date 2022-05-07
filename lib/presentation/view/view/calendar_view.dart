@@ -117,22 +117,6 @@ class CalendarView extends HookConsumerWidget {
               ),
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: OutlinedButton(
-              child: const Text(
-                '表示更新',
-                maxLines: 1,
-              ),
-              style: OutlinedButton.styleFrom(
-                primary: Colors.black,
-                shape: const StadiumBorder(),
-              ),
-              onPressed: () async {
-                await presenter.refresh();
-              },
-            ),
-          ),
         ],
       ),
     );
