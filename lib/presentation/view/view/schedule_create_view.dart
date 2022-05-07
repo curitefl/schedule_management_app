@@ -33,7 +33,7 @@ class ScheduleCreateView extends HookConsumerWidget {
             padding: const EdgeInsets.all(8.0),
             child: ElevatedButton(
               child: const Text(TextConstants.scheduleCreateViewSave),
-              onPressed: _save(presenter, context),
+              onPressed: presenter.getSaveCallback(context),
             ),
           ),
         ],
@@ -71,18 +71,6 @@ class ScheduleCreateView extends HookConsumerWidget {
         ],
       ),
     );
-  }
-
-  VoidCallback? _save(ScheduleCreatePresenter presenter, BuildContext context) {
-    var callback = presenter.getSaveCallback();
-    if (callback == null) {
-      return null;
-    }
-
-    return () {
-      callback();
-      Navigator.pop(context);
-    };
   }
 
   Future<dynamic> _showModifiedPopup(BuildContext context) {
