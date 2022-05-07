@@ -12,7 +12,15 @@ class ScheduleCreateState extends StateNotifier<ScheduleCreateViewModel> {
 
   void setSelectedDay(DateTime dateTime) {
     var now = DateTime.now();
-    var adjustedDateTime = DateTime(dateTime.year, dateTime.month, dateTime.day, now.hour, now.minute);
+
+    var adjustedDateTime = DateTime(
+      dateTime.year,
+      dateTime.month,
+      dateTime.day,
+      now.hour,
+      now.minute,
+    );
+
     var startDateTime = _getQuarteredDateTime(adjustedDateTime);
     var endDateTime = startDateTime;
 
@@ -41,7 +49,20 @@ class ScheduleCreateState extends StateNotifier<ScheduleCreateViewModel> {
 
   void setStartDateTime(DateTime dateTime) {
     var dateTimeText = _getDateTimeText(dateTime, state.isWholeDay);
-    state = state.copyWith(startDateTime: dateTime, startDateTimeText: dateTimeText);
+
+    if (dateTime.isBefore(state.endDateTime)) {
+      state = state.copyWith(startDateTime: dateTime, startDateTimeText: dateTimeText);
+      return;
+    }
+
+    var endTime = state.isWholeDay ? dateTime : dateTime.add(const Duration(hours: 1));
+
+    state = state.copyWith(
+      startDateTime: dateTime,
+      startDateTimeText: dateTimeText,
+      endDateTime: endTime,
+      endDateTimeText: _getDateTimeText(endTime, state.isWholeDay),
+    );
   }
 
   void setEndDateTime(DateTime dateTime) {
@@ -55,7 +76,6 @@ class ScheduleCreateState extends StateNotifier<ScheduleCreateViewModel> {
     _updateIsModified();
   }
 
-  // TODO CanSaveの判定を見直す
   void _updateCanSave() {
     var canSave = state.title.isNotEmpty && state.description.isNotEmpty;
     state = state.copyWith(canSave: canSave);
