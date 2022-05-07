@@ -26,6 +26,7 @@ class CalendarPresenter {
       return;
     }
     _calendarState.focusMonth(dateTime);
+    _useCase.refreshViewModel();
   }
 
   void setCurrentDay(DateTime dateTime) {
