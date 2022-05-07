@@ -7,13 +7,13 @@ class CalendarPresenter {
   final CalendarState _calendarState;
   final ScheduleListState _scheduleListState;
 
-  CalendarPresenter(this._useCase, this._calendarState, this._scheduleListState);
+  CalendarPresenter(final this._useCase, final this._calendarState, final this._scheduleListState);
 
   Future refresh() {
     return _useCase.refreshViewModel();
   }
 
-  List<String> getEventsForDay(DateTime day) {
+  List<String> getEventsForDay(final DateTime day) {
     return _useCase.getEventsForDay(day);
   }
 
@@ -21,7 +21,7 @@ class CalendarPresenter {
     _calendarState.focusToday();
   }
 
-  void focusMonth(DateTime? dateTime) {
+  void focusMonth(final DateTime? dateTime) {
     if (dateTime == null) {
       return;
     }
@@ -29,9 +29,8 @@ class CalendarPresenter {
     _useCase.refreshViewModel();
   }
 
-  void setCurrentDay(DateTime dateTime) {
+  void setCurrentDay(final DateTime dateTime) {
     _calendarState.setCurrentDay(dateTime);
     _scheduleListState.setDateTime(dateTime);
   }
 }
-

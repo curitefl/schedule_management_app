@@ -8,7 +8,8 @@ import 'package:schedule_management_app/presentation/view/view_model/schedule_cr
 final scheduleCreateStateProvider =
     StateNotifierProvider<ScheduleCreateState, ScheduleCreateViewModel>(
   (ref) {
-    var now = DateTime.now();
+    final now = DateTime.now();
+
     return ScheduleCreateState(
       ScheduleCreateViewModel(
         maximumYear: now.year + 100,

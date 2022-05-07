@@ -5,10 +5,10 @@ import 'package:schedule_management_app/domain/provider/schedule_create_provider
 import 'package:schedule_management_app/presentation/view/constants/text_constants.dart';
 
 class ScheduleCreateView extends HookConsumerWidget {
-  const ScheduleCreateView({Key? key}) : super(key: key);
+  const ScheduleCreateView({final Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(final BuildContext context, final WidgetRef ref) {
     final viewModel = ref.watch(scheduleCreateStateProvider);
     final presenter = ref.watch(scheduleCreatePresenterProvider);
 
@@ -82,10 +82,10 @@ class ScheduleCreateView extends HookConsumerWidget {
   }
 
   Row _buildDatePickerButton(
-    BuildContext context,
-    String title,
-    String dateTimeText,
-    VoidCallback? onPressed,
+    final BuildContext context,
+    final String title,
+    final String dateTimeText,
+    final VoidCallback? onPressed,
   ) {
     return Row(
       children: [

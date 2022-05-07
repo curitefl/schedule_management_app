@@ -3,9 +3,9 @@ import 'package:schedule_management_app/presentation/state/schedule_create_state
 class ScheduleListUseCase {
   final ScheduleCreateState _scheduleCreateState;
 
-  ScheduleListUseCase(this._scheduleCreateState);
+  ScheduleListUseCase(final this._scheduleCreateState);
 
-  void setSelectedDay(DateTime selectedDay) {
+  void setSelectedDay(final DateTime selectedDay) {
     _scheduleCreateState.setSelectedDay(selectedDay);
   }
 }

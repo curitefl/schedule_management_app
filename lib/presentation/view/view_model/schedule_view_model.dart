@@ -5,11 +5,11 @@ part 'schedule_view_model.freezed.dart';
 @freezed
 class ScheduleViewModel with _$ScheduleViewModel {
   const factory ScheduleViewModel({
-    required int id,
-    required String title,
-    required bool isWholeDay,
-    required DateTime startDateTime,
-    required DateTime endDateTime,
-    required String description,
+    required final int id,
+    required final String title,
+    required final bool isWholeDay,
+    required final DateTime startDateTime,
+    required final DateTime endDateTime,
+    required final String description,
   }) = _ScheduleViewModel;
 }

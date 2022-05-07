@@ -28,20 +28,20 @@ class CalendarDataStore extends _$CalendarDataStore {
   @override
   int get schemaVersion => 1;
 
-  Future<Schedule> getScheduleById(int id) {
+  Future<Schedule> getScheduleById(final int id) {
     return (select(schedules)..where((tbl) => tbl.id.equals(id))).getSingle();
   }
 
-  Future<List<Schedule>> getMonthScheduleEntries (int month) {
+  Future<List<Schedule>> getMonthScheduleEntries(final int month) {
     return (select(schedules)..where((tbl) => tbl.startDateTime.month.equals(month))).get();
   }
 
   Future<int> addSchedule(
-    String title,
-    bool isWholeDay,
-    DateTime startDateTime,
-    DateTime endDateTime,
-    String description,
+    final String title,
+    final bool isWholeDay,
+    final DateTime startDateTime,
+    final DateTime endDateTime,
+    final String description,
   ) {
     return into(schedules).insert(
       SchedulesCompanion(
@@ -55,12 +55,12 @@ class CalendarDataStore extends _$CalendarDataStore {
   }
 
   Future<int> updateSchedule(
-    Schedule schedule,
-    String title,
-    bool isWholeDay,
-    DateTime startDateTime,
-    DateTime endDateTime,
-    String description,
+    final Schedule schedule,
+    final String title,
+    final bool isWholeDay,
+    final DateTime startDateTime,
+    final DateTime endDateTime,
+    final String description,
   ) {
     return (update(schedules)..where((tbl) => tbl.id.equals(schedule.id))).write(
       SchedulesCompanion(
@@ -73,7 +73,7 @@ class CalendarDataStore extends _$CalendarDataStore {
     );
   }
 
-  Future<void> deleteSchedule(Schedule schedule) {
+  Future deleteSchedule(final Schedule schedule) {
     return (delete(schedules)..where((tbl) => tbl.id.equals(schedule.id))).go();
   }
 }

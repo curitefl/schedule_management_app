@@ -11,10 +11,7 @@ class ScheduleCreateUseCase {
 
   ScheduleCreateViewModel get _viewModel => _scheduleCreateState.viewModel;
 
-  ScheduleCreateUseCase(
-    this._repository,
-    this._scheduleCreateState,
-  );
+  ScheduleCreateUseCase(final this._repository, final this._scheduleCreateState);
 
   VoidCallback? getSaveCallback() {
     if (!_viewModel.canSave) {
@@ -23,19 +20,19 @@ class ScheduleCreateUseCase {
     return _save;
   }
 
-  void setTitle(String title) {
+  void setTitle(final String title) {
     _scheduleCreateState.setTitle(title);
   }
 
-  void setDescription(String description) {
+  void setDescription(final String description) {
     _scheduleCreateState.setDescription(description);
   }
 
-  void setWholeDay(bool isWholeDay) {
+  void setWholeDay(final bool isWholeDay) {
     _scheduleCreateState.setWholeDay(isWholeDay);
   }
 
-  void refreshState(WidgetRef ref) {
+  void refreshState(final WidgetRef ref) {
     ref.refresh(scheduleCreateStateProvider);
   }
 

@@ -6,6 +6,6 @@ part 'schedule_list_view_model.freezed.dart';
 @freezed
 abstract class ScheduleListViewModel with _$ScheduleListViewModel {
   const factory ScheduleListViewModel({
-    DateTime? dateTime,}
+    final DateTime? dateTime,}
   ) = _ScheduleListViewModel;
 }

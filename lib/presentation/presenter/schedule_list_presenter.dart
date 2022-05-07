@@ -5,9 +5,9 @@ import 'package:schedule_management_app/presentation/view/view/schedule_create_v
 class ScheduleListPresenter {
   final ScheduleListUseCase _useCase;
 
-  ScheduleListPresenter(this._useCase);
+  ScheduleListPresenter(final this._useCase);
 
-  void showScheduleCreateView(BuildContext context, DateTime selectedDay) {
+  void showScheduleCreateView(final BuildContext context, final DateTime selectedDay) {
     _useCase.setSelectedDay(selectedDay);
 
     Navigator.of(context).push(

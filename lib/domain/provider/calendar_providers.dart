@@ -21,13 +21,17 @@ final calendarUseCaseProvider = Provider(
 );
 
 final calendarStateProvider = StateNotifierProvider<CalendarState, CalendarViewModel>(
-  (ref) => CalendarState(
-    CalendarViewModel(
-      focusedDay: DateTime.now(),
-      currentDay: DateTime.now(),
-      scheduleViewModelList: [],
-    ),
-  ),
+  (ref) {
+    final now = DateTime.now();
+
+    return CalendarState(
+      CalendarViewModel(
+        focusedDay: now,
+        currentDay: now,
+        scheduleViewModelList: [],
+      ),
+    );
+  },
 );
 
 final calendarPresenterProvider = Provider(

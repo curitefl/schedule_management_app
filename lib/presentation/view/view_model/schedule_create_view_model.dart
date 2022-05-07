@@ -5,16 +5,16 @@ part 'schedule_create_view_model.freezed.dart';
 @freezed
 abstract class ScheduleCreateViewModel with _$ScheduleCreateViewModel {
   const factory ScheduleCreateViewModel({
-    required int maximumYear,
-    required DateTime selectedDay,
-    required String title,
-    required bool isWholeDay,
-    required DateTime startDateTime,
-    required DateTime endDateTime,
-    required String startDateTimeText,
-    required String endDateTimeText,
-    required String description,
-    required bool canSave,
-    required bool isModified,
+    required final int maximumYear,
+    required final DateTime selectedDay,
+    required final String title,
+    required final bool isWholeDay,
+    required final DateTime startDateTime,
+    required final DateTime endDateTime,
+    required final String startDateTimeText,
+    required final String endDateTimeText,
+    required final String description,
+    required final bool canSave,
+    required final bool isModified,
   }) = _ScheduleCreateViewModel;
 }

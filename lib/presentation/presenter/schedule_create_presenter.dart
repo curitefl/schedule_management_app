@@ -11,10 +11,10 @@ class ScheduleCreatePresenter {
   final ScheduleCreateState _state;
   final ScheduleCreateUseCase _useCase;
 
-  ScheduleCreatePresenter(this._state, this._useCase);
+  ScheduleCreatePresenter(final this._state, final this._useCase);
 
-  VoidCallback? getSaveCallback(BuildContext context, WidgetRef ref) {
-    var callback = _useCase.getSaveCallback();
+  VoidCallback? getSaveCallback(final BuildContext context, final WidgetRef ref) {
+    final callback = _useCase.getSaveCallback();
     if (callback == null) {
       return null;
     }
@@ -25,31 +25,41 @@ class ScheduleCreatePresenter {
     };
   }
 
-  void setTitle(String title) {
+  void setTitle(final String title) {
     _useCase.setTitle(title);
   }
 
-  void setDescription(String description) {
+  void setDescription(final String description) {
     _useCase.setDescription(description);
   }
 
-  void setWholeDay(bool isWholeDay) {
+  void setWholeDay(final bool isWholeDay) {
     _useCase.setWholeDay(isWholeDay);
   }
 
-  void showStartDateTimePicker(BuildContext context) {
-    _showDateTimePicker(context, _state.viewModel, _state.viewModel.startDateTime, (dateTime) {
-      _state.setStartDateTime(dateTime);
-    });
+  void showStartDateTimePicker(final BuildContext context) {
+    _showDateTimePicker(
+      context,
+      _state.viewModel,
+      _state.viewModel.startDateTime,
+      (dateTime) {
+        _state.setStartDateTime(dateTime);
+      },
+    );
   }
 
-  void showEndDateTimePicker(BuildContext context) {
-    _showDateTimePicker(context, _state.viewModel, _state.viewModel.endDateTime, (dateTime) {
-      _state.setEndDateTime(dateTime);
-    });
+  void showEndDateTimePicker(final BuildContext context) {
+    _showDateTimePicker(
+      context,
+      _state.viewModel,
+      _state.viewModel.endDateTime,
+      (dateTime) {
+        _state.setEndDateTime(dateTime);
+      },
+    );
   }
 
-  void closeView(BuildContext context, WidgetRef ref) {
+  void closeView(final BuildContext context, final WidgetRef ref) {
     if (_state.viewModel.isModified) {
       _showModifiedPopup(context, ref);
     } else {
@@ -57,16 +67,16 @@ class ScheduleCreatePresenter {
     }
   }
 
-  void _popAndRefreshState(BuildContext context, WidgetRef ref) {
+  void _popAndRefreshState(final BuildContext context, final WidgetRef ref) {
     Navigator.pop(context);
     _useCase.refreshState(ref);
   }
 
   void _showDateTimePicker(
-    BuildContext context,
-    ScheduleCreateViewModel viewModel,
-    DateTime initialDateTime,
-    ValueChanged<DateTime> onDateTimeChanged,
+    final BuildContext context,
+    final ScheduleCreateViewModel viewModel,
+    final DateTime initialDateTime,
+    final ValueChanged<DateTime> onDateTimeChanged,
   ) {
     showCupertinoModalPopup(
       context: context,
@@ -98,7 +108,7 @@ class ScheduleCreatePresenter {
     );
   }
 
-  Future<dynamic> _showModifiedPopup(BuildContext context, WidgetRef ref) {
+  Future<dynamic> _showModifiedPopup(final BuildContext context, final WidgetRef ref) {
     return showCupertinoModalPopup(
       context: context,
       builder: (BuildContext context) {

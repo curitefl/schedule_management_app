@@ -7,10 +7,10 @@ import 'package:schedule_management_app/presentation/view/constants/schedule_lis
 import 'package:schedule_management_app/presentation/view/constants/text_constants.dart';
 
 class ScheduleListView extends HookConsumerWidget {
-  const ScheduleListView({Key? key}) : super(key: key);
+  const ScheduleListView({final Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(final BuildContext context,final  WidgetRef ref) {
     final viewModel = ref.watch(scheduleListStateProvider);
     final presenter = ref.watch(scheduleListPresenterProvider);
 

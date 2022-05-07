@@ -3,42 +3,42 @@ import 'package:schedule_management_app/service/data_store/calendar_data_store.d
 class ScheduleRepository {
   final CalendarDataStore _calendarDataStore;
 
-  ScheduleRepository(this._calendarDataStore);
+  ScheduleRepository(final this._calendarDataStore);
 
-  Future<List<Schedule>> getMonthScheduleEntries(int month) {
+  Future<List<Schedule>> getMonthScheduleEntries(final int month) {
     return _calendarDataStore.getMonthScheduleEntries(month);
   }
 
   Future addSchedule(
-    String title,
-    bool isWholeDay,
-    DateTime startDateTime,
-    DateTime endDateTime,
-    String description,
+    final String title,
+    final bool isWholeDay,
+    final DateTime startDateTime,
+    final DateTime endDateTime,
+    final String description,
   ) {
     return _calendarDataStore.addSchedule(
         title, isWholeDay, startDateTime, endDateTime, description);
   }
 
   Future updateSchedule(
-      int id,
-      String title,
-      bool isWholeDay,
-      DateTime startDateTime,
-      DateTime endDateTime,
-      String description,
-      ) async {
-    var schedule = await _getSchedule(id);
+    final int id,
+    final String title,
+    final bool isWholeDay,
+    final DateTime startDateTime,
+    final DateTime endDateTime,
+    final String description,
+  ) async {
+    final schedule = await _getSchedule(id);
     return _calendarDataStore.updateSchedule(
         schedule, title, isWholeDay, startDateTime, endDateTime, description);
   }
 
-  Future<void> deleteSchedule(int id) async {
-    var schedule = await _getSchedule(id);
+  Future deleteSchedule(final int id) async {
+    final schedule = await _getSchedule(id);
     return _calendarDataStore.deleteSchedule(schedule);
   }
 
-  Future<Schedule> _getSchedule(int id) {
+  Future<Schedule> _getSchedule(final int id) {
     return _calendarDataStore.getScheduleById(id);
   }
 }
