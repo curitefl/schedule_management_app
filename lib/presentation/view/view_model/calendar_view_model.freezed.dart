@@ -18,6 +18,8 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$CalendarViewModel {
   DateTime get focusedDay => throw _privateConstructorUsedError;
   DateTime get currentDay => throw _privateConstructorUsedError;
+  List<ScheduleViewModel> get scheduleViewModelList =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CalendarViewModelCopyWith<CalendarViewModel> get copyWith =>
@@ -29,7 +31,10 @@ abstract class $CalendarViewModelCopyWith<$Res> {
   factory $CalendarViewModelCopyWith(
           CalendarViewModel value, $Res Function(CalendarViewModel) then) =
       _$CalendarViewModelCopyWithImpl<$Res>;
-  $Res call({DateTime focusedDay, DateTime currentDay});
+  $Res call(
+      {DateTime focusedDay,
+      DateTime currentDay,
+      List<ScheduleViewModel> scheduleViewModelList});
 }
 
 /// @nodoc
@@ -45,6 +50,7 @@ class _$CalendarViewModelCopyWithImpl<$Res>
   $Res call({
     Object? focusedDay = freezed,
     Object? currentDay = freezed,
+    Object? scheduleViewModelList = freezed,
   }) {
     return _then(_value.copyWith(
       focusedDay: focusedDay == freezed
@@ -55,6 +61,10 @@ class _$CalendarViewModelCopyWithImpl<$Res>
           ? _value.currentDay
           : currentDay // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      scheduleViewModelList: scheduleViewModelList == freezed
+          ? _value.scheduleViewModelList
+          : scheduleViewModelList // ignore: cast_nullable_to_non_nullable
+              as List<ScheduleViewModel>,
     ));
   }
 }
@@ -66,7 +76,10 @@ abstract class _$CalendarViewModelCopyWith<$Res>
           _CalendarViewModel value, $Res Function(_CalendarViewModel) then) =
       __$CalendarViewModelCopyWithImpl<$Res>;
   @override
-  $Res call({DateTime focusedDay, DateTime currentDay});
+  $Res call(
+      {DateTime focusedDay,
+      DateTime currentDay,
+      List<ScheduleViewModel> scheduleViewModelList});
 }
 
 /// @nodoc
@@ -84,6 +97,7 @@ class __$CalendarViewModelCopyWithImpl<$Res>
   $Res call({
     Object? focusedDay = freezed,
     Object? currentDay = freezed,
+    Object? scheduleViewModelList = freezed,
   }) {
     return _then(_CalendarViewModel(
       focusedDay: focusedDay == freezed
@@ -94,6 +108,10 @@ class __$CalendarViewModelCopyWithImpl<$Res>
           ? _value.currentDay
           : currentDay // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      scheduleViewModelList: scheduleViewModelList == freezed
+          ? _value.scheduleViewModelList
+          : scheduleViewModelList // ignore: cast_nullable_to_non_nullable
+              as List<ScheduleViewModel>,
     ));
   }
 }
@@ -104,16 +122,25 @@ class _$_CalendarViewModel
     with DiagnosticableTreeMixin
     implements _CalendarViewModel {
   const _$_CalendarViewModel(
-      {required this.focusedDay, required this.currentDay});
+      {required this.focusedDay,
+      required this.currentDay,
+      required final List<ScheduleViewModel> scheduleViewModelList})
+      : _scheduleViewModelList = scheduleViewModelList;
 
   @override
   final DateTime focusedDay;
   @override
   final DateTime currentDay;
+  final List<ScheduleViewModel> _scheduleViewModelList;
+  @override
+  List<ScheduleViewModel> get scheduleViewModelList {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_scheduleViewModelList);
+  }
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'CalendarViewModel(focusedDay: $focusedDay, currentDay: $currentDay)';
+    return 'CalendarViewModel(focusedDay: $focusedDay, currentDay: $currentDay, scheduleViewModelList: $scheduleViewModelList)';
   }
 
   @override
@@ -122,7 +149,9 @@ class _$_CalendarViewModel
     properties
       ..add(DiagnosticsProperty('type', 'CalendarViewModel'))
       ..add(DiagnosticsProperty('focusedDay', focusedDay))
-      ..add(DiagnosticsProperty('currentDay', currentDay));
+      ..add(DiagnosticsProperty('currentDay', currentDay))
+      ..add(
+          DiagnosticsProperty('scheduleViewModelList', scheduleViewModelList));
   }
 
   @override
@@ -133,14 +162,17 @@ class _$_CalendarViewModel
             const DeepCollectionEquality()
                 .equals(other.focusedDay, focusedDay) &&
             const DeepCollectionEquality()
-                .equals(other.currentDay, currentDay));
+                .equals(other.currentDay, currentDay) &&
+            const DeepCollectionEquality()
+                .equals(other.scheduleViewModelList, scheduleViewModelList));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(focusedDay),
-      const DeepCollectionEquality().hash(currentDay));
+      const DeepCollectionEquality().hash(currentDay),
+      const DeepCollectionEquality().hash(scheduleViewModelList));
 
   @JsonKey(ignore: true)
   @override
@@ -150,13 +182,18 @@ class _$_CalendarViewModel
 
 abstract class _CalendarViewModel implements CalendarViewModel {
   const factory _CalendarViewModel(
-      {required final DateTime focusedDay,
-      required final DateTime currentDay}) = _$_CalendarViewModel;
+          {required final DateTime focusedDay,
+          required final DateTime currentDay,
+          required final List<ScheduleViewModel> scheduleViewModelList}) =
+      _$_CalendarViewModel;
 
   @override
   DateTime get focusedDay => throw _privateConstructorUsedError;
   @override
   DateTime get currentDay => throw _privateConstructorUsedError;
+  @override
+  List<ScheduleViewModel> get scheduleViewModelList =>
+      throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$CalendarViewModelCopyWith<_CalendarViewModel> get copyWith =>
