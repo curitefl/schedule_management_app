@@ -12,7 +12,8 @@ class ScheduleCreateState extends StateNotifier<ScheduleCreateViewModel> {
 
   void setSelectedDay(DateTime dateTime) {
     var now = DateTime.now();
-    var startDateTime = DateTime(dateTime.year, dateTime.month, dateTime.day, now.hour, now.minute);
+    var adjustedDateTime = DateTime(dateTime.year, dateTime.month, dateTime.day, now.hour, now.minute);
+    var startDateTime = _getQuarteredDateTime(adjustedDateTime);
     var endDateTime = startDateTime;
 
     state = state.copyWith(
@@ -45,7 +46,7 @@ class ScheduleCreateState extends StateNotifier<ScheduleCreateViewModel> {
 
   void setEndDateTime(DateTime dateTime) {
     var dateTimeText = _getDateTimeText(dateTime, state.isWholeDay);
-    state = state.copyWith(endDateTime: dateTime, startDateTimeText: dateTimeText);
+    state = state.copyWith(endDateTime: dateTime, endDateTimeText: dateTimeText);
   }
 
   void setDescription(String description) {
@@ -63,6 +64,10 @@ class ScheduleCreateState extends StateNotifier<ScheduleCreateViewModel> {
   void _updateIsModified() {
     var isModified = state.title.isNotEmpty || state.description.isNotEmpty;
     state = state.copyWith(isModified: isModified);
+  }
+
+  DateTime _getQuarteredDateTime(DateTime dateTime) {
+    return dateTime.add(Duration(minutes: 15 - dateTime.minute % 15));
   }
 
   String _getDateTimeText(DateTime dateTime, bool isWholeDay) {

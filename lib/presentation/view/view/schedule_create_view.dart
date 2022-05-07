@@ -54,8 +54,22 @@ class ScheduleCreateView extends HookConsumerWidget {
               ),
             ],
           ),
-          _buildDatePickerButton(TextConstants.scheduleCreateViewStart, viewModel.startDateTimeText),
-          _buildDatePickerButton(TextConstants.scheduleCreateViewEnd, viewModel.endDateTimeText),
+          _buildDatePickerButton(
+            context,
+            TextConstants.scheduleCreateViewStart,
+            viewModel.startDateTimeText,
+            () {
+              presenter.showStartDateTimePicker(context);
+            },
+          ),
+          _buildDatePickerButton(
+            context,
+            TextConstants.scheduleCreateViewEnd,
+            viewModel.endDateTimeText,
+            () {
+              presenter.showEndDateTimePicker(context);
+            },
+          ),
           Expanded(
             child: TextField(
               decoration: const InputDecoration(
@@ -97,7 +111,12 @@ class ScheduleCreateView extends HookConsumerWidget {
     );
   }
 
-  Row _buildDatePickerButton(String title, String dateTimeText) {
+  Row _buildDatePickerButton(
+    BuildContext context,
+    String title,
+    String dateTimeText,
+    VoidCallback? onPressed,
+  ) {
     return Row(
       children: [
         Text(title),
@@ -108,9 +127,7 @@ class ScheduleCreateView extends HookConsumerWidget {
               color: Colors.black,
             ),
           ),
-          onPressed: () {
-            // TODO 時間ピッカーの動作実装
-          },
+          onPressed: onPressed,
         ),
       ],
     );

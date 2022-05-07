@@ -11,6 +11,7 @@ final scheduleCreateStateProvider =
     var now = DateTime.now();
     return ScheduleCreateState(
       ScheduleCreateViewModel(
+        maximumYear: now.year + 100,
         selectedDay: now,
         title: '',
         isWholeDay: false,
@@ -35,6 +36,7 @@ final scheduleCreateUseCaseProvider = Provider(
 
 final scheduleCreatePresenterProvider = Provider(
   (ref) => ScheduleCreatePresenter(
+    ref.watch(scheduleCreateStateProvider.notifier),
     ref.watch(scheduleCreateUseCaseProvider),
   ),
 );
