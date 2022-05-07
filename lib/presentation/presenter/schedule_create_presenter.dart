@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:schedule_management_app/domain/use_case/schedule_create_use_case.dart';
 import 'package:schedule_management_app/presentation/state/schedule_create_state.dart';
 import 'package:schedule_management_app/presentation/view/constants/schedule_create_constants.dart';
+import 'package:schedule_management_app/presentation/view/constants/text_constants.dart';
 import 'package:schedule_management_app/presentation/view/view_model/schedule_create_view_model.dart';
 
 class ScheduleCreatePresenter {
@@ -20,8 +21,7 @@ class ScheduleCreatePresenter {
 
     return () {
       callback();
-      Navigator.pop(context);
-      _useCase.refreshState(ref);
+      _popAndRefreshState(context, ref);
     };
   }
 
@@ -47,6 +47,19 @@ class ScheduleCreatePresenter {
     _showDateTimePicker(context, _state.viewModel, _state.viewModel.endDateTime, (dateTime) {
       _state.setEndDateTime(dateTime);
     });
+  }
+
+  void closeView(BuildContext context, WidgetRef ref) {
+    if (_state.viewModel.isModified) {
+      _showModifiedPopup(context, ref);
+    } else {
+      _popAndRefreshState(context, ref);
+    }
+  }
+
+  void _popAndRefreshState(BuildContext context, WidgetRef ref) {
+    Navigator.pop(context);
+    _useCase.refreshState(ref);
   }
 
   void _showDateTimePicker(
@@ -80,6 +93,33 @@ class ScheduleCreatePresenter {
               )
             ],
           ),
+        );
+      },
+    );
+  }
+
+  Future<dynamic> _showModifiedPopup(BuildContext context, WidgetRef ref) {
+    return showCupertinoModalPopup(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoActionSheet(
+          actions: [
+            CupertinoActionSheetAction(
+              onPressed: () {
+                // TODO 2回ポップするもっと良い方法を調べる
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+                _useCase.refreshState(ref);
+              },
+              child: const Text(TextConstants.scheduleCreateViewActionSheetDiscardChanges),
+            ),
+            CupertinoActionSheetAction(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text(TextConstants.scheduleCreateViewActionSheetCancel),
+            ),
+          ],
         );
       },
     );

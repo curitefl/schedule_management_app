@@ -19,11 +19,7 @@ class ScheduleCreateView extends HookConsumerWidget {
         leading: IconButton(
           icon: const Icon(Icons.close),
           onPressed: () {
-            if (viewModel.isModified) {
-              _showModifiedPopup(context);
-            } else {
-              Navigator.pop(context);
-            }
+            presenter.closeView(context, ref);
           },
         ),
         actions: [
@@ -82,32 +78,6 @@ class ScheduleCreateView extends HookConsumerWidget {
           ),
         ],
       ),
-    );
-  }
-
-  Future<dynamic> _showModifiedPopup(BuildContext context) {
-    return showCupertinoModalPopup(
-      context: context,
-      builder: (BuildContext context) {
-        return CupertinoActionSheet(
-          actions: [
-            CupertinoActionSheetAction(
-              onPressed: () {
-                // TODO 2回ポップするもっと良い方法を調べる
-                Navigator.of(context).pop();
-                Navigator.of(context).pop();
-              },
-              child: const Text(TextConstants.scheduleCreateViewActionSheetDiscardChanges),
-            ),
-            CupertinoActionSheetAction(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text(TextConstants.scheduleCreateViewActionSheetCancel),
-            ),
-          ],
-        );
-      },
     );
   }
 
