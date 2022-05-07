@@ -3,6 +3,7 @@ import 'package:schedule_management_app/presentation/view/view_model/schedule_cr
 
 class ScheduleCreateState extends StateNotifier<ScheduleCreateViewModel> {
   ScheduleCreateState(ScheduleCreateViewModel state) : super(state);
+  ScheduleCreateState.init({required ScheduleCreateViewModel state}) : super(state);
 
   ScheduleCreateViewModel get viewModel => state;
 
@@ -38,6 +39,7 @@ class ScheduleCreateState extends StateNotifier<ScheduleCreateViewModel> {
     _updateIsModified();
   }
 
+  // TODO CanSaveの判定を見直す
   void _updateCanSave() {
     var canSave = state.title.isNotEmpty && state.description.isNotEmpty;
     state = state.copyWith(canSave: canSave);

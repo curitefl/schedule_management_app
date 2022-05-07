@@ -9,20 +9,20 @@ class CalendarUseCase {
   final ScheduleRepository _repository;
   final CalendarState _state;
   LinkedHashMap<DateTime, List<String>>? _eventHashMap;
+
   int get _focusedMonth => _state.viewModel.focusedDay.month;
 
   CalendarUseCase(this._repository, this._state);
 
   Future refreshViewModel() async {
     _eventHashMap ??= LinkedHashMap<DateTime, List<String>>(
-        equals: isSameDay,
-        hashCode: _getHashCode,
-      );
+      equals: isSameDay,
+      hashCode: _getHashCode,
+    );
 
     var entries = await _repository.getMonthScheduleEntries(_focusedMonth);
     var hashMap = LinkedHashMap.fromIterables(
-        entries.map((entry) => entry.startDateTime),
-        entries.map((entry) => [entry.title]));
+        entries.map((entry) => entry.startDateTime), entries.map((entry) => [entry.title]));
     _eventHashMap!.addAll(hashMap);
     await updateMonthEntries();
   }
@@ -38,8 +38,7 @@ class CalendarUseCase {
     DateTime endDateTime,
     String description,
   ) async {
-    await _repository.addSchedule(
-        title, isWholeDay, startDateTime, endDateTime, description);
+    await _repository.addSchedule(title, isWholeDay, startDateTime, endDateTime, description);
 
     await updateMonthEntries();
     await refreshViewModel();
@@ -80,9 +79,8 @@ class CalendarUseCase {
     await updateMonthEntries();
   }
 
-
   List<String> getEventsForDay(DateTime day) {
-    if(_eventHashMap == null) {
+    if (_eventHashMap == null) {
       return [];
     }
     return _eventHashMap![day] ?? [];
