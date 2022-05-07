@@ -33,7 +33,7 @@ class ScheduleCreateView extends HookConsumerWidget {
             padding: const EdgeInsets.all(8.0),
             child: ElevatedButton(
               child: const Text(TextConstants.scheduleCreateViewSave),
-              onPressed: presenter.getSaveCallback(context),
+              onPressed: presenter.getSaveCallback(context, ref),
             ),
           ),
         ],

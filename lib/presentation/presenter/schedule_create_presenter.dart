@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:schedule_management_app/domain/use_case/schedule_create_use_case.dart';
 
 class ScheduleCreatePresenter {
@@ -6,7 +7,7 @@ class ScheduleCreatePresenter {
 
   ScheduleCreatePresenter(this._scheduleCreateUseCase);
 
-  VoidCallback? getSaveCallback(BuildContext context) {
+  VoidCallback? getSaveCallback(BuildContext context, WidgetRef ref) {
     var callback = _scheduleCreateUseCase.getSaveCallback();
     if (callback == null) {
       return null;
@@ -15,6 +16,7 @@ class ScheduleCreatePresenter {
     return () {
       callback();
       Navigator.pop(context);
+      _scheduleCreateUseCase.refreshState(ref);
     };
   }
 
