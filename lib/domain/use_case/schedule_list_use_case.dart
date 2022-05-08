@@ -28,8 +28,12 @@ class ScheduleListUseCase {
               isWholeDay: entry.isWholeDay,
               startDateTime: entry.startDateTime,
               endDateTime: entry.endDateTime,
-              startDateTimeText: _getDateTimeText().format(entry.startDateTime),
-              endDateTimeText: _getDateTimeText().format(entry.endDateTime),
+              dateTimeTexts: entry.isWholeDay
+                  ? [TextConstants.scheduleListViewWholeDay]
+                  : [
+                      _getDateTimeText().format(entry.startDateTime),
+                      _getDateTimeText().format(entry.endDateTime),
+                    ],
               scheduleTitle: entry.title,
             ))
         .toList();

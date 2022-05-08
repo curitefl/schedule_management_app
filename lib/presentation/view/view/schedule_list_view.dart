@@ -9,7 +9,7 @@ class ScheduleListView extends HookConsumerWidget {
   const ScheduleListView({final Key? key}) : super(key: key);
 
   @override
-  Widget build(final BuildContext context,final  WidgetRef ref) {
+  Widget build(final BuildContext context, final WidgetRef ref) {
     final viewModel = ref.watch(scheduleListStateProvider);
     final presenter = ref.watch(scheduleListPresenterProvider);
 
@@ -38,14 +38,15 @@ class ScheduleListView extends HookConsumerWidget {
       ),
       children: [
         Column(
-          children:[
-            for(var i = 0; i < viewModel.scheduleElements.length; ++i)...{
+          children: [
+            for (var i = 0; i < viewModel.scheduleElements.length; ++i) ...{
               Row(
                 children: [
                   Column(
                     children: [
-                      Text(viewModel.scheduleElements[i].startDateTimeText),
-                      Text(viewModel.scheduleElements[i].endDateTimeText),
+                      for (var j = 0; j < viewModel.scheduleElements[i].dateTimeTexts.length; ++j) ...{
+                        Text(viewModel.scheduleElements[i].dateTimeTexts[j]),
+                      }
                     ],
                   ),
                   Text(viewModel.scheduleElements[i].scheduleTitle),

@@ -8,8 +8,7 @@ abstract class ScheduleListElementModel with _$ScheduleListElementModel {
     required final bool isWholeDay,
     required final DateTime startDateTime,
     required final DateTime endDateTime,
-    required final String startDateTimeText,
-    required final String endDateTimeText,
+    required final List<String> dateTimeTexts,
     required final String scheduleTitle,
   }) = _ScheduleListElementModel;
 }
