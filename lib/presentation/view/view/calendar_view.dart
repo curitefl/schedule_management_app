@@ -85,13 +85,7 @@ class CalendarView extends HookConsumerWidget {
                     );
                   },
                   onDaySelected: (selectedDay, focusedDay) async {
-                    presenter.setCurrentDay(selectedDay);
-                    await showDialog(
-                      context: context,
-                      builder: (builder) {
-                        return const ScheduleListView();
-                      },
-                    ).then((value) => presenter.refresh());
+                    await presenter.showScheduleListView(context, selectedDay);
                   },
                   onPageChanged: (dateTime) {
                     presenter.focusMonth(dateTime);

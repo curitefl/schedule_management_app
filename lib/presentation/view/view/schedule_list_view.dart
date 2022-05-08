@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -22,7 +21,7 @@ class ScheduleListView extends HookConsumerWidget {
             DateFormat(
               TextConstants.scheduleListViewDateFormat,
               ScheduleListConstants.scheduleListLocale,
-            ).format(viewModel.dateTime!),
+            ).format(viewModel.selectedDay),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
@@ -32,32 +31,33 @@ class ScheduleListView extends HookConsumerWidget {
               color: Colors.blue,
             ),
             onPressed: () {
-              presenter.showScheduleCreateView(context, viewModel.dateTime!);
+              presenter.showScheduleCreateView(context, viewModel.selectedDay);
             },
           ),
         ],
       ),
       children: [
         Column(
-          // TODO for文で回す
-          children: [
-            Row(
-              children: [
-                Column(
-                  children: [
-                    Text(DateFormat(
-                      TextConstants.scheduleListViewTimeFormat,
-                      ScheduleListConstants.scheduleListLocale,
-                    ).format(DateTime.now()),),
-                    Text(DateFormat(
-                      TextConstants.scheduleListViewTimeFormat,
-                      ScheduleListConstants.scheduleListLocale,
-                    ).format(DateTime.now()),),
-                  ],
-                ),
-                const Text('スケジュールタイトル'),
-              ],
-            ),
+          children:[
+            for(var i = 0; i < viewModel.scheduleElements.length; ++i)...{
+              Row(
+                children: [
+                  Column(
+                    children: [
+                      Text(DateFormat(
+                        TextConstants.scheduleListViewTimeFormat,
+                        ScheduleListConstants.scheduleListLocale,
+                      ).format(viewModel.scheduleElements[i].startDateTime),),
+                      Text(DateFormat(
+                        TextConstants.scheduleListViewTimeFormat,
+                        ScheduleListConstants.scheduleListLocale,
+                      ).format(viewModel.scheduleElements[i].endDateTime),),
+                    ],
+                  ),
+                  Text(viewModel.scheduleElements[i].scheduleTitle),
+                ],
+              ),
+            }
           ],
         ),
       ],

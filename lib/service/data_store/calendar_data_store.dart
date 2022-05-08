@@ -32,8 +32,25 @@ class CalendarDataStore extends _$CalendarDataStore {
     return (select(schedules)..where((tbl) => tbl.id.equals(id))).getSingle();
   }
 
+  // TODO 引数にyearを追加する
   Future<List<Schedule>> getMonthScheduleEntries(final int month) {
-    return (select(schedules)..where((tbl) => tbl.startDateTime.month.equals(month))).get();
+    return (select(schedules)
+          ..where((tbl) {
+            return tbl.startDateTime.month.equals(month);
+          }))
+        .get();
+  }
+
+  Future<List<Schedule>> getDayScheduleEntries(final int year, final int month, final int day) {
+    return (select(schedules)
+          ..where((tbl) {
+            final isEqualYear = tbl.startDateTime.year.equals(year);
+            final isEqualMonth = tbl.startDateTime.month.equals(month);
+            final isEqualDay = tbl.startDateTime.day.equals(day);
+            final result = isEqualYear & isEqualMonth & isEqualDay;
+            return result;
+          }))
+        .get();
   }
 
   Future<int> addSchedule(

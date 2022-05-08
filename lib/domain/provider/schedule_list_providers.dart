@@ -1,4 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:schedule_management_app/domain/provider/calendar_providers.dart';
 import 'package:schedule_management_app/domain/provider/schedule_create_providers.dart';
 import 'package:schedule_management_app/domain/use_case/schedule_list_use_case.dart';
 import 'package:schedule_management_app/presentation/presenter/schedule_list_presenter.dart';
@@ -7,13 +8,18 @@ import 'package:schedule_management_app/presentation/view/view_model/schedule_li
 
 final scheduleListStateProvider = StateNotifierProvider<ScheduleListState, ScheduleListViewModel>(
   (ref) => ScheduleListState(
-    const ScheduleListViewModel(),
+    ScheduleListViewModel(
+      selectedDay: DateTime.now(),
+      scheduleElements: [],
+    ),
   ),
 );
 
 /// scheduleListではなく、scheduleCreateのStateを渡している
 final scheduleListUseCaseProvider = Provider(
   (ref) => ScheduleListUseCase(
+    ref.watch(scheduleRepositoryProvider),
+    ref.watch(scheduleListStateProvider.notifier),
     ref.watch(scheduleCreateStateProvider.notifier),
   ),
 );
