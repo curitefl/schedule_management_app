@@ -5,7 +5,6 @@ import 'package:month_picker_dialog/month_picker_dialog.dart';
 import 'package:schedule_management_app/domain/provider/calendar_providers.dart';
 import 'package:schedule_management_app/presentation/view/constants/calendar_constants.dart';
 import 'package:schedule_management_app/presentation/view/constants/text_constants.dart';
-import 'package:schedule_management_app/presentation/view/view/schedule_list_view.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarView extends HookConsumerWidget {
@@ -79,16 +78,16 @@ class CalendarView extends HookConsumerWidget {
                   ),
                   onHeaderTapped: (_) {
                     showMonthPicker(context: context, initialDate: viewModel.focusedDay).then(
-                      (date) {
-                        presenter.focusMonth(date);
+                      (date) async {
+                        await presenter.focusMonth(date);
                       },
                     );
                   },
                   onDaySelected: (selectedDay, focusedDay) async {
                     await presenter.showScheduleListView(context, selectedDay);
                   },
-                  onPageChanged: (dateTime) {
-                    presenter.focusMonth(dateTime);
+                  onPageChanged: (dateTime) async {
+                    await presenter.focusMonth(dateTime);
                   }),
               Padding(
                 padding: const EdgeInsets.all(8.0),

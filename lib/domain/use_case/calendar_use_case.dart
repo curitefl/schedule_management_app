@@ -10,6 +10,8 @@ class CalendarUseCase {
   final CalendarState _state;
   LinkedHashMap<DateTime, List<String>>? _eventHashMap;
 
+  int get _focusedYear => _state.viewModel.focusedDay.year;
+
   int get _focusedMonth => _state.viewModel.focusedDay.month;
 
   CalendarUseCase(final this._repository, final this._state);
@@ -20,7 +22,7 @@ class CalendarUseCase {
       hashCode: _getHashCode,
     );
 
-    final entries = await _repository.getMonthScheduleEntries(_focusedMonth);
+    final entries = await _repository.getMonthScheduleEntries(_focusedYear, _focusedMonth);
 
     final hashMap = LinkedHashMap.fromIterables(
         entries.map((entry) => entry.startDateTime), entries.map((entry) => [entry.title]));
@@ -29,24 +31,12 @@ class CalendarUseCase {
     await updateMonthEntries();
   }
 
-  Future<List<Schedule>> getMonthScheduleEntries(final int month) {
-    return _repository.getMonthScheduleEntries(month);
-  }
-
-  Future addSchedule(
-    final String title,
-    final bool isWholeDay,
-    final DateTime startDateTime,
-    final DateTime endDateTime,
-    final String description,
-  ) async {
-    await _repository.addSchedule(title, isWholeDay, startDateTime, endDateTime, description);
-    await updateMonthEntries();
-    await refreshViewModel();
+  Future<List<Schedule>> getMonthScheduleEntries(final int year, final int month) {
+    return _repository.getMonthScheduleEntries(year, month);
   }
 
   Future updateMonthEntries() async {
-    final entries = await getMonthScheduleEntries(_focusedMonth);
+    final entries = await getMonthScheduleEntries(_focusedYear, _focusedMonth);
 
     final modelList = entries
         .map(
@@ -63,36 +53,24 @@ class CalendarUseCase {
     _state.updateScheduleViewModel(modelList);
   }
 
-  Future updateSchedule(
-    int id,
-    String title,
-    bool isWholeDay,
-    DateTime startDateTime,
-    DateTime endDateTime,
-    String description,
-  ) async {
-    await _repository.updateSchedule(
-      id,
-      title,
-      isWholeDay,
-      startDateTime,
-      endDateTime,
-      description,
-    );
-
-    await updateMonthEntries();
-  }
-
-  Future deleteSchedule(final int id) async {
-    await _repository.deleteSchedule(id);
-    await updateMonthEntries();
-  }
-
   List<String> getEventsForDay(final DateTime day) {
     if (_eventHashMap == null) {
       return [];
     }
     return _eventHashMap![day] ?? [];
+  }
+
+  void focusToday() {
+    _state.focusToday();
+  }
+
+  Future focusMonth(final DateTime dateTime) async {
+    _state.focusMonth(dateTime);
+    await refreshViewModel();
+  }
+
+  void setSelectedDay(final DateTime selectedDay) {
+    _state.setCurrentDay(selectedDay);
   }
 
   int _getHashCode(final DateTime key) {

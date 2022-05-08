@@ -7,11 +7,11 @@ import 'package:schedule_management_app/presentation/view/view_model/schedule_cr
 
 class ScheduleCreateUseCase {
   final ScheduleRepository _repository;
-  final ScheduleCreateState _scheduleCreateState;
+  final ScheduleCreateState _state;
 
-  ScheduleCreateViewModel get _viewModel => _scheduleCreateState.viewModel;
+  ScheduleCreateViewModel get _viewModel => _state.viewModel;
 
-  ScheduleCreateUseCase(final this._repository, final this._scheduleCreateState);
+  ScheduleCreateUseCase(final this._repository, final this._state);
 
   VoidCallback? getSaveCallback() {
     if (!_viewModel.canSave) {
@@ -21,15 +21,15 @@ class ScheduleCreateUseCase {
   }
 
   void setTitle(final String title) {
-    _scheduleCreateState.setTitle(title);
+    _state.setTitle(title);
   }
 
   void setDescription(final String description) {
-    _scheduleCreateState.setDescription(description);
+    _state.setDescription(description);
   }
 
   void setWholeDay(final bool isWholeDay) {
-    _scheduleCreateState.setWholeDay(isWholeDay);
+    _state.setWholeDay(isWholeDay);
   }
 
   void refreshState(final WidgetRef ref) {

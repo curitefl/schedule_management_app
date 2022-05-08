@@ -5,9 +5,8 @@ class ScheduleRepository {
 
   ScheduleRepository(final this._calendarDataStore);
 
-  // TODO 引数にyearを追加する
-  Future<List<Schedule>> getMonthScheduleEntries(final int month) {
-    return _calendarDataStore.getMonthScheduleEntries(month);
+  Future<List<Schedule>> getMonthScheduleEntries(final int year, final int month) {
+    return _calendarDataStore.getMonthScheduleEntries(year, month);
   }
 
   Future<List<Schedule>> getDayScheduleEntries(final int year, final int month, final int day) {
