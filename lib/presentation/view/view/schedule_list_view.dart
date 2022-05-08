@@ -44,14 +44,8 @@ class ScheduleListView extends HookConsumerWidget {
                 children: [
                   Column(
                     children: [
-                      Text(DateFormat(
-                        TextConstants.scheduleListViewTimeFormat,
-                        ScheduleListConstants.scheduleListLocale,
-                      ).format(viewModel.scheduleElements[i].startDateTime),),
-                      Text(DateFormat(
-                        TextConstants.scheduleListViewTimeFormat,
-                        ScheduleListConstants.scheduleListLocale,
-                      ).format(viewModel.scheduleElements[i].endDateTime),),
+                      Text(viewModel.scheduleElements[i].startDateTimeText),
+                      Text(viewModel.scheduleElements[i].endDateTimeText),
                     ],
                   ),
                   Text(viewModel.scheduleElements[i].scheduleTitle),

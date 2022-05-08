@@ -19,6 +19,8 @@ mixin _$ScheduleListElementModel {
   bool get isWholeDay => throw _privateConstructorUsedError;
   DateTime get startDateTime => throw _privateConstructorUsedError;
   DateTime get endDateTime => throw _privateConstructorUsedError;
+  String get startDateTimeText => throw _privateConstructorUsedError;
+  String get endDateTimeText => throw _privateConstructorUsedError;
   String get scheduleTitle => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -35,6 +37,8 @@ abstract class $ScheduleListElementModelCopyWith<$Res> {
       {bool isWholeDay,
       DateTime startDateTime,
       DateTime endDateTime,
+      String startDateTimeText,
+      String endDateTimeText,
       String scheduleTitle});
 }
 
@@ -52,6 +56,8 @@ class _$ScheduleListElementModelCopyWithImpl<$Res>
     Object? isWholeDay = freezed,
     Object? startDateTime = freezed,
     Object? endDateTime = freezed,
+    Object? startDateTimeText = freezed,
+    Object? endDateTimeText = freezed,
     Object? scheduleTitle = freezed,
   }) {
     return _then(_value.copyWith(
@@ -67,6 +73,14 @@ class _$ScheduleListElementModelCopyWithImpl<$Res>
           ? _value.endDateTime
           : endDateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      startDateTimeText: startDateTimeText == freezed
+          ? _value.startDateTimeText
+          : startDateTimeText // ignore: cast_nullable_to_non_nullable
+              as String,
+      endDateTimeText: endDateTimeText == freezed
+          ? _value.endDateTimeText
+          : endDateTimeText // ignore: cast_nullable_to_non_nullable
+              as String,
       scheduleTitle: scheduleTitle == freezed
           ? _value.scheduleTitle
           : scheduleTitle // ignore: cast_nullable_to_non_nullable
@@ -86,6 +100,8 @@ abstract class _$ScheduleListElementModelCopyWith<$Res>
       {bool isWholeDay,
       DateTime startDateTime,
       DateTime endDateTime,
+      String startDateTimeText,
+      String endDateTimeText,
       String scheduleTitle});
 }
 
@@ -106,6 +122,8 @@ class __$ScheduleListElementModelCopyWithImpl<$Res>
     Object? isWholeDay = freezed,
     Object? startDateTime = freezed,
     Object? endDateTime = freezed,
+    Object? startDateTimeText = freezed,
+    Object? endDateTimeText = freezed,
     Object? scheduleTitle = freezed,
   }) {
     return _then(_ScheduleListElementModel(
@@ -121,6 +139,14 @@ class __$ScheduleListElementModelCopyWithImpl<$Res>
           ? _value.endDateTime
           : endDateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      startDateTimeText: startDateTimeText == freezed
+          ? _value.startDateTimeText
+          : startDateTimeText // ignore: cast_nullable_to_non_nullable
+              as String,
+      endDateTimeText: endDateTimeText == freezed
+          ? _value.endDateTimeText
+          : endDateTimeText // ignore: cast_nullable_to_non_nullable
+              as String,
       scheduleTitle: scheduleTitle == freezed
           ? _value.scheduleTitle
           : scheduleTitle // ignore: cast_nullable_to_non_nullable
@@ -136,6 +162,8 @@ class _$_ScheduleListElementModel implements _ScheduleListElementModel {
       {required this.isWholeDay,
       required this.startDateTime,
       required this.endDateTime,
+      required this.startDateTimeText,
+      required this.endDateTimeText,
       required this.scheduleTitle});
 
   @override
@@ -145,11 +173,15 @@ class _$_ScheduleListElementModel implements _ScheduleListElementModel {
   @override
   final DateTime endDateTime;
   @override
+  final String startDateTimeText;
+  @override
+  final String endDateTimeText;
+  @override
   final String scheduleTitle;
 
   @override
   String toString() {
-    return 'ScheduleListElementModel(isWholeDay: $isWholeDay, startDateTime: $startDateTime, endDateTime: $endDateTime, scheduleTitle: $scheduleTitle)';
+    return 'ScheduleListElementModel(isWholeDay: $isWholeDay, startDateTime: $startDateTime, endDateTime: $endDateTime, startDateTimeText: $startDateTimeText, endDateTimeText: $endDateTimeText, scheduleTitle: $scheduleTitle)';
   }
 
   @override
@@ -164,6 +196,10 @@ class _$_ScheduleListElementModel implements _ScheduleListElementModel {
             const DeepCollectionEquality()
                 .equals(other.endDateTime, endDateTime) &&
             const DeepCollectionEquality()
+                .equals(other.startDateTimeText, startDateTimeText) &&
+            const DeepCollectionEquality()
+                .equals(other.endDateTimeText, endDateTimeText) &&
+            const DeepCollectionEquality()
                 .equals(other.scheduleTitle, scheduleTitle));
   }
 
@@ -173,6 +209,8 @@ class _$_ScheduleListElementModel implements _ScheduleListElementModel {
       const DeepCollectionEquality().hash(isWholeDay),
       const DeepCollectionEquality().hash(startDateTime),
       const DeepCollectionEquality().hash(endDateTime),
+      const DeepCollectionEquality().hash(startDateTimeText),
+      const DeepCollectionEquality().hash(endDateTimeText),
       const DeepCollectionEquality().hash(scheduleTitle));
 
   @JsonKey(ignore: true)
@@ -187,6 +225,8 @@ abstract class _ScheduleListElementModel implements ScheduleListElementModel {
       {required final bool isWholeDay,
       required final DateTime startDateTime,
       required final DateTime endDateTime,
+      required final String startDateTimeText,
+      required final String endDateTimeText,
       required final String scheduleTitle}) = _$_ScheduleListElementModel;
 
   @override
@@ -195,6 +235,10 @@ abstract class _ScheduleListElementModel implements ScheduleListElementModel {
   DateTime get startDateTime => throw _privateConstructorUsedError;
   @override
   DateTime get endDateTime => throw _privateConstructorUsedError;
+  @override
+  String get startDateTimeText => throw _privateConstructorUsedError;
+  @override
+  String get endDateTimeText => throw _privateConstructorUsedError;
   @override
   String get scheduleTitle => throw _privateConstructorUsedError;
   @override

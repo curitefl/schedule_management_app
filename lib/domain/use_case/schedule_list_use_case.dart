@@ -1,6 +1,9 @@
+import 'package:intl/intl.dart';
 import 'package:schedule_management_app/data/repository/schedule_repository.dart';
 import 'package:schedule_management_app/presentation/state/schedule_create_state.dart';
 import 'package:schedule_management_app/presentation/state/schedule_list_state.dart';
+import 'package:schedule_management_app/presentation/view/constants/schedule_list_constants.dart';
+import 'package:schedule_management_app/presentation/view/constants/text_constants.dart';
 import 'package:schedule_management_app/presentation/view/view_model/schedule_list_element_model.dart';
 
 class ScheduleListUseCase {
@@ -20,15 +23,22 @@ class ScheduleListUseCase {
     final entries = await _repository.getDayScheduleEntries(
         _selectedDay.year, _selectedDay.month, _selectedDay.day);
 
-    var scheduleElements = entries
+    final scheduleElements = entries
         .map((entry) => ScheduleListElementModel(
               isWholeDay: entry.isWholeDay,
               startDateTime: entry.startDateTime,
               endDateTime: entry.endDateTime,
+              startDateTimeText: _getDateTimeText().format(entry.startDateTime),
+              endDateTimeText: _getDateTimeText().format(entry.endDateTime),
               scheduleTitle: entry.title,
             ))
         .toList();
 
     _state.setScheduleElements(scheduleElements);
   }
+
+  DateFormat _getDateTimeText() => DateFormat(
+        TextConstants.scheduleListViewTimeFormat,
+        ScheduleListConstants.scheduleListLocale,
+      );
 }
