@@ -24,6 +24,14 @@ class ScheduleCreateUseCase {
     _state.setTitle(title);
   }
 
+  void setStartDateTime(final DateTime startDateTime) {
+    _state.setEndDateTime(startDateTime);
+  }
+
+  void setEndDateTime(final DateTime endDateTime) {
+    _state.setEndDateTime(endDateTime);
+  }
+
   void setDescription(final String description) {
     _state.setDescription(description);
   }

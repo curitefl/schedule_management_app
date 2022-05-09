@@ -1,12 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:schedule_management_app/domain/use_case/calendar_use_case.dart';
 import 'package:schedule_management_app/domain/use_case/schedule_create_use_case.dart';
 import 'package:schedule_management_app/presentation/state/schedule_create_state.dart';
-import 'package:schedule_management_app/presentation/view/constants/schedule_create_constants.dart';
 import 'package:schedule_management_app/presentation/view/constants/text_constants.dart';
-import 'package:schedule_management_app/presentation/view/view_model/schedule_create_view_model.dart';
 
 class ScheduleCreatePresenter {
   final ScheduleCreateState _state;
@@ -32,34 +29,20 @@ class ScheduleCreatePresenter {
     _useCase.setTitle(title);
   }
 
+  void setStartDateTime(final DateTime startDateTime) {
+    _useCase.setStartDateTime(startDateTime);
+  }
+
+  void setEndDateTime(final DateTime endDateTime) {
+    _useCase.setEndDateTime(endDateTime);
+  }
+
   void setDescription(final String description) {
     _useCase.setDescription(description);
   }
 
   void setWholeDay(final bool isWholeDay) {
     _useCase.setWholeDay(isWholeDay);
-  }
-
-  void showStartDateTimePicker(final BuildContext context) {
-    _showDateTimePicker(
-      context,
-      _state.viewModel,
-      _state.viewModel.startDateTime,
-      (dateTime) {
-        _state.setStartDateTime(dateTime);
-      },
-    );
-  }
-
-  void showEndDateTimePicker(final BuildContext context) {
-    _showDateTimePicker(
-      context,
-      _state.viewModel,
-      _state.viewModel.endDateTime,
-      (dateTime) {
-        _state.setEndDateTime(dateTime);
-      },
-    );
   }
 
   void closeView(final BuildContext context, final WidgetRef ref) {
@@ -73,42 +56,6 @@ class ScheduleCreatePresenter {
   void _popAndRefreshState(final BuildContext context, final WidgetRef ref) {
     Navigator.pop(context);
     _useCase.refreshState(ref);
-  }
-
-  void _showDateTimePicker(
-    final BuildContext context,
-    final ScheduleCreateViewModel viewModel,
-    final DateTime initialDateTime,
-    final ValueChanged<DateTime> onDateTimeChanged,
-  ) {
-    showCupertinoModalPopup(
-      context: context,
-      builder: (context) {
-        return Container(
-          height: 300.0,
-          color: Colors.white,
-          child: Column(
-            children: [
-              SizedBox(
-                height: 300.0,
-                child: CupertinoDatePicker(
-                  minuteInterval: 15,
-                  use24hFormat: true,
-                  mode: viewModel.isWholeDay
-                      ? CupertinoDatePickerMode.date
-                      : CupertinoDatePickerMode.dateAndTime,
-                  dateOrder: DatePickerDateOrder.ymd,
-                  minimumYear: ScheduleCreateConstants.minimumYear,
-                  maximumYear: viewModel.maximumYear,
-                  initialDateTime: initialDateTime,
-                  onDateTimeChanged: onDateTimeChanged,
-                ),
-              )
-            ],
-          ),
-        );
-      },
-    );
   }
 
   Future<dynamic> _showModifiedPopup(final BuildContext context, final WidgetRef ref) {
