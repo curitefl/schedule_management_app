@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:schedule_management_app/domain/use_case/calendar_use_case.dart';
 import 'package:schedule_management_app/domain/use_case/schedule_create_use_case.dart';
 import 'package:schedule_management_app/presentation/state/schedule_create_state.dart';
 import 'package:schedule_management_app/presentation/view/constants/schedule_create_constants.dart';
@@ -10,8 +11,9 @@ import 'package:schedule_management_app/presentation/view/view_model/schedule_cr
 class ScheduleCreatePresenter {
   final ScheduleCreateState _state;
   final ScheduleCreateUseCase _useCase;
+  final CalendarUseCase _calendarUseCase;
 
-  ScheduleCreatePresenter(final this._state, final this._useCase);
+  ScheduleCreatePresenter(final this._state, final this._useCase,final this._calendarUseCase);
 
   VoidCallback? getSaveCallback(final BuildContext context, final WidgetRef ref) {
     final callback = _useCase.getSaveCallback();
@@ -19,8 +21,9 @@ class ScheduleCreatePresenter {
       return null;
     }
 
-    return () {
+    return () async {
       callback();
+      await _calendarUseCase.refreshViewModel();
       _popAndRefreshState(context, ref);
     };
   }

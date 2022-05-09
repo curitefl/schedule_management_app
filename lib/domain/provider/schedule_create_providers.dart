@@ -39,5 +39,6 @@ final scheduleCreatePresenterProvider = Provider(
   (ref) => ScheduleCreatePresenter(
     ref.watch(scheduleCreateStateProvider.notifier),
     ref.watch(scheduleCreateUseCaseProvider),
+    ref.watch(calendarUseCaseProvider),
   ),
 );
