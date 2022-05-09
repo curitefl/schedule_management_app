@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:schedule_management_app/domain/provider/schedule_create_providers.dart';
 import 'package:schedule_management_app/presentation/view/constants/text_constants.dart';
+import 'package:schedule_management_app/presentation/view/factory/widget_factory.dart';
 
 class ScheduleCreateView extends HookConsumerWidget {
   const ScheduleCreateView({final Key? key}) : super(key: key);
@@ -50,7 +51,7 @@ class ScheduleCreateView extends HookConsumerWidget {
               ),
             ],
           ),
-          _buildDatePickerButton(
+          WidgetFactory.createDatePickerButton(
             context,
             TextConstants.scheduleCreateViewStart,
             viewModel.startDateTimeText,
@@ -58,7 +59,7 @@ class ScheduleCreateView extends HookConsumerWidget {
               presenter.showStartDateTimePicker(context);
             },
           ),
-          _buildDatePickerButton(
+          WidgetFactory.createDatePickerButton(
             context,
             TextConstants.scheduleCreateViewEnd,
             viewModel.endDateTimeText,
@@ -78,28 +79,6 @@ class ScheduleCreateView extends HookConsumerWidget {
           ),
         ],
       ),
-    );
-  }
-
-  Row _buildDatePickerButton(
-    final BuildContext context,
-    final String title,
-    final String dateTimeText,
-    final VoidCallback? onPressed,
-  ) {
-    return Row(
-      children: [
-        Text(title),
-        TextButton(
-          child: Text(
-            dateTimeText,
-            style: const TextStyle(
-              color: Colors.black,
-            ),
-          ),
-          onPressed: onPressed,
-        ),
-      ],
     );
   }
 }
