@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:schedule_management_app/domain/provider/transition_providers.dart';
 import 'package:schedule_management_app/domain/use_case/schedule_list_use_case.dart';
@@ -9,6 +10,9 @@ final scheduleListStateProvider = StateNotifierProvider<ScheduleListState, Sched
   (ref) => ScheduleListState(
     ScheduleListViewModel(
       selectedDateTime: DateTime.now(),
+      selectedDateTimeText: '',
+      weekDayText: '',
+      weekDayColor: Colors.black,
       scheduleElements: [],
     ),
   ),

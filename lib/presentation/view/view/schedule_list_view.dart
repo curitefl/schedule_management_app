@@ -17,11 +17,19 @@ class ScheduleListView extends HookConsumerWidget {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            DateFormat(
-              TextConstants.scheduleListViewDateFormat,
-              ScheduleListConstants.scheduleListLocale,
-            ).format(viewModel.selectedDateTime),
+          RichText(
+            text: TextSpan(
+              style: Theme.of(context).textTheme.headline6,
+              children: [
+                TextSpan(
+                  text: viewModel.selectedDateTimeText,
+                ),
+                TextSpan(
+                  text: viewModel.weekDayText,
+                  style: TextStyle(color: viewModel.weekDayColor),
+                ),
+              ],
+            ),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
@@ -44,7 +52,9 @@ class ScheduleListView extends HookConsumerWidget {
                 children: [
                   Column(
                     children: [
-                      for (var j = 0; j < viewModel.scheduleElements[i].dateTimeTexts.length; ++j) ...{
+                      for (var j = 0;
+                          j < viewModel.scheduleElements[i].dateTimeTexts.length;
+                          ++j) ...{
                         Text(viewModel.scheduleElements[i].dateTimeTexts[j]),
                       }
                     ],
