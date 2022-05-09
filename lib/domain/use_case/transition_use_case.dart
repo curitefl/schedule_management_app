@@ -20,14 +20,9 @@ class TransitionUseCase {
     final this._scheduleCreateState,
   );
 
-  Future showScheduleListView(final BuildContext context, final DateTime selectedDay) async {
-    _scheduleListState.setSelectedDay(selectedDay);
-
-    await _refreshScheduleListState(
-      selectedDay.year,
-      selectedDay.month,
-      selectedDay.day,
-    );
+  Future showScheduleListView(final BuildContext context, final DateTime selectedDateTime) async {
+    _scheduleListState.setSelectedDay(selectedDateTime);
+    await _refreshScheduleListState(selectedDateTime);
 
     return showDialog(
       context: context,
@@ -55,8 +50,8 @@ class TransitionUseCase {
     );
   }
 
-  Future _refreshScheduleListState(final int year, final int month, final int day) async {
-    final entries = await _repository.getDayScheduleEntries(year, month, day);
+  Future _refreshScheduleListState(final DateTime dateTime) async {
+    final entries = await _repository.getDayScheduleEntries(dateTime);
 
     final scheduleElements = entries
         .map((entry) => ScheduleListElementModel(

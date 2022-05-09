@@ -13,7 +13,7 @@ final scheduleCreateStateProvider =
     return ScheduleCreateState(
       ScheduleCreateViewModel(
         maximumYear: now.year + 100,
-        selectedDay: now,
+        selectedDateTime: now,
         title: '',
         isWholeDay: false,
         startDateTime: now,

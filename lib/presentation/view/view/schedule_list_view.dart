@@ -21,7 +21,7 @@ class ScheduleListView extends HookConsumerWidget {
             DateFormat(
               TextConstants.scheduleListViewDateFormat,
               ScheduleListConstants.scheduleListLocale,
-            ).format(viewModel.selectedDay),
+            ).format(viewModel.selectedDateTime),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
@@ -31,7 +31,7 @@ class ScheduleListView extends HookConsumerWidget {
               color: Colors.blue,
             ),
             onPressed: () {
-              presenter.showScheduleCreateView(context, viewModel.selectedDay);
+              presenter.showScheduleCreateView(context, viewModel.selectedDateTime);
             },
           ),
         ],

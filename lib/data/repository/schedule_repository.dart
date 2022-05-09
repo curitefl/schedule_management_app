@@ -5,12 +5,12 @@ class ScheduleRepository {
 
   ScheduleRepository(final this._calendarDataStore);
 
-  Future<List<Schedule>> getMonthScheduleEntries(final int year, final int month) {
-    return _calendarDataStore.getMonthScheduleEntries(year, month);
+  Future<List<Schedule>> getMonthScheduleEntries(final DateTime dateTime) {
+    return _calendarDataStore.getMonthScheduleEntries(dateTime);
   }
 
-  Future<List<Schedule>> getDayScheduleEntries(final int year, final int month, final int day) {
-    return _calendarDataStore.getDayScheduleEntries(year, month, day);
+  Future<List<Schedule>> getDayScheduleEntries(final DateTime dateTime) {
+    return _calendarDataStore.getDayScheduleEntries(dateTime);
   }
 
   Future addSchedule(

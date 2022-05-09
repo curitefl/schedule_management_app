@@ -8,7 +8,7 @@ import 'package:schedule_management_app/presentation/view/view_model/schedule_li
 final scheduleListStateProvider = StateNotifierProvider<ScheduleListState, ScheduleListViewModel>(
   (ref) => ScheduleListState(
     ScheduleListViewModel(
-      selectedDay: DateTime.now(),
+      selectedDateTime: DateTime.now(),
       scheduleElements: [],
     ),
   ),

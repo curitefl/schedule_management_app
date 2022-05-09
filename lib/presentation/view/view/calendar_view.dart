@@ -30,7 +30,6 @@ class CalendarView extends HookConsumerWidget {
             children: [
               TableCalendar(
                   eventLoader: presenter.getEventsForDay,
-                  locale: CalendarConstants.calendarLocale,
                   firstDay: CalendarConstants.calendarFirstDay,
                   lastDay: CalendarConstants.calendarEndDay,
                   focusedDay: viewModel.focusedDay,

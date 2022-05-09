@@ -32,23 +32,25 @@ class CalendarDataStore extends _$CalendarDataStore {
     return (select(schedules)..where((tbl) => tbl.id.equals(id))).getSingle();
   }
 
-  Future<List<Schedule>> getMonthScheduleEntries(final int year, final int month) {
+  Future<List<Schedule>> getMonthScheduleEntries(final DateTime dateTime) {
+
     return (select(schedules)
           ..where((tbl) {
-            final isEqualYear = tbl.startDateTime.year.equals(year);
-            final isEqualMonth = tbl.startDateTime.month.equals(month);
+            final isEqualYear = tbl.startDateTime.year.equals(dateTime.year);
+            final isEqualMonth = tbl.startDateTime.month.equals(dateTime.month);
             final result = isEqualYear & isEqualMonth;
             return result;
           }))
         .get();
   }
 
-  Future<List<Schedule>> getDayScheduleEntries(final int year, final int month, final int day) {
+  Future<List<Schedule>> getDayScheduleEntries(final DateTime dateTime) {
+
     return (select(schedules)
           ..where((tbl) {
-            final isEqualYear = tbl.startDateTime.year.equals(year);
-            final isEqualMonth = tbl.startDateTime.month.equals(month);
-            final isEqualDay = tbl.startDateTime.day.equals(day);
+            final isEqualYear = tbl.startDateTime.year.equals(dateTime.year);
+            final isEqualMonth = tbl.startDateTime.month.equals(dateTime.month);
+            final isEqualDay = tbl.startDateTime.day.equals(dateTime.day);
             final result = isEqualYear & isEqualMonth & isEqualDay;
             return result;
           }))

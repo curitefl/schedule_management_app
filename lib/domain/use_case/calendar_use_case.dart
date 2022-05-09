@@ -10,9 +10,7 @@ class CalendarUseCase {
   final CalendarState _state;
   LinkedHashMap<DateTime, List<String>>? _eventHashMap;
 
-  int get _focusedYear => _state.viewModel.focusedDay.year;
-
-  int get _focusedMonth => _state.viewModel.focusedDay.month;
+  DateTime get _focusedDateTime => _state.viewModel.focusedDay;
 
   CalendarUseCase(final this._repository, final this._state);
 
@@ -22,7 +20,7 @@ class CalendarUseCase {
       hashCode: _getHashCode,
     );
 
-    final entries = await _repository.getMonthScheduleEntries(_focusedYear, _focusedMonth);
+    final entries = await _repository.getMonthScheduleEntries(_focusedDateTime);
 
     final hashMap = LinkedHashMap.fromIterables(
         entries.map((entry) => entry.startDateTime), entries.map((entry) => [entry.title]));
@@ -31,12 +29,12 @@ class CalendarUseCase {
     await updateMonthEntries();
   }
 
-  Future<List<Schedule>> getMonthScheduleEntries(final int year, final int month) {
-    return _repository.getMonthScheduleEntries(year, month);
+  Future<List<Schedule>> getMonthScheduleEntries(final DateTime dateTime) {
+    return _repository.getMonthScheduleEntries(dateTime);
   }
 
   Future updateMonthEntries() async {
-    final entries = await getMonthScheduleEntries(_focusedYear, _focusedMonth);
+    final entries = await getMonthScheduleEntries(_focusedDateTime);
 
     final modelList = entries
         .map(

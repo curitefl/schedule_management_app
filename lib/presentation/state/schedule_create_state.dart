@@ -25,7 +25,7 @@ class ScheduleCreateState extends StateNotifier<ScheduleCreateViewModel> {
     final endDateTime = startDateTime;
 
     state = state.copyWith(
-      selectedDay: startDateTime,
+      selectedDateTime: startDateTime,
       startDateTime: startDateTime,
       endDateTime: endDateTime,
       startDateTimeText: _getDateTimeText(startDateTime, state.isWholeDay),
@@ -47,27 +47,28 @@ class ScheduleCreateState extends StateNotifier<ScheduleCreateViewModel> {
     );
   }
 
-  void setStartDateTime(final DateTime dateTime) {
-    final dateTimeText = _getDateTimeText(dateTime, state.isWholeDay);
+  void setStartDateTime(final DateTime startDateTimeUtc) {
+    final dateTimeText = _getDateTimeText(startDateTimeUtc.toLocal(), state.isWholeDay);
 
-    if (dateTime.isBefore(state.endDateTime)) {
-      state = state.copyWith(startDateTime: dateTime, startDateTimeText: dateTimeText);
+    if (startDateTimeUtc.isBefore(state.endDateTime)) {
+      state = state.copyWith(startDateTime: startDateTimeUtc, startDateTimeText: dateTimeText);
       return;
     }
 
-    final endTime = state.isWholeDay ? dateTime : dateTime.add(const Duration(hours: 1));
+    final endTime = state.isWholeDay ? startDateTimeUtc : startDateTimeUtc.add(const Duration(hours: 1));
 
     state = state.copyWith(
-      startDateTime: dateTime,
+      startDateTime: startDateTimeUtc,
       startDateTimeText: dateTimeText,
       endDateTime: endTime,
       endDateTimeText: _getDateTimeText(endTime, state.isWholeDay),
     );
   }
 
-  void setEndDateTime(final DateTime dateTime) {
-    final dateTimeText = _getDateTimeText(dateTime, state.isWholeDay);
-    state = state.copyWith(endDateTime: dateTime, endDateTimeText: dateTimeText);
+  void setEndDateTime(final DateTime endDateTime) {
+    final endDateTimeUtc = endDateTime.toUtc();
+    final dateTimeText = _getDateTimeText(endDateTime, state.isWholeDay);
+    state = state.copyWith(endDateTime: endDateTimeUtc, endDateTimeText: dateTimeText);
   }
 
   void setDescription(final String description) {

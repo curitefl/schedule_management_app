@@ -6,7 +6,7 @@ part 'schedule_create_view_model.freezed.dart';
 abstract class ScheduleCreateViewModel with _$ScheduleCreateViewModel {
   const factory ScheduleCreateViewModel({
     required final int maximumYear,
-    required final DateTime selectedDay,
+    required final DateTime selectedDateTime,
     required final String title,
     required final bool isWholeDay,
     required final DateTime startDateTime,

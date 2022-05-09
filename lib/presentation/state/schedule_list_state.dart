@@ -7,7 +7,7 @@ class ScheduleListState extends StateNotifier<ScheduleListViewModel> {
   ScheduleListViewModel get viewModel => state;
 
   void setSelectedDay(final DateTime selectedDay) {
-    state = state.copyWith(selectedDay: selectedDay);
+    state = state.copyWith(selectedDateTime: selectedDay);
   }
 
   void setScheduleElements(final List<ScheduleListElementModel> scheduleElements) {
