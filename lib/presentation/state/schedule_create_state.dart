@@ -6,8 +6,6 @@ import 'package:schedule_management_app/presentation/view/view_model/schedule_cr
 class ScheduleCreateState extends StateNotifier<ScheduleCreateViewModel> {
   ScheduleCreateState(final ScheduleCreateViewModel state) : super(state);
 
-  ScheduleCreateState.init({required final ScheduleCreateViewModel state}) : super(state);
-
   ScheduleCreateViewModel get viewModel => state;
 
   void setSelectedDay(final DateTime dateTime) {
@@ -47,18 +45,18 @@ class ScheduleCreateState extends StateNotifier<ScheduleCreateViewModel> {
     );
   }
 
-  void setStartDateTime(final DateTime startDateTimeUtc) {
-    final dateTimeText = _getDateTimeText(startDateTimeUtc.toLocal(), state.isWholeDay);
+  void setStartDateTime(final DateTime startDateTime) {
+    final dateTimeText = _getDateTimeText(startDateTime.toLocal(), state.isWholeDay);
 
-    if (startDateTimeUtc.isBefore(state.endDateTime)) {
-      state = state.copyWith(startDateTime: startDateTimeUtc, startDateTimeText: dateTimeText);
+    if (startDateTime.isBefore(state.endDateTime)) {
+      state = state.copyWith(startDateTime: startDateTime, startDateTimeText: dateTimeText);
       return;
     }
 
-    final endTime = state.isWholeDay ? startDateTimeUtc : startDateTimeUtc.add(const Duration(hours: 1));
+    final endTime = state.isWholeDay ? startDateTime : startDateTime.add(const Duration(hours: 1));
 
     state = state.copyWith(
-      startDateTime: startDateTimeUtc,
+      startDateTime: startDateTime,
       startDateTimeText: dateTimeText,
       endDateTime: endTime,
       endDateTimeText: _getDateTimeText(endTime, state.isWholeDay),
