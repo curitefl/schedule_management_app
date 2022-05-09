@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:schedule_management_app/domain/provider/schedule_list_providers.dart';
 import 'package:schedule_management_app/presentation/view/constants/schedule_list_constants.dart';
 import 'package:schedule_management_app/presentation/view/constants/text_constants.dart';
+import 'package:schedule_management_app/presentation/view/view/schedule_edit_view.dart';
 
 class ScheduleListView extends HookConsumerWidget {
   const ScheduleListView({final Key? key}) : super(key: key);
@@ -59,7 +60,18 @@ class ScheduleListView extends HookConsumerWidget {
                       }
                     ],
                   ),
-                  Text(viewModel.scheduleElements[i].scheduleTitle),
+                  TextButton(
+                    child: Text(viewModel.scheduleElements[i].scheduleTitle),
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (BuildContext context) {
+                            return const ScheduleEditView();
+                          },
+                        ),
+                      );
+                    },
+                  ),
                 ],
               ),
             }
