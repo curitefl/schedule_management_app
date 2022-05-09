@@ -28,10 +28,6 @@ class CalendarDataStore extends _$CalendarDataStore {
   @override
   int get schemaVersion => 1;
 
-  Future<Schedule> getScheduleById(final int id) {
-    return (select(schedules)..where((tbl) => tbl.id.equals(id))).getSingle();
-  }
-
   Future<List<Schedule>> getMonthScheduleEntries(final DateTime dateTime) {
     return (select(schedules)
           ..where((tbl) {
@@ -44,7 +40,6 @@ class CalendarDataStore extends _$CalendarDataStore {
   }
 
   Future<List<Schedule>> getDayScheduleEntries(final DateTime dateTime) {
-
     return (select(schedules)
           ..where((tbl) {
             final isEqualYear = tbl.startDateTime.year.equals(dateTime.year);
@@ -54,6 +49,12 @@ class CalendarDataStore extends _$CalendarDataStore {
             return result;
           }))
         .get();
+  }
+
+  Future<Schedule> getScheduleEntry(final int scheduleId) {
+    return (select(schedules)
+          ..where((tbl) => tbl.id.equals(scheduleId)))
+        .getSingle();
   }
 
   Future<int> addSchedule(

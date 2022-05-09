@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:schedule_management_app/domain/provider/schedule_edit_providers.dart';
 import 'package:schedule_management_app/presentation/view/factory/widget_factory.dart';
 
 class ScheduleEditView extends HookConsumerWidget {
@@ -7,6 +8,8 @@ class ScheduleEditView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final viewModel = ref.watch(scheduleEditStateProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('予定編集'),
@@ -30,6 +33,7 @@ class ScheduleEditView extends HookConsumerWidget {
       body: Column(
         children: [
           TextField(
+            controller: TextEditingController(text: viewModel.title),
             autofocus: true,
             decoration: const InputDecoration(
               hintText: 'タイトルを入力してください',
@@ -41,7 +45,7 @@ class ScheduleEditView extends HookConsumerWidget {
           WidgetFactory.createDatePickerButton(
             context,
             '開始',
-            DateTime.now().toString(),
+            viewModel.startDateTimeText,
             () {
               // TODO DatePickerを表示する処理
             },
@@ -49,13 +53,14 @@ class ScheduleEditView extends HookConsumerWidget {
           WidgetFactory.createDatePickerButton(
             context,
             '終了',
-            DateTime.now().toString(),
+            viewModel.endDateTimeText,
             () {
               // TODO DatePickerを表示する処理
             },
           ),
           Expanded(
             child: TextField(
+              controller: TextEditingController(text: viewModel.description),
               decoration: const InputDecoration(
                 hintText: 'コメントを入力してください',
               ),

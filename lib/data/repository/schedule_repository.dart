@@ -13,6 +13,10 @@ class ScheduleRepository {
     return _calendarDataStore.getDayScheduleEntries(dateTime);
   }
 
+  Future<Schedule> getScheduleEntry(final int scheduleId) {
+    return _calendarDataStore.getScheduleEntry(scheduleId);
+  }
+
   Future addSchedule(
     final String title,
     final bool isWholeDay,
@@ -42,7 +46,7 @@ class ScheduleRepository {
     return _calendarDataStore.deleteSchedule(schedule);
   }
 
-  Future<Schedule> _getSchedule(final int id) {
-    return _calendarDataStore.getScheduleById(id);
+  Future<Schedule> _getSchedule(final int scheduleId) {
+    return _calendarDataStore.getScheduleEntry(scheduleId);
   }
 }

@@ -63,13 +63,7 @@ class ScheduleListView extends HookConsumerWidget {
                   TextButton(
                     child: Text(viewModel.scheduleElements[i].scheduleTitle),
                     onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return const ScheduleEditView();
-                          },
-                        ),
-                      );
+                      presenter.showScheduleEditView(context, viewModel.scheduleElements[i].scheduleId);
                     },
                   ),
                 ],

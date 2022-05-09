@@ -9,4 +9,8 @@ class ScheduleListPresenter {
   void showScheduleCreateView(final BuildContext context, final DateTime selectedDateTime) {
     _transitionUseCase.showScheduleCreateView(context, selectedDateTime);
   }
+
+  void showScheduleEditView(final BuildContext context, final int scheduleId) {
+    _transitionUseCase.showScheduleEditView(context, scheduleId);
+  }
 }
