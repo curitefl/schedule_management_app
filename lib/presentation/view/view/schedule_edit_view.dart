@@ -42,6 +42,17 @@ class ScheduleEditView extends HookConsumerWidget {
               // TODO 文字が入力されたときの処理
             },
           ),
+          Row(
+            children: [
+              const Text('終日'),
+              Switch(
+                value: viewModel.isWholeDay,
+                onChanged: (_) {
+                  // TODO 終日スイッチの処理
+                },
+              ),
+            ],
+          ),
           WidgetFactory.createDatePickerButton(
             context,
             '開始',
