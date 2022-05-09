@@ -33,7 +33,6 @@ class CalendarDataStore extends _$CalendarDataStore {
   }
 
   Future<List<Schedule>> getMonthScheduleEntries(final DateTime dateTime) {
-
     return (select(schedules)
           ..where((tbl) {
             final isEqualYear = tbl.startDateTime.year.equals(dateTime.year);

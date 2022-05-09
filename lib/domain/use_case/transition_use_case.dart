@@ -28,18 +28,12 @@ class TransitionUseCase {
       context: context,
       builder: (builder) {
         return const ScheduleListView();
-      },// TODO 予定一覧画面を閉じたときにカレンダーを更新する
-    );/*.then(
-      (value) async => await _refreshScheduleListState(
-        selectedDay.year,
-        selectedDay.month,
-        selectedDay.day,
-      ),
-    );*/
+      },
+    );
   }
 
-  void showScheduleCreateView(final BuildContext context, final DateTime selectedDay) {
-    _scheduleCreateState.setSelectedDay(selectedDay);
+  void showScheduleCreateView(final BuildContext context, final DateTime selectedDateTime) {
+    _scheduleCreateState.setSelectedDay(selectedDateTime);
 
     Navigator.of(context).push(
       MaterialPageRoute(
@@ -47,6 +41,8 @@ class TransitionUseCase {
           return const ScheduleCreateView();
         },
       ),
+    ).then(
+          (value) async => await _refreshScheduleListState(selectedDateTime),
     );
   }
 
