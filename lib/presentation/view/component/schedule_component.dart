@@ -69,7 +69,7 @@ class ScheduleComponent extends StatelessWidget {
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.close),
-          onPressed: () => _closeView(context),
+          onPressed: () async => await _closeView(context),
         ),
         actions: [
           Padding(
@@ -194,27 +194,27 @@ class ScheduleComponent extends StatelessWidget {
     };
   }
 
-  void _closeView(final BuildContext context) {
+  Future<void> _closeView(final BuildContext context) async {
     if (_isModified) {
-      _showModifiedPopup(context);
-    } else {
-      Navigator.pop(context);
-      _onDiscard();
+      return await _showModifiedPopup(context);
     }
+
+    Navigator.pop(context);
+    _onDiscard();
   }
 
-  Future<dynamic> _showModifiedPopup(final BuildContext context) {
-    return showCupertinoModalPopup(
+  Future<void> _showModifiedPopup(final BuildContext context) async {
+    var isDiscarded = false;
+
+    final popup = showCupertinoModalPopup(
       context: context,
       builder: (BuildContext context) {
         return CupertinoActionSheet(
           actions: [
             CupertinoActionSheetAction(
               onPressed: () {
-                // TODO 2回ポップするもっと良い方法を調べる
                 Navigator.of(context).pop();
-                Navigator.of(context).pop();
-                _onDiscard();
+                isDiscarded = true;
               },
               child: const Text(ScheduleComponentConstants.confirmationDiscard),
             ),
@@ -226,5 +226,14 @@ class ScheduleComponent extends StatelessWidget {
         );
       },
     );
+
+    await popup;
+
+    if (!isDiscarded) {
+      return;
+    }
+
+    _onDiscard();
+    Navigator.pop(context);
   }
 }
