@@ -30,8 +30,7 @@ class ScheduleEditState extends StateNotifier<ScheduleEditViewModel> {
   }
 
   void setTitle(final String title) {
-    state = state.copyWith(title: title, canSave: true);
-    _updateIsModified();
+    state = state.copyWith(title: title, canSave: true, isModified: true);
   }
 
   void setWholeDay(final bool isWholeDay) {
@@ -40,6 +39,7 @@ class ScheduleEditState extends StateNotifier<ScheduleEditViewModel> {
       startDateTimeText: _getDateTimeText(state.startDateTime, isWholeDay),
       endDateTimeText: _getDateTimeText(state.endDateTime, isWholeDay),
       canSave: true,
+      isModified: true,
     );
   }
 
@@ -51,6 +51,7 @@ class ScheduleEditState extends StateNotifier<ScheduleEditViewModel> {
         startDateTime: startDateTime,
         startDateTimeText: dateTimeText,
         canSave: true,
+        isModified: true,
       );
       return;
     }
@@ -63,6 +64,7 @@ class ScheduleEditState extends StateNotifier<ScheduleEditViewModel> {
       endDateTime: endTime,
       endDateTimeText: _getDateTimeText(endTime, state.isWholeDay),
       canSave: true,
+      isModified: true,
     );
   }
 
@@ -73,18 +75,16 @@ class ScheduleEditState extends StateNotifier<ScheduleEditViewModel> {
       endDateTime: endDateTimeUtc,
       endDateTimeText: dateTimeText,
       canSave: true,
+      isModified: true,
     );
   }
 
   void setDescription(final String description) {
-    state = state.copyWith(description: description, canSave: true);
-    _updateIsModified();
-  }
-
-  // TODO 中の処理を考える
-  void _updateIsModified() {
-    final isModified = state.title.isNotEmpty || state.description.isNotEmpty;
-    state = state.copyWith(isModified: isModified);
+    state = state.copyWith(
+      description: description,
+      canSave: true,
+      isModified: true,
+    );
   }
 
   String _getDateTimeText(final DateTime dateTime, final bool isWholeDay) {

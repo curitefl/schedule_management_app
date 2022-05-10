@@ -190,6 +190,7 @@ class ScheduleComponent extends StatelessWidget {
     return () {
       _onPressedSave();
       Navigator.pop(context);
+      _onDiscard();
     };
   }
 
