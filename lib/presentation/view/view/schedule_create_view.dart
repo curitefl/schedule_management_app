@@ -27,7 +27,10 @@ class ScheduleCreateView extends HookConsumerWidget {
       onEndDateTimeChanged: presenter.setEndDateTime,
       descriptionTextEditingController: TextEditingController(text: viewModel.description),
       onDescriptionChanged: presenter.setDescription,
-      onPressedSave: presenter.getSaveCallback(context, ref),
+      canSave: viewModel.canSave,
+      onPressedSave: () {
+        return presenter.save(ref);
+      },
     );
   }
 }

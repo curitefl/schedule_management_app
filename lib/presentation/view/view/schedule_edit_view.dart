@@ -34,6 +34,7 @@ class ScheduleEditView extends HookConsumerWidget {
       onDescriptionChanged: (_) {
         // TODO コメントが編集されたときの処理
       },
+      canSave: viewModel.canSave,
       onPressedSave: () {
         // TODO 保存の処理
       },

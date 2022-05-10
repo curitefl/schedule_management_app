@@ -10,20 +10,7 @@ class ScheduleCreatePresenter {
   final ScheduleCreateUseCase _useCase;
   final CalendarUseCase _calendarUseCase;
 
-  ScheduleCreatePresenter(final this._state, final this._useCase,final this._calendarUseCase);
-
-  VoidCallback? getSaveCallback(final BuildContext context, final WidgetRef ref) {
-    final callback = _useCase.getSaveCallback();
-    if (callback == null) {
-      return null;
-    }
-
-    return () async {
-      callback();
-      await _calendarUseCase.refreshViewModel();
-      _popAndRefreshState(context, ref);
-    };
-  }
+  ScheduleCreatePresenter(final this._state, final this._useCase, final this._calendarUseCase);
 
   void setTitle(final String title) {
     _useCase.setTitle(title);
@@ -51,6 +38,12 @@ class ScheduleCreatePresenter {
     } else {
       _popAndRefreshState(context, ref);
     }
+  }
+
+  void save(final WidgetRef ref) async {
+    await _useCase.save();
+    _calendarUseCase.refreshViewModel();
+    _useCase.refreshState(ref);
   }
 
   void _popAndRefreshState(final BuildContext context, final WidgetRef ref) {

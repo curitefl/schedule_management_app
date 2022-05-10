@@ -18,7 +18,8 @@ class ScheduleComponent extends StatelessWidget {
   final ValueChanged<DateTime> _onEndDateTimeChanged;
   final TextEditingController _descriptionTextEditingController;
   final ValueChanged<String> _onDescriptionChanged;
-  final VoidCallback? _onPressedSave;
+  final bool _canSave;
+  final VoidCallback _onPressedSave;
 
   const ScheduleComponent({
     final Key? key,
@@ -35,7 +36,8 @@ class ScheduleComponent extends StatelessWidget {
     required final ValueChanged<DateTime> onEndDateTimeChanged,
     required final TextEditingController descriptionTextEditingController,
     required final ValueChanged<String> onDescriptionChanged,
-    required final VoidCallback? onPressedSave,
+    required final bool canSave,
+    required final VoidCallback onPressedSave,
   })  : _title = appBarText,
         _titleTextEditingController = titleTextEditingController,
         _onTitleChanged = onTitleChanged,
@@ -49,6 +51,7 @@ class ScheduleComponent extends StatelessWidget {
         _onEndDateTimeChanged = onEndDateTimeChanged,
         _descriptionTextEditingController = descriptionTextEditingController,
         _onDescriptionChanged = onDescriptionChanged,
+        _canSave = canSave,
         _onPressedSave = onPressedSave,
         super(key: key);
 
@@ -67,7 +70,7 @@ class ScheduleComponent extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: ElevatedButton(
               child: const Text(ScheduleComponentConstants.save),
-              onPressed: _onPressedSave,
+              onPressed: _getSaveCallback(context),
             ),
           )
         ],
@@ -170,5 +173,16 @@ class ScheduleComponent extends StatelessWidget {
         );
       },
     );
+  }
+
+  VoidCallback? _getSaveCallback(BuildContext context) {
+    if(!_canSave) {
+      return null;
+    }
+
+    return () {
+      _onPressedSave();
+      Navigator.pop(context);
+    };
   }
 }

@@ -13,13 +13,6 @@ class ScheduleCreateUseCase {
 
   ScheduleCreateUseCase(final this._repository, final this._state);
 
-  VoidCallback? getSaveCallback() {
-    if (!_viewModel.canSave) {
-      return null;
-    }
-    return _save;
-  }
-
   void setTitle(final String title) {
     _state.setTitle(title);
   }
@@ -44,8 +37,8 @@ class ScheduleCreateUseCase {
     ref.refresh(scheduleCreateStateProvider);
   }
 
-  Future _save() async {
-    await _repository.addSchedule(
+  Future save() {
+    return _repository.addSchedule(
       _viewModel.title,
       _viewModel.isWholeDay,
       _viewModel.startDateTime,
