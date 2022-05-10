@@ -15,7 +15,7 @@ class ScheduleCreateView extends HookConsumerWidget {
 
     return ScheduleComponent(
       appBarText: TextConstants.scheduleCreateViewAppBarTitle,
-      titleTextEditingController: TextEditingController(text: viewModel.title),
+      title: viewModel.title,
       onTitleChanged: presenter.setTitle,
       isWholeDay: viewModel.isWholeDay,
       onWholeDayChanged: presenter.setWholeDay,
@@ -25,7 +25,7 @@ class ScheduleCreateView extends HookConsumerWidget {
       endDateTimeText: viewModel.endDateTimeText,
       onStartDateTimeChanged: presenter.setStartDateTime,
       onEndDateTimeChanged: presenter.setEndDateTime,
-      descriptionTextEditingController: TextEditingController(text: viewModel.description),
+      description: viewModel.description,
       onDescriptionChanged: presenter.setDescription,
       canSave: viewModel.canSave,
       isModified: viewModel.isModified,

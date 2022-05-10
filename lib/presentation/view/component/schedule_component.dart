@@ -5,8 +5,8 @@ import 'package:schedule_management_app/presentation/view/constants/schedule_cre
 import 'package:schedule_management_app/presentation/view/factory/widget_factory.dart';
 
 class ScheduleComponent extends StatelessWidget {
+  final String _appBarText;
   final String _title;
-  final TextEditingController _titleTextEditingController;
   final ValueChanged<String> _onTitleChanged;
   final bool _isWholeDay;
   final ValueChanged<bool> _onWholeDayChanged;
@@ -16,7 +16,7 @@ class ScheduleComponent extends StatelessWidget {
   final String _endDateTimeText;
   final ValueChanged<DateTime> _onStartDateTimeChanged;
   final ValueChanged<DateTime> _onEndDateTimeChanged;
-  final TextEditingController _descriptionTextEditingController;
+  final String _description;
   final ValueChanged<String> _onDescriptionChanged;
   final bool _canSave;
   final bool _isModified;
@@ -26,7 +26,7 @@ class ScheduleComponent extends StatelessWidget {
   const ScheduleComponent({
     final Key? key,
     required final String appBarText,
-    required final TextEditingController titleTextEditingController,
+    required final String title,
     required final ValueChanged<String> onTitleChanged,
     required final bool isWholeDay,
     required final ValueChanged<bool> onWholeDayChanged,
@@ -36,14 +36,14 @@ class ScheduleComponent extends StatelessWidget {
     required final String endDateTimeText,
     required final ValueChanged<DateTime> onStartDateTimeChanged,
     required final ValueChanged<DateTime> onEndDateTimeChanged,
-    required final TextEditingController descriptionTextEditingController,
+    required final String description,
     required final ValueChanged<String> onDescriptionChanged,
     required final bool canSave,
     required final bool isModified,
     required final VoidCallback onPressedSave,
     required final VoidCallback onDiscard,
-  })  : _title = appBarText,
-        _titleTextEditingController = titleTextEditingController,
+  })  : _appBarText = appBarText,
+        _title = title,
         _onTitleChanged = onTitleChanged,
         _isWholeDay = isWholeDay,
         _onWholeDayChanged = onWholeDayChanged,
@@ -53,7 +53,7 @@ class ScheduleComponent extends StatelessWidget {
         _endDateTimeText = endDateTimeText,
         _onStartDateTimeChanged = onStartDateTimeChanged,
         _onEndDateTimeChanged = onEndDateTimeChanged,
-        _descriptionTextEditingController = descriptionTextEditingController,
+        _description = description,
         _onDescriptionChanged = onDescriptionChanged,
         _canSave = canSave,
         _isModified = isModified,
@@ -65,7 +65,7 @@ class ScheduleComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_title),
+        title: Text(_appBarText),
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.close),
@@ -85,8 +85,8 @@ class ScheduleComponent extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            TextField(
-              controller: _titleTextEditingController,
+            TextFormField(
+              initialValue: _title,
               autofocus: true,
               decoration: const InputDecoration(
                 hintText: ScheduleComponentConstants.titleHintText,
@@ -128,8 +128,8 @@ class ScheduleComponent extends StatelessWidget {
               },
             ),
             Expanded(
-              child: TextField(
-                controller: _descriptionTextEditingController,
+              child: TextFormField(
+                initialValue: _description,
                 decoration: const InputDecoration(
                   hintText: ScheduleComponentConstants.descriptionHintText,
                   border: OutlineInputBorder(),
