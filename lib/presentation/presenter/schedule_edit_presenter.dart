@@ -1,12 +1,18 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:schedule_management_app/domain/use_case/calendar_use_case.dart';
 import 'package:schedule_management_app/domain/use_case/schedule_edit_use_case.dart';
+import 'package:schedule_management_app/domain/use_case/schedule_list_use_case.dart';
 
 class ScheduleEditPresenter {
   final ScheduleEditUseCase _useCase;
   final CalendarUseCase _calendarUseCase;
+  final ScheduleListUseCase _scheduleListUseCase;
 
-  ScheduleEditPresenter(final this._useCase, final this._calendarUseCase);
+  ScheduleEditPresenter(
+    final this._useCase,
+    final this._calendarUseCase,
+    final this._scheduleListUseCase,
+  );
 
   void setTitle(final String title) {
     _useCase.setTitle(title);
@@ -28,9 +34,9 @@ class ScheduleEditPresenter {
     _useCase.setDescription(description);
   }
 
-  void save(final WidgetRef ref) async {
+  Future<void> save(final WidgetRef ref) async {
     await _useCase.save();
-    _calendarUseCase.refreshViewModel();
-    _useCase.refreshState(ref);
+    await _scheduleListUseCase.reloadState();
+    await _calendarUseCase.reloadState();
   }
 }

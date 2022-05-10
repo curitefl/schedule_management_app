@@ -1,5 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:schedule_management_app/domain/provider/calendar_providers.dart';
+import 'package:schedule_management_app/domain/provider/schedule_list_providers.dart';
 import 'package:schedule_management_app/domain/use_case/schedule_edit_use_case.dart';
 import 'package:schedule_management_app/presentation/presenter/schedule_edit_presenter.dart';
 import 'package:schedule_management_app/presentation/state/schedule_edit_state.dart';
@@ -38,5 +39,6 @@ final scheduleEditPresenterProvider = Provider(
   (ref) => ScheduleEditPresenter(
     ref.watch(scheduleEditUseCaseProvider),
     ref.watch(calendarUseCaseProvider),
+    ref.watch(scheduleListUseCaseProvider),
   ),
 );

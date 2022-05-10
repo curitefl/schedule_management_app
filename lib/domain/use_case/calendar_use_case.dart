@@ -14,7 +14,7 @@ class CalendarUseCase {
 
   CalendarUseCase(final this._repository, final this._state);
 
-  Future refreshViewModel() async {
+  Future reloadState() async {
     _eventHashMap ??= LinkedHashMap<DateTime, List<String>>(
       equals: isSameDay,
       hashCode: _getHashCode,
@@ -64,7 +64,7 @@ class CalendarUseCase {
 
   Future focusMonth(final DateTime dateTime) async {
     _state.focusMonth(dateTime);
-    await refreshViewModel();
+    await reloadState();
   }
 
   void setSelectedDay(final DateTime selectedDay) {

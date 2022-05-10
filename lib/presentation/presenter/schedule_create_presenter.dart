@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:schedule_management_app/domain/use_case/calendar_use_case.dart';
 import 'package:schedule_management_app/domain/use_case/schedule_create_use_case.dart';
+import 'package:schedule_management_app/domain/use_case/schedule_list_use_case.dart';
 import 'package:schedule_management_app/presentation/state/schedule_create_state.dart';
 import 'package:schedule_management_app/presentation/view/constants/text_constants.dart';
 
@@ -9,8 +10,14 @@ class ScheduleCreatePresenter {
   final ScheduleCreateState _state;
   final ScheduleCreateUseCase _useCase;
   final CalendarUseCase _calendarUseCase;
+  final ScheduleListUseCase _scheduleListUseCase;
 
-  ScheduleCreatePresenter(final this._state, final this._useCase, final this._calendarUseCase);
+  ScheduleCreatePresenter(
+    final this._state,
+    final this._useCase,
+    final this._calendarUseCase,
+    final this._scheduleListUseCase,
+  );
 
   void setTitle(final String title) {
     _useCase.setTitle(title);
@@ -42,8 +49,9 @@ class ScheduleCreatePresenter {
 
   void save(final WidgetRef ref) async {
     await _useCase.save();
-    _calendarUseCase.refreshViewModel();
+    _calendarUseCase.reloadState();
     _useCase.refreshState(ref);
+    _scheduleListUseCase.reloadState();
   }
 
   void _popAndRefreshState(final BuildContext context, final WidgetRef ref) {

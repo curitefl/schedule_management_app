@@ -1,5 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:schedule_management_app/domain/provider/calendar_providers.dart';
+import 'package:schedule_management_app/domain/provider/schedule_list_providers.dart';
 import 'package:schedule_management_app/domain/use_case/schedule_create_use_case.dart';
 import 'package:schedule_management_app/presentation/presenter/schedule_create_presenter.dart';
 import 'package:schedule_management_app/presentation/state/schedule_create_state.dart';
@@ -40,5 +41,6 @@ final scheduleCreatePresenterProvider = Provider(
     ref.watch(scheduleCreateStateProvider.notifier),
     ref.watch(scheduleCreateUseCaseProvider),
     ref.watch(calendarUseCaseProvider),
+    ref.watch(scheduleListUseCaseProvider),
   ),
 );

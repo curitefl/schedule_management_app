@@ -27,8 +27,8 @@ class ScheduleEditView extends HookConsumerWidget {
       descriptionTextEditingController: TextEditingController(text: viewModel.description),
       onDescriptionChanged: presenter.setDescription,
       canSave: viewModel.canSave,
-      onPressedSave: () {
-        return presenter.save(ref);
+      onPressedSave: () async {
+        return await presenter.save(ref);
       },
     );
   }
