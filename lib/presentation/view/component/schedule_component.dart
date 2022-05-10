@@ -75,65 +75,66 @@ class ScheduleComponent extends StatelessWidget {
           )
         ],
       ),
-      body: Column(
-        children: [
-          TextField(
-            controller: _titleTextEditingController,
-            autofocus: true,
-            decoration: const InputDecoration(
-              hintText: ScheduleComponentConstants.titleHintText,
-            ),
-            onChanged: _onTitleChanged,
-          ),
-          Row(
-            children: [
-              const Text(ScheduleComponentConstants.wholeDay),
-              Switch(
-                value: _isWholeDay,
-                onChanged: _onWholeDayChanged,
-              ),
-            ],
-          ),
-          WidgetFactory.createDatePickerButton(
-            context,
-            ScheduleComponentConstants.start,
-            _startDateTimeText,
-            () {
-              _showDateTimePicker(
-                context,
-                _startDateTime,
-                _startDateTime.year + 100,
-                _isWholeDay,
-                _onStartDateTimeChanged,
-              );
-            },
-          ),
-          WidgetFactory.createDatePickerButton(
-            context,
-            ScheduleComponentConstants.end,
-            _endDateTimeText,
-            () {
-              _showDateTimePicker(
-                context,
-                _endDateTime,
-                _startDateTime.year + 100,
-                _isWholeDay,
-                _onEndDateTimeChanged,
-              );
-            },
-          ),
-          Expanded(
-            child: TextField(
-              controller: _descriptionTextEditingController,
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            TextField(
+              controller: _titleTextEditingController,
+              autofocus: true,
               decoration: const InputDecoration(
-                hintText: ScheduleComponentConstants.descriptionHintText,
+                hintText: ScheduleComponentConstants.titleHintText,
+                border: OutlineInputBorder(),
               ),
-              keyboardType: TextInputType.multiline,
-              maxLines: null,
-              onChanged: _onDescriptionChanged,
+              onChanged: _onTitleChanged,
             ),
-          ),
-        ],
+            SwitchListTile(
+              title: const Text(ScheduleComponentConstants.wholeDay),
+              value: _isWholeDay,
+              onChanged: _onWholeDayChanged,
+            ),
+            WidgetFactory.createDatePickerButton(
+              context,
+              ScheduleComponentConstants.start,
+              _startDateTimeText,
+              () {
+                _showDateTimePicker(
+                  context,
+                  _startDateTime,
+                  _startDateTime.year + 100,
+                  _isWholeDay,
+                  _onStartDateTimeChanged,
+                );
+              },
+            ),
+            WidgetFactory.createDatePickerButton(
+              context,
+              ScheduleComponentConstants.end,
+              _endDateTimeText,
+              () {
+                _showDateTimePicker(
+                  context,
+                  _endDateTime,
+                  _startDateTime.year + 100,
+                  _isWholeDay,
+                  _onEndDateTimeChanged,
+                );
+              },
+            ),
+            Expanded(
+              child: TextField(
+                controller: _descriptionTextEditingController,
+                decoration: const InputDecoration(
+                  hintText: ScheduleComponentConstants.descriptionHintText,
+                  border: OutlineInputBorder(),
+                ),
+                keyboardType: TextInputType.multiline,
+                maxLines: null,
+                onChanged: _onDescriptionChanged,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -176,7 +177,7 @@ class ScheduleComponent extends StatelessWidget {
   }
 
   VoidCallback? _getSaveCallback(BuildContext context) {
-    if(!_canSave) {
+    if (!_canSave) {
       return null;
     }
 
