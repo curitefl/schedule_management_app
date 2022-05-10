@@ -16,11 +16,14 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ScheduleCreateViewModel {
+  int get maximumYear => throw _privateConstructorUsedError;
   DateTime get selectedDay => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   bool get isWholeDay => throw _privateConstructorUsedError;
   DateTime get startDateTime => throw _privateConstructorUsedError;
   DateTime get endDateTime => throw _privateConstructorUsedError;
+  String get startDateTimeText => throw _privateConstructorUsedError;
+  String get endDateTimeText => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   bool get canSave => throw _privateConstructorUsedError;
   bool get isModified => throw _privateConstructorUsedError;
@@ -36,11 +39,14 @@ abstract class $ScheduleCreateViewModelCopyWith<$Res> {
           $Res Function(ScheduleCreateViewModel) then) =
       _$ScheduleCreateViewModelCopyWithImpl<$Res>;
   $Res call(
-      {DateTime selectedDay,
+      {int maximumYear,
+      DateTime selectedDay,
       String title,
       bool isWholeDay,
       DateTime startDateTime,
       DateTime endDateTime,
+      String startDateTimeText,
+      String endDateTimeText,
       String description,
       bool canSave,
       bool isModified});
@@ -57,16 +63,23 @@ class _$ScheduleCreateViewModelCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? maximumYear = freezed,
     Object? selectedDay = freezed,
     Object? title = freezed,
     Object? isWholeDay = freezed,
     Object? startDateTime = freezed,
     Object? endDateTime = freezed,
+    Object? startDateTimeText = freezed,
+    Object? endDateTimeText = freezed,
     Object? description = freezed,
     Object? canSave = freezed,
     Object? isModified = freezed,
   }) {
     return _then(_value.copyWith(
+      maximumYear: maximumYear == freezed
+          ? _value.maximumYear
+          : maximumYear // ignore: cast_nullable_to_non_nullable
+              as int,
       selectedDay: selectedDay == freezed
           ? _value.selectedDay
           : selectedDay // ignore: cast_nullable_to_non_nullable
@@ -87,6 +100,14 @@ class _$ScheduleCreateViewModelCopyWithImpl<$Res>
           ? _value.endDateTime
           : endDateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      startDateTimeText: startDateTimeText == freezed
+          ? _value.startDateTimeText
+          : startDateTimeText // ignore: cast_nullable_to_non_nullable
+              as String,
+      endDateTimeText: endDateTimeText == freezed
+          ? _value.endDateTimeText
+          : endDateTimeText // ignore: cast_nullable_to_non_nullable
+              as String,
       description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -111,11 +132,14 @@ abstract class _$ScheduleCreateViewModelCopyWith<$Res>
       __$ScheduleCreateViewModelCopyWithImpl<$Res>;
   @override
   $Res call(
-      {DateTime selectedDay,
+      {int maximumYear,
+      DateTime selectedDay,
       String title,
       bool isWholeDay,
       DateTime startDateTime,
       DateTime endDateTime,
+      String startDateTimeText,
+      String endDateTimeText,
       String description,
       bool canSave,
       bool isModified});
@@ -135,16 +159,23 @@ class __$ScheduleCreateViewModelCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? maximumYear = freezed,
     Object? selectedDay = freezed,
     Object? title = freezed,
     Object? isWholeDay = freezed,
     Object? startDateTime = freezed,
     Object? endDateTime = freezed,
+    Object? startDateTimeText = freezed,
+    Object? endDateTimeText = freezed,
     Object? description = freezed,
     Object? canSave = freezed,
     Object? isModified = freezed,
   }) {
     return _then(_ScheduleCreateViewModel(
+      maximumYear: maximumYear == freezed
+          ? _value.maximumYear
+          : maximumYear // ignore: cast_nullable_to_non_nullable
+              as int,
       selectedDay: selectedDay == freezed
           ? _value.selectedDay
           : selectedDay // ignore: cast_nullable_to_non_nullable
@@ -165,6 +196,14 @@ class __$ScheduleCreateViewModelCopyWithImpl<$Res>
           ? _value.endDateTime
           : endDateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      startDateTimeText: startDateTimeText == freezed
+          ? _value.startDateTimeText
+          : startDateTimeText // ignore: cast_nullable_to_non_nullable
+              as String,
+      endDateTimeText: endDateTimeText == freezed
+          ? _value.endDateTimeText
+          : endDateTimeText // ignore: cast_nullable_to_non_nullable
+              as String,
       description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -185,15 +224,20 @@ class __$ScheduleCreateViewModelCopyWithImpl<$Res>
 
 class _$_ScheduleCreateViewModel implements _ScheduleCreateViewModel {
   const _$_ScheduleCreateViewModel(
-      {required this.selectedDay,
+      {required this.maximumYear,
+      required this.selectedDay,
       required this.title,
       required this.isWholeDay,
       required this.startDateTime,
       required this.endDateTime,
+      required this.startDateTimeText,
+      required this.endDateTimeText,
       required this.description,
       required this.canSave,
       required this.isModified});
 
+  @override
+  final int maximumYear;
   @override
   final DateTime selectedDay;
   @override
@@ -205,6 +249,10 @@ class _$_ScheduleCreateViewModel implements _ScheduleCreateViewModel {
   @override
   final DateTime endDateTime;
   @override
+  final String startDateTimeText;
+  @override
+  final String endDateTimeText;
+  @override
   final String description;
   @override
   final bool canSave;
@@ -213,7 +261,7 @@ class _$_ScheduleCreateViewModel implements _ScheduleCreateViewModel {
 
   @override
   String toString() {
-    return 'ScheduleCreateViewModel(selectedDay: $selectedDay, title: $title, isWholeDay: $isWholeDay, startDateTime: $startDateTime, endDateTime: $endDateTime, description: $description, canSave: $canSave, isModified: $isModified)';
+    return 'ScheduleCreateViewModel(maximumYear: $maximumYear, selectedDay: $selectedDay, title: $title, isWholeDay: $isWholeDay, startDateTime: $startDateTime, endDateTime: $endDateTime, startDateTimeText: $startDateTimeText, endDateTimeText: $endDateTimeText, description: $description, canSave: $canSave, isModified: $isModified)';
   }
 
   @override
@@ -221,6 +269,8 @@ class _$_ScheduleCreateViewModel implements _ScheduleCreateViewModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _ScheduleCreateViewModel &&
+            const DeepCollectionEquality()
+                .equals(other.maximumYear, maximumYear) &&
             const DeepCollectionEquality()
                 .equals(other.selectedDay, selectedDay) &&
             const DeepCollectionEquality().equals(other.title, title) &&
@@ -231,6 +281,10 @@ class _$_ScheduleCreateViewModel implements _ScheduleCreateViewModel {
             const DeepCollectionEquality()
                 .equals(other.endDateTime, endDateTime) &&
             const DeepCollectionEquality()
+                .equals(other.startDateTimeText, startDateTimeText) &&
+            const DeepCollectionEquality()
+                .equals(other.endDateTimeText, endDateTimeText) &&
+            const DeepCollectionEquality()
                 .equals(other.description, description) &&
             const DeepCollectionEquality().equals(other.canSave, canSave) &&
             const DeepCollectionEquality()
@@ -240,11 +294,14 @@ class _$_ScheduleCreateViewModel implements _ScheduleCreateViewModel {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      const DeepCollectionEquality().hash(maximumYear),
       const DeepCollectionEquality().hash(selectedDay),
       const DeepCollectionEquality().hash(title),
       const DeepCollectionEquality().hash(isWholeDay),
       const DeepCollectionEquality().hash(startDateTime),
       const DeepCollectionEquality().hash(endDateTime),
+      const DeepCollectionEquality().hash(startDateTimeText),
+      const DeepCollectionEquality().hash(endDateTimeText),
       const DeepCollectionEquality().hash(description),
       const DeepCollectionEquality().hash(canSave),
       const DeepCollectionEquality().hash(isModified));
@@ -258,15 +315,20 @@ class _$_ScheduleCreateViewModel implements _ScheduleCreateViewModel {
 
 abstract class _ScheduleCreateViewModel implements ScheduleCreateViewModel {
   const factory _ScheduleCreateViewModel(
-      {required final DateTime selectedDay,
+      {required final int maximumYear,
+      required final DateTime selectedDay,
       required final String title,
       required final bool isWholeDay,
       required final DateTime startDateTime,
       required final DateTime endDateTime,
+      required final String startDateTimeText,
+      required final String endDateTimeText,
       required final String description,
       required final bool canSave,
       required final bool isModified}) = _$_ScheduleCreateViewModel;
 
+  @override
+  int get maximumYear => throw _privateConstructorUsedError;
   @override
   DateTime get selectedDay => throw _privateConstructorUsedError;
   @override
@@ -277,6 +339,10 @@ abstract class _ScheduleCreateViewModel implements ScheduleCreateViewModel {
   DateTime get startDateTime => throw _privateConstructorUsedError;
   @override
   DateTime get endDateTime => throw _privateConstructorUsedError;
+  @override
+  String get startDateTimeText => throw _privateConstructorUsedError;
+  @override
+  String get endDateTimeText => throw _privateConstructorUsedError;
   @override
   String get description => throw _privateConstructorUsedError;
   @override

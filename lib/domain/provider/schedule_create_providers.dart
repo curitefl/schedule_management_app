@@ -5,40 +5,40 @@ import 'package:schedule_management_app/presentation/presenter/schedule_create_p
 import 'package:schedule_management_app/presentation/state/schedule_create_state.dart';
 import 'package:schedule_management_app/presentation/view/view_model/schedule_create_view_model.dart';
 
-final scheduleCreateViewModelProvider = Provider(
-  (ref) {
-    var now = DateTime.now();
-    return ScheduleCreateViewModel(
-      selectedDay: now,
-      title: '',
-      isWholeDay: false,
-      startDateTime: now,
-      endDateTime: now,
-      description: '',
-      canSave: false,
-      isModified: false,
-    );
-  },
-);
-
 final scheduleCreateStateProvider =
     StateNotifierProvider<ScheduleCreateState, ScheduleCreateViewModel>(
-  (ref) => ScheduleCreateState(
-    ref.watch(scheduleCreateViewModelProvider),
-  ),
+  (ref) {
+    final now = DateTime.now();
+
+    return ScheduleCreateState(
+      ScheduleCreateViewModel(
+        maximumYear: now.year + 100,
+        selectedDay: now,
+        title: '',
+        isWholeDay: false,
+        startDateTime: now,
+        endDateTime: now,
+        startDateTimeText: '',
+        endDateTimeText: '',
+        description: '',
+        canSave: false,
+        isModified: false,
+      ),
+    );
+  },
 );
 
 final scheduleCreateUseCaseProvider = Provider(
   (ref) => ScheduleCreateUseCase(
     ref.watch(scheduleRepositoryProvider),
-    ref.watch(scheduleCreateStateProvider),
-    ref.read(scheduleCreateStateProvider.notifier),
-    ref.read(calendarStateProvider.notifier),
+    ref.watch(scheduleCreateStateProvider.notifier),
   ),
 );
 
 final scheduleCreatePresenterProvider = Provider(
   (ref) => ScheduleCreatePresenter(
+    ref.watch(scheduleCreateStateProvider.notifier),
     ref.watch(scheduleCreateUseCaseProvider),
+    ref.watch(calendarUseCaseProvider),
   ),
 );

@@ -16,7 +16,9 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ScheduleListViewModel {
-  DateTime? get dateTime => throw _privateConstructorUsedError;
+  DateTime get selectedDay => throw _privateConstructorUsedError;
+  List<ScheduleListElementModel> get scheduleElements =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ScheduleListViewModelCopyWith<ScheduleListViewModel> get copyWith =>
@@ -28,7 +30,8 @@ abstract class $ScheduleListViewModelCopyWith<$Res> {
   factory $ScheduleListViewModelCopyWith(ScheduleListViewModel value,
           $Res Function(ScheduleListViewModel) then) =
       _$ScheduleListViewModelCopyWithImpl<$Res>;
-  $Res call({DateTime? dateTime});
+  $Res call(
+      {DateTime selectedDay, List<ScheduleListElementModel> scheduleElements});
 }
 
 /// @nodoc
@@ -42,13 +45,18 @@ class _$ScheduleListViewModelCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? dateTime = freezed,
+    Object? selectedDay = freezed,
+    Object? scheduleElements = freezed,
   }) {
     return _then(_value.copyWith(
-      dateTime: dateTime == freezed
-          ? _value.dateTime
-          : dateTime // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+      selectedDay: selectedDay == freezed
+          ? _value.selectedDay
+          : selectedDay // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      scheduleElements: scheduleElements == freezed
+          ? _value.scheduleElements
+          : scheduleElements // ignore: cast_nullable_to_non_nullable
+              as List<ScheduleListElementModel>,
     ));
   }
 }
@@ -60,7 +68,8 @@ abstract class _$ScheduleListViewModelCopyWith<$Res>
           $Res Function(_ScheduleListViewModel) then) =
       __$ScheduleListViewModelCopyWithImpl<$Res>;
   @override
-  $Res call({DateTime? dateTime});
+  $Res call(
+      {DateTime selectedDay, List<ScheduleListElementModel> scheduleElements});
 }
 
 /// @nodoc
@@ -76,13 +85,18 @@ class __$ScheduleListViewModelCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? dateTime = freezed,
+    Object? selectedDay = freezed,
+    Object? scheduleElements = freezed,
   }) {
     return _then(_ScheduleListViewModel(
-      dateTime: dateTime == freezed
-          ? _value.dateTime
-          : dateTime // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+      selectedDay: selectedDay == freezed
+          ? _value.selectedDay
+          : selectedDay // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      scheduleElements: scheduleElements == freezed
+          ? _value.scheduleElements
+          : scheduleElements // ignore: cast_nullable_to_non_nullable
+              as List<ScheduleListElementModel>,
     ));
   }
 }
@@ -92,14 +106,23 @@ class __$ScheduleListViewModelCopyWithImpl<$Res>
 class _$_ScheduleListViewModel
     with DiagnosticableTreeMixin
     implements _ScheduleListViewModel {
-  const _$_ScheduleListViewModel({this.dateTime});
+  const _$_ScheduleListViewModel(
+      {required this.selectedDay,
+      required final List<ScheduleListElementModel> scheduleElements})
+      : _scheduleElements = scheduleElements;
 
   @override
-  final DateTime? dateTime;
+  final DateTime selectedDay;
+  final List<ScheduleListElementModel> _scheduleElements;
+  @override
+  List<ScheduleListElementModel> get scheduleElements {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_scheduleElements);
+  }
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ScheduleListViewModel(dateTime: $dateTime)';
+    return 'ScheduleListViewModel(selectedDay: $selectedDay, scheduleElements: $scheduleElements)';
   }
 
   @override
@@ -107,7 +130,8 @@ class _$_ScheduleListViewModel
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'ScheduleListViewModel'))
-      ..add(DiagnosticsProperty('dateTime', dateTime));
+      ..add(DiagnosticsProperty('selectedDay', selectedDay))
+      ..add(DiagnosticsProperty('scheduleElements', scheduleElements));
   }
 
   @override
@@ -115,12 +139,17 @@ class _$_ScheduleListViewModel
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _ScheduleListViewModel &&
-            const DeepCollectionEquality().equals(other.dateTime, dateTime));
+            const DeepCollectionEquality()
+                .equals(other.selectedDay, selectedDay) &&
+            const DeepCollectionEquality()
+                .equals(other.scheduleElements, scheduleElements));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(dateTime));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(selectedDay),
+      const DeepCollectionEquality().hash(scheduleElements));
 
   @JsonKey(ignore: true)
   @override
@@ -130,11 +159,16 @@ class _$_ScheduleListViewModel
 }
 
 abstract class _ScheduleListViewModel implements ScheduleListViewModel {
-  const factory _ScheduleListViewModel({final DateTime? dateTime}) =
+  const factory _ScheduleListViewModel(
+          {required final DateTime selectedDay,
+          required final List<ScheduleListElementModel> scheduleElements}) =
       _$_ScheduleListViewModel;
 
   @override
-  DateTime? get dateTime => throw _privateConstructorUsedError;
+  DateTime get selectedDay => throw _privateConstructorUsedError;
+  @override
+  List<ScheduleListElementModel> get scheduleElements =>
+      throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$ScheduleListViewModelCopyWith<_ScheduleListViewModel> get copyWith =>

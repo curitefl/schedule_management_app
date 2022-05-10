@@ -28,20 +28,39 @@ class CalendarDataStore extends _$CalendarDataStore {
   @override
   int get schemaVersion => 1;
 
-  Future<Schedule> getScheduleById(int id) {
+  Future<Schedule> getScheduleById(final int id) {
     return (select(schedules)..where((tbl) => tbl.id.equals(id))).getSingle();
   }
 
-  Future<List<Schedule>> getMonthScheduleEntries (int month) {
-    return (select(schedules)..where((tbl) => tbl.startDateTime.month.equals(month))).get();
+  Future<List<Schedule>> getMonthScheduleEntries(final int year, final int month) {
+    return (select(schedules)
+          ..where((tbl) {
+            final isEqualYear = tbl.startDateTime.year.equals(year);
+            final isEqualMonth = tbl.startDateTime.month.equals(month);
+            final result = isEqualYear & isEqualMonth;
+            return result;
+          }))
+        .get();
+  }
+
+  Future<List<Schedule>> getDayScheduleEntries(final int year, final int month, final int day) {
+    return (select(schedules)
+          ..where((tbl) {
+            final isEqualYear = tbl.startDateTime.year.equals(year);
+            final isEqualMonth = tbl.startDateTime.month.equals(month);
+            final isEqualDay = tbl.startDateTime.day.equals(day);
+            final result = isEqualYear & isEqualMonth & isEqualDay;
+            return result;
+          }))
+        .get();
   }
 
   Future<int> addSchedule(
-    String title,
-    bool isWholeDay,
-    DateTime startDateTime,
-    DateTime endDateTime,
-    String description,
+    final String title,
+    final bool isWholeDay,
+    final DateTime startDateTime,
+    final DateTime endDateTime,
+    final String description,
   ) {
     return into(schedules).insert(
       SchedulesCompanion(
@@ -55,12 +74,12 @@ class CalendarDataStore extends _$CalendarDataStore {
   }
 
   Future<int> updateSchedule(
-    Schedule schedule,
-    String title,
-    bool isWholeDay,
-    DateTime startDateTime,
-    DateTime endDateTime,
-    String description,
+    final Schedule schedule,
+    final String title,
+    final bool isWholeDay,
+    final DateTime startDateTime,
+    final DateTime endDateTime,
+    final String description,
   ) {
     return (update(schedules)..where((tbl) => tbl.id.equals(schedule.id))).write(
       SchedulesCompanion(
@@ -73,7 +92,7 @@ class CalendarDataStore extends _$CalendarDataStore {
     );
   }
 
-  Future<void> deleteSchedule(Schedule schedule) {
+  Future deleteSchedule(final Schedule schedule) {
     return (delete(schedules)..where((tbl) => tbl.id.equals(schedule.id))).go();
   }
 }

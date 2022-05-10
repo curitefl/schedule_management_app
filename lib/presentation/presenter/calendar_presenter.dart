@@ -1,36 +1,33 @@
+import 'package:flutter/material.dart';
 import 'package:schedule_management_app/domain/use_case/calendar_use_case.dart';
-import 'package:schedule_management_app/presentation/state/calandar_state.dart';
-import 'package:schedule_management_app/presentation/state/schedule_list_state.dart';
+import 'package:schedule_management_app/domain/use_case/transition_use_case.dart';
 
 class CalendarPresenter {
   final CalendarUseCase _useCase;
-  final CalendarState _calendarState;
-  final ScheduleListState _scheduleListState;
+  final TransitionUseCase _transitionUseCase;
 
-  CalendarPresenter(this._useCase, this._calendarState, this._scheduleListState);
+  CalendarPresenter(
+    final this._useCase,
+    final this._transitionUseCase,
+  );
 
-  Future refresh() {
-    return _useCase.refreshViewModel();
-  }
-
-  List<String> getEventsForDay(DateTime day) {
+  List<String> getEventsForDay(final DateTime day) {
     return _useCase.getEventsForDay(day);
   }
 
   void focusToday() {
-    _calendarState.focusToday();
+    _useCase.focusToday();
   }
 
-  void focusMonth(DateTime? dateTime) {
+  Future focusMonth(final DateTime? dateTime) async {
     if (dateTime == null) {
       return;
     }
-    _calendarState.focusMonth(dateTime);
+    await _useCase.focusMonth(dateTime);
   }
 
-  void setCurrentDay(DateTime dateTime) {
-    _calendarState.setCurrentDay(dateTime);
-    _scheduleListState.setDateTime(dateTime);
+  Future showScheduleListView(final BuildContext context, final DateTime selectedDay) async {
+    _useCase.setSelectedDay(selectedDay);
+    return await _transitionUseCase.showScheduleListView(context, selectedDay);
   }
 }
-
