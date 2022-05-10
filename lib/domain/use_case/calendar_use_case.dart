@@ -14,7 +14,7 @@ class CalendarUseCase {
 
   CalendarUseCase(final this._repository, final this._state);
 
-  Future reloadState() async {
+  Future<void> reloadState() async {
     _eventHashMap ??= LinkedHashMap<DateTime, List<String>>(
       equals: isSameDay,
       hashCode: _getHashCode,
@@ -33,7 +33,7 @@ class CalendarUseCase {
     return _repository.getMonthScheduleEntries(dateTime);
   }
 
-  Future updateMonthEntries() async {
+  Future<void> updateMonthEntries() async {
     final entries = await getMonthScheduleEntries(_focusedDateTime);
 
     final modelList = entries
@@ -62,7 +62,7 @@ class CalendarUseCase {
     _state.focusToday();
   }
 
-  Future focusMonth(final DateTime dateTime) async {
+  Future<void> focusMonth(final DateTime dateTime) async {
     _state.focusMonth(dateTime);
     await reloadState();
   }

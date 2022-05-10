@@ -22,14 +22,14 @@ class CalendarPresenter {
     _useCase.focusToday();
   }
 
-  Future focusMonth(final DateTime? dateTime) async {
+  Future<void> focusMonth(final DateTime? dateTime) async {
     if (dateTime == null) {
       return;
     }
     await _useCase.focusMonth(dateTime);
   }
 
-  Future showScheduleListView(final BuildContext context, final DateTime selectedDay) async {
+  Future<void> showScheduleListView(final BuildContext context, final DateTime selectedDay) async {
     _useCase.setSelectedDay(selectedDay);
     _scheduleListUseCase.setSelectedDay(selectedDay);
     await _scheduleListUseCase.reloadState();

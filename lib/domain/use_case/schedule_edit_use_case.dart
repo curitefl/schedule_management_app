@@ -32,7 +32,7 @@ class ScheduleEditUseCase {
     _state.setDescription(description);
   }
 
-  Future save() {
+  Future<void> save() {
     return _repository.updateSchedule(
       _viewModel.scheduleId,
       _viewModel.title,

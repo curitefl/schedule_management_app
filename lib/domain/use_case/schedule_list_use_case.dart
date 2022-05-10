@@ -18,7 +18,7 @@ class ScheduleListUseCase {
     _state.setSelectedDay(selectedDateTime);
   }
 
-  Future reloadState() async {
+  Future<void> reloadState() async {
     final selectedDateTime = _state.viewModel.selectedDateTime;
     final entries = await _repository.getDayScheduleEntries(selectedDateTime);
 

@@ -17,7 +17,7 @@ class TransitionUseCase {
     final this._scheduleEditState,
   );
 
-  Future showScheduleListView(final BuildContext context) async {
+  Future<void> showScheduleListView(final BuildContext context) async {
     return showDialog(
       context: context,
       builder: (_) => const ScheduleListView(),

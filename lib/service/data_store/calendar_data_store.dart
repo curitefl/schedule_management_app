@@ -94,7 +94,7 @@ class CalendarDataStore extends _$CalendarDataStore {
     );
   }
 
-  Future deleteSchedule(final Schedule schedule) {
+  Future<void> deleteSchedule(final Schedule schedule) {
     return (delete(schedules)..where((tbl) => tbl.id.equals(schedule.id))).go();
   }
 }

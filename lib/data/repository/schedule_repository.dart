@@ -17,7 +17,7 @@ class ScheduleRepository {
     return _calendarDataStore.getScheduleEntry(scheduleId);
   }
 
-  Future addSchedule(
+  Future<void> addSchedule(
     final String title,
     final bool isWholeDay,
     final DateTime startDateTime,
@@ -28,7 +28,7 @@ class ScheduleRepository {
         title, isWholeDay, startDateTime, endDateTime, description);
   }
 
-  Future updateSchedule(
+  Future<int> updateSchedule(
     final int scheduleId,
     final String title,
     final bool isWholeDay,
@@ -41,7 +41,7 @@ class ScheduleRepository {
         schedule, title, isWholeDay, startDateTime, endDateTime, description);
   }
 
-  Future deleteSchedule(final int id) async {
+  Future<void> deleteSchedule(final int id) async {
     final schedule = await _getSchedule(id);
     return _calendarDataStore.deleteSchedule(schedule);
   }

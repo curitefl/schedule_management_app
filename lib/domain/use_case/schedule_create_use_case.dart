@@ -36,7 +36,7 @@ class ScheduleCreateUseCase {
     ref.refresh(scheduleCreateStateProvider);
   }
 
-  Future save() {
+  Future<void> save() {
     return _repository.addSchedule(
       _viewModel.title,
       _viewModel.isWholeDay,
