@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:schedule_management_app/domain/provider/schedule_list_providers.dart';
-import 'package:schedule_management_app/presentation/view/constants/schedule_list_constants.dart';
-import 'package:schedule_management_app/presentation/view/constants/text_constants.dart';
-import 'package:schedule_management_app/presentation/view/view/schedule_edit_view.dart';
 
 class ScheduleListView extends HookConsumerWidget {
   const ScheduleListView({final Key? key}) : super(key: key);
@@ -14,7 +10,14 @@ class ScheduleListView extends HookConsumerWidget {
     final viewModel = ref.watch(scheduleListStateProvider);
     final presenter = ref.watch(scheduleListPresenterProvider);
 
-    return SimpleDialog(
+    return AlertDialog(
+      insetPadding: const EdgeInsets.all(24.0),
+      contentPadding: const EdgeInsets.all(16.0),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(20.0),
+        ),
+      ),
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -45,36 +48,50 @@ class ScheduleListView extends HookConsumerWidget {
           ),
         ],
       ),
-      children: [
-        Column(
-          children: [
-            for (var i = 0; i < viewModel.scheduleElements.length; ++i) ...{
-              Row(
-                children: [
-                  Column(
-                    children: [
-                      for (var j = 0;
-                          j < viewModel.scheduleElements[i].dateTimeTexts.length;
-                          ++j) ...{
-                        Text(viewModel.scheduleElements[i].dateTimeTexts[j]),
-                      }
-                    ],
+      content: SizedBox(
+        height: MediaQuery.of(context).size.height / 2.0,
+        width: MediaQuery.of(context).size.width - 24.0,
+        child: ListView.builder(
+          itemCount: viewModel.scheduleElements.length,
+          itemBuilder: (BuildContext context, int index) {
+            return Row(
+              children: [
+                Column(
+                  children: [
+                    for (var i = 0;
+                        i < viewModel.scheduleElements[index].dateTimeTexts.length;
+                        ++i) ...{
+                      Text(viewModel.scheduleElements[index].dateTimeTexts[i]),
+                    }
+                  ],
+                ),
+                const SizedBox(width: 8.0),
+                Container(
+                  height: 50.0,
+                  width: 5.0,
+                  color: Colors.blue,
+                ),
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: TextButton(
+                      child: Text(
+                        viewModel.scheduleElements[index].scheduleTitle,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
+                      onPressed: () {
+                        presenter.showScheduleEditView(
+                            context,
+                            viewModel.scheduleElements[index].scheduleId,
+                            viewModel.selectedDateTime);
+                      },
+                    ),
                   ),
-                  TextButton(
-                    child: Text(viewModel.scheduleElements[i].scheduleTitle),
-                    onPressed: () {
-                      presenter.showScheduleEditView(context, viewModel.scheduleElements[i].scheduleId);
-                    },
-                  ),
-                ],
-              ),
-            }
-          ],
-        ),
-      ],
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(
-          Radius.circular(20.0),
+                ),
+              ],
+            );
+          },
         ),
       ),
     );
