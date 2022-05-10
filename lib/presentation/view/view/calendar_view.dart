@@ -64,10 +64,9 @@ class CalendarView extends HookConsumerWidget {
                       );
                     },
                     defaultBuilder: (BuildContext context, DateTime day, DateTime focusedDay) {
-                      final date = day.day.toString();
                       return Center(
                         child: Text(
-                          date,
+                          '${day.day}',
                           style: TextStyle(
                             color: _textColor(day),
                           ),
