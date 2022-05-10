@@ -30,8 +30,7 @@ class ScheduleEditState extends StateNotifier<ScheduleEditViewModel> {
   }
 
   void setTitle(final String title) {
-    state = state.copyWith(title: title);
-    _updateCanSave();
+    state = state.copyWith(title: title, canSave: true);
     _updateIsModified();
   }
 
@@ -40,6 +39,7 @@ class ScheduleEditState extends StateNotifier<ScheduleEditViewModel> {
       isWholeDay: isWholeDay,
       startDateTimeText: _getDateTimeText(state.startDateTime, isWholeDay),
       endDateTimeText: _getDateTimeText(state.endDateTime, isWholeDay),
+      canSave: true,
     );
   }
 
@@ -47,7 +47,11 @@ class ScheduleEditState extends StateNotifier<ScheduleEditViewModel> {
     final dateTimeText = _getDateTimeText(startDateTime.toLocal(), state.isWholeDay);
 
     if (startDateTime.isBefore(state.endDateTime)) {
-      state = state.copyWith(startDateTime: startDateTime, startDateTimeText: dateTimeText);
+      state = state.copyWith(
+        startDateTime: startDateTime,
+        startDateTimeText: dateTimeText,
+        canSave: true,
+      );
       return;
     }
 
@@ -58,25 +62,23 @@ class ScheduleEditState extends StateNotifier<ScheduleEditViewModel> {
       startDateTimeText: dateTimeText,
       endDateTime: endTime,
       endDateTimeText: _getDateTimeText(endTime, state.isWholeDay),
+      canSave: true,
     );
   }
 
   void setEndDateTime(final DateTime endDateTime) {
     final endDateTimeUtc = endDateTime.toUtc();
     final dateTimeText = _getDateTimeText(endDateTime, state.isWholeDay);
-    state = state.copyWith(endDateTime: endDateTimeUtc, endDateTimeText: dateTimeText);
+    state = state.copyWith(
+      endDateTime: endDateTimeUtc,
+      endDateTimeText: dateTimeText,
+      canSave: true,
+    );
   }
 
   void setDescription(final String description) {
-    state = state.copyWith(description: description);
-    _updateCanSave();
+    state = state.copyWith(description: description, canSave: true);
     _updateIsModified();
-  }
-
-  // TODO 中の処理を考える
-  void _updateCanSave() {
-    final canSave = state.title.isNotEmpty && state.description.isNotEmpty;
-    state = state.copyWith(canSave: canSave);
   }
 
   // TODO 中の処理を考える

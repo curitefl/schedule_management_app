@@ -12,10 +12,6 @@ class TextConstants {
   // 予定編集画面
   static const String scheduleEditViewAppBarTitle = '予定編集';
 
-  // 予定追加画面(アクションシート用)
-  static const String scheduleCreateViewActionSheetDiscardChanges = '編集を破棄';
-  static const String scheduleCreateViewActionSheetCancel = 'キャンセル';
-
   // 日別予定一覧画面
   static const String scheduleListViewDateFormat = 'yyyy/MM/dd (E)';
   static const String scheduleListViewTimeFormat = 'HH:mm';

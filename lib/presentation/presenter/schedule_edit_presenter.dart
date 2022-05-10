@@ -39,4 +39,8 @@ class ScheduleEditPresenter {
     await _scheduleListUseCase.reloadState();
     await _calendarUseCase.reloadState();
   }
+
+  void refreshState(final WidgetRef ref) {
+    _useCase.refreshState(ref);
+  }
 }

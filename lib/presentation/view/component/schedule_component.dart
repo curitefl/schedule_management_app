@@ -19,7 +19,9 @@ class ScheduleComponent extends StatelessWidget {
   final TextEditingController _descriptionTextEditingController;
   final ValueChanged<String> _onDescriptionChanged;
   final bool _canSave;
+  final bool _isModified;
   final VoidCallback _onPressedSave;
+  final VoidCallback _onDiscard;
 
   const ScheduleComponent({
     final Key? key,
@@ -37,7 +39,9 @@ class ScheduleComponent extends StatelessWidget {
     required final TextEditingController descriptionTextEditingController,
     required final ValueChanged<String> onDescriptionChanged,
     required final bool canSave,
+    required final bool isModified,
     required final VoidCallback onPressedSave,
+    required final VoidCallback onDiscard,
   })  : _title = appBarText,
         _titleTextEditingController = titleTextEditingController,
         _onTitleChanged = onTitleChanged,
@@ -52,7 +56,9 @@ class ScheduleComponent extends StatelessWidget {
         _descriptionTextEditingController = descriptionTextEditingController,
         _onDescriptionChanged = onDescriptionChanged,
         _canSave = canSave,
+        _isModified = isModified,
         _onPressedSave = onPressedSave,
+        _onDiscard = onDiscard,
         super(key: key);
 
   @override
@@ -63,7 +69,7 @@ class ScheduleComponent extends StatelessWidget {
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.close),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => _closeView(context),
         ),
         actions: [
           Padding(
@@ -185,5 +191,39 @@ class ScheduleComponent extends StatelessWidget {
       _onPressedSave();
       Navigator.pop(context);
     };
+  }
+
+  void _closeView(final BuildContext context) {
+    if (_isModified) {
+      _showModifiedPopup(context);
+    } else {
+      Navigator.pop(context);
+      _onDiscard();
+    }
+  }
+
+  Future<dynamic> _showModifiedPopup(final BuildContext context) {
+    return showCupertinoModalPopup(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoActionSheet(
+          actions: [
+            CupertinoActionSheetAction(
+              onPressed: () {
+                // TODO 2回ポップするもっと良い方法を調べる
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+                _onDiscard();
+              },
+              child: const Text(ScheduleComponentConstants.confirmationDiscard),
+            ),
+            CupertinoActionSheetAction(
+              onPressed: () => Navigator.pop(context),
+              child: const Text(ScheduleComponentConstants.confirmationCancel),
+            ),
+          ],
+        );
+      },
+    );
   }
 }

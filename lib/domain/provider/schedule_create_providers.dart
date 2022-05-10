@@ -38,7 +38,6 @@ final scheduleCreateUseCaseProvider = Provider(
 
 final scheduleCreatePresenterProvider = Provider(
   (ref) => ScheduleCreatePresenter(
-    ref.watch(scheduleCreateStateProvider.notifier),
     ref.watch(scheduleCreateUseCaseProvider),
     ref.watch(calendarUseCaseProvider),
     ref.watch(scheduleListUseCaseProvider),
