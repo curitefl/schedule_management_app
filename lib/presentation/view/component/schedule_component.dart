@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:schedule_management_app/presentation/view/constants/schedule_component_constants.dart';
 import 'package:schedule_management_app/presentation/view/constants/schedule_create_constants.dart';
 import 'package:schedule_management_app/presentation/view/factory/widget_factory.dart';
 
@@ -65,7 +66,7 @@ class ScheduleComponent extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: ElevatedButton(
-              child: const Text('保存'),
+              child: const Text(ScheduleComponentConstants.save),
               onPressed: _onPressedSave,
             ),
           )
@@ -77,13 +78,13 @@ class ScheduleComponent extends StatelessWidget {
             controller: _titleTextEditingController,
             autofocus: true,
             decoration: const InputDecoration(
-              hintText: 'タイトルを入力してください',
+              hintText: ScheduleComponentConstants.titleHintText,
             ),
             onChanged: _onTitleChanged,
           ),
           Row(
             children: [
-              const Text('終日'),
+              const Text(ScheduleComponentConstants.wholeDay),
               Switch(
                 value: _isWholeDay,
                 onChanged: _onWholeDayChanged,
@@ -92,7 +93,7 @@ class ScheduleComponent extends StatelessWidget {
           ),
           WidgetFactory.createDatePickerButton(
             context,
-            '開始',
+            ScheduleComponentConstants.start,
             _startDateTimeText,
             () {
               _showDateTimePicker(
@@ -106,7 +107,7 @@ class ScheduleComponent extends StatelessWidget {
           ),
           WidgetFactory.createDatePickerButton(
             context,
-            '終了',
+            ScheduleComponentConstants.end,
             _endDateTimeText,
             () {
               _showDateTimePicker(
@@ -122,7 +123,7 @@ class ScheduleComponent extends StatelessWidget {
             child: TextField(
               controller: _descriptionTextEditingController,
               decoration: const InputDecoration(
-                hintText: 'コメントを入力してください',
+                hintText: ScheduleComponentConstants.descriptionHintText,
               ),
               keyboardType: TextInputType.multiline,
               maxLines: null,
