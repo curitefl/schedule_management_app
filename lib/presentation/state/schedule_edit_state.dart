@@ -9,6 +9,7 @@ class ScheduleEditState extends StateNotifier<ScheduleEditViewModel> {
   ScheduleEditViewModel get viewModel => state;
 
   void set(
+    int scheduleId,
     String title,
     bool isWholeDay,
     DateTime startDateTime,
@@ -16,6 +17,7 @@ class ScheduleEditState extends StateNotifier<ScheduleEditViewModel> {
     String description,
   ) {
     state = state.copyWith(
+      scheduleId: scheduleId,
       maximumYear: startDateTime.year + 100,
       title: title,
       isWholeDay: isWholeDay,

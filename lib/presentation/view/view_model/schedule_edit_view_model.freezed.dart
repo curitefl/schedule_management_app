@@ -16,6 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ScheduleEditViewModel {
+  int get scheduleId => throw _privateConstructorUsedError;
   int get maximumYear => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   bool get isWholeDay => throw _privateConstructorUsedError;
@@ -38,7 +39,8 @@ abstract class $ScheduleEditViewModelCopyWith<$Res> {
           $Res Function(ScheduleEditViewModel) then) =
       _$ScheduleEditViewModelCopyWithImpl<$Res>;
   $Res call(
-      {int maximumYear,
+      {int scheduleId,
+      int maximumYear,
       String title,
       bool isWholeDay,
       DateTime startDateTime,
@@ -61,6 +63,7 @@ class _$ScheduleEditViewModelCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? scheduleId = freezed,
     Object? maximumYear = freezed,
     Object? title = freezed,
     Object? isWholeDay = freezed,
@@ -73,6 +76,10 @@ class _$ScheduleEditViewModelCopyWithImpl<$Res>
     Object? isModified = freezed,
   }) {
     return _then(_value.copyWith(
+      scheduleId: scheduleId == freezed
+          ? _value.scheduleId
+          : scheduleId // ignore: cast_nullable_to_non_nullable
+              as int,
       maximumYear: maximumYear == freezed
           ? _value.maximumYear
           : maximumYear // ignore: cast_nullable_to_non_nullable
@@ -125,7 +132,8 @@ abstract class _$ScheduleEditViewModelCopyWith<$Res>
       __$ScheduleEditViewModelCopyWithImpl<$Res>;
   @override
   $Res call(
-      {int maximumYear,
+      {int scheduleId,
+      int maximumYear,
       String title,
       bool isWholeDay,
       DateTime startDateTime,
@@ -150,6 +158,7 @@ class __$ScheduleEditViewModelCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? scheduleId = freezed,
     Object? maximumYear = freezed,
     Object? title = freezed,
     Object? isWholeDay = freezed,
@@ -162,6 +171,10 @@ class __$ScheduleEditViewModelCopyWithImpl<$Res>
     Object? isModified = freezed,
   }) {
     return _then(_ScheduleEditViewModel(
+      scheduleId: scheduleId == freezed
+          ? _value.scheduleId
+          : scheduleId // ignore: cast_nullable_to_non_nullable
+              as int,
       maximumYear: maximumYear == freezed
           ? _value.maximumYear
           : maximumYear // ignore: cast_nullable_to_non_nullable
@@ -210,7 +223,8 @@ class __$ScheduleEditViewModelCopyWithImpl<$Res>
 
 class _$_ScheduleEditViewModel implements _ScheduleEditViewModel {
   const _$_ScheduleEditViewModel(
-      {required this.maximumYear,
+      {required this.scheduleId,
+      required this.maximumYear,
       required this.title,
       required this.isWholeDay,
       required this.startDateTime,
@@ -221,6 +235,8 @@ class _$_ScheduleEditViewModel implements _ScheduleEditViewModel {
       required this.canSave,
       required this.isModified});
 
+  @override
+  final int scheduleId;
   @override
   final int maximumYear;
   @override
@@ -244,7 +260,7 @@ class _$_ScheduleEditViewModel implements _ScheduleEditViewModel {
 
   @override
   String toString() {
-    return 'ScheduleEditViewModel(maximumYear: $maximumYear, title: $title, isWholeDay: $isWholeDay, startDateTime: $startDateTime, endDateTime: $endDateTime, startDateTimeText: $startDateTimeText, endDateTimeText: $endDateTimeText, description: $description, canSave: $canSave, isModified: $isModified)';
+    return 'ScheduleEditViewModel(scheduleId: $scheduleId, maximumYear: $maximumYear, title: $title, isWholeDay: $isWholeDay, startDateTime: $startDateTime, endDateTime: $endDateTime, startDateTimeText: $startDateTimeText, endDateTimeText: $endDateTimeText, description: $description, canSave: $canSave, isModified: $isModified)';
   }
 
   @override
@@ -252,6 +268,8 @@ class _$_ScheduleEditViewModel implements _ScheduleEditViewModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _ScheduleEditViewModel &&
+            const DeepCollectionEquality()
+                .equals(other.scheduleId, scheduleId) &&
             const DeepCollectionEquality()
                 .equals(other.maximumYear, maximumYear) &&
             const DeepCollectionEquality().equals(other.title, title) &&
@@ -275,6 +293,7 @@ class _$_ScheduleEditViewModel implements _ScheduleEditViewModel {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      const DeepCollectionEquality().hash(scheduleId),
       const DeepCollectionEquality().hash(maximumYear),
       const DeepCollectionEquality().hash(title),
       const DeepCollectionEquality().hash(isWholeDay),
@@ -295,7 +314,8 @@ class _$_ScheduleEditViewModel implements _ScheduleEditViewModel {
 
 abstract class _ScheduleEditViewModel implements ScheduleEditViewModel {
   const factory _ScheduleEditViewModel(
-      {required final int maximumYear,
+      {required final int scheduleId,
+      required final int maximumYear,
       required final String title,
       required final bool isWholeDay,
       required final DateTime startDateTime,
@@ -306,6 +326,8 @@ abstract class _ScheduleEditViewModel implements ScheduleEditViewModel {
       required final bool canSave,
       required final bool isModified}) = _$_ScheduleEditViewModel;
 
+  @override
+  int get scheduleId => throw _privateConstructorUsedError;
   @override
   int get maximumYear => throw _privateConstructorUsedError;
   @override

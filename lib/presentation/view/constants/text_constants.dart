@@ -4,12 +4,15 @@ class TextConstants {
   static const String today = '今日';
   static const String calendarDateFormat = 'yyyy年MM月';
 
-  // 予定の追加画面
+  // 予定追加画面
   static const String scheduleCreateViewAppBarTitle = '予定追加';
   static const String wholeDaySwitchOnDateFormat = 'yyyy-MM-dd';
   static const String wholeDaySwitchOffDateFormat = 'yyyy-MM-dd HH:mm';
 
-  // 予定の追加画面(アクションシート用)
+  // 予定編集画面
+  static const String scheduleEditViewAppBarTitle = '予定編集';
+
+  // 予定追加画面(アクションシート用)
   static const String scheduleCreateViewActionSheetDiscardChanges = '編集を破棄';
   static const String scheduleCreateViewActionSheetCancel = 'キャンセル';
 

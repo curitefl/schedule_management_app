@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:schedule_management_app/domain/provider/schedule_edit_providers.dart';
 import 'package:schedule_management_app/presentation/view/component/schedule_component.dart';
+import 'package:schedule_management_app/presentation/view/constants/text_constants.dart';
 
 class ScheduleEditView extends HookConsumerWidget {
   const ScheduleEditView({Key? key}) : super(key: key);
@@ -9,34 +10,25 @@ class ScheduleEditView extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final viewModel = ref.watch(scheduleEditStateProvider);
+    final presenter = ref.watch(scheduleEditPresenterProvider);
 
     return ScheduleComponent(
-      appBarText: '予定編集',
+      appBarText: TextConstants.scheduleEditViewAppBarTitle,
       titleTextEditingController: TextEditingController(text: viewModel.title),
-      onTitleChanged: (_) {
-        // TODO 文字が入力されたときの処理
-      },
+      onTitleChanged: presenter.setTitle,
       isWholeDay: viewModel.isWholeDay,
-      onWholeDayChanged: (_) {
-        // TODO 終日スイッチの処理
-      },
+      onWholeDayChanged: presenter.setWholeDay,
       startDateTime: viewModel.startDateTime,
       endDateTime: viewModel.endDateTime,
       startDateTimeText: viewModel.startDateTimeText,
       endDateTimeText: viewModel.endDateTimeText,
-      onStartDateTimeChanged: (_) {
-        // TODO 開始時間ピッカーをタップしたときの処理
-      },
-      onEndDateTimeChanged: (_) {
-        // TODO 終了時間ピッカーをタップしたときの処理
-      },
+      onStartDateTimeChanged: presenter.setStartDateTime,
+      onEndDateTimeChanged: presenter.setEndDateTime,
       descriptionTextEditingController: TextEditingController(text: viewModel.description),
-      onDescriptionChanged: (_) {
-        // TODO コメントが編集されたときの処理
-      },
+      onDescriptionChanged: presenter.setDescription,
       canSave: viewModel.canSave,
       onPressedSave: () {
-        // TODO 保存の処理
+        return presenter.save(ref);
       },
     );
   }

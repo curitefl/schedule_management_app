@@ -5,6 +5,7 @@ part 'schedule_edit_view_model.freezed.dart';
 @freezed
 abstract class ScheduleEditViewModel with _$ScheduleEditViewModel {
   const factory ScheduleEditViewModel({
+    required final int scheduleId,
     required final int maximumYear,
     required final String title,
     required final bool isWholeDay,

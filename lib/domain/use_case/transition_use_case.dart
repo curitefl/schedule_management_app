@@ -50,10 +50,11 @@ class TransitionUseCase {
     );
   }
 
-  void showScheduleEditView(final BuildContext context, final int scheduleId) async {
+  void showScheduleEditView(final BuildContext context, final int scheduleId, final DateTime selectedDateTime) async {
     final schedule = await _repository.getScheduleEntry(scheduleId);
 
     _scheduleEditState.set(
+      schedule.id,
       schedule.title,
       schedule.isWholeDay,
       schedule.startDateTime,
@@ -67,6 +68,8 @@ class TransitionUseCase {
           return const ScheduleEditView();
         },
       ),
+    ).then(
+      (value) async => await _refreshScheduleListState(selectedDateTime),
     );
   }
 

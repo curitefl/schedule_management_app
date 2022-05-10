@@ -29,14 +29,14 @@ class ScheduleRepository {
   }
 
   Future updateSchedule(
-    final int id,
+    final int scheduleId,
     final String title,
     final bool isWholeDay,
     final DateTime startDateTime,
     final DateTime endDateTime,
     final String description,
   ) async {
-    final schedule = await _getSchedule(id);
+    final schedule = await _getSchedule(scheduleId);
     return _calendarDataStore.updateSchedule(
         schedule, title, isWholeDay, startDateTime, endDateTime, description);
   }
