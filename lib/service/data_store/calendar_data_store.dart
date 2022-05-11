@@ -4,6 +4,7 @@ import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
+import 'package:schedule_management_app/service/data_store/deep_date_time_expressions.dart';
 
 part 'calendar_data_store.g.dart';
 
@@ -29,32 +30,15 @@ class CalendarDataStore extends _$CalendarDataStore {
   int get schemaVersion => 1;
 
   Future<List<Schedule>> getMonthScheduleEntries(final DateTime dateTime) {
-    return (select(schedules)
-          ..where((tbl) {
-            final isEqualYear = tbl.startDateTime.year.equals(dateTime.year);
-            final isEqualMonth = tbl.startDateTime.month.equals(dateTime.month);
-            final result = isEqualYear & isEqualMonth;
-            return result;
-          }))
-        .get();
+    return (select(schedules)..where((tbl) => tbl.startDateTime.dateEquals(dateTime))).get();
   }
 
   Future<List<Schedule>> getDayScheduleEntries(final DateTime dateTime) {
-    return (select(schedules)
-          ..where((tbl) {
-            final isEqualYear = tbl.startDateTime.year.equals(dateTime.year);
-            final isEqualMonth = tbl.startDateTime.month.equals(dateTime.month);
-            final isEqualDay = tbl.startDateTime.day.equals(dateTime.day);
-            final result = isEqualYear & isEqualMonth & isEqualDay;
-            return result;
-          }))
-        .get();
+    return (select(schedules)..where((tbl) => tbl.startDateTime.dateEquals(dateTime))).get();
   }
 
   Future<Schedule> getScheduleEntry(final int scheduleId) {
-    return (select(schedules)
-          ..where((tbl) => tbl.id.equals(scheduleId)))
-        .getSingle();
+    return (select(schedules)..where((tbl) => tbl.id.equals(scheduleId))).getSingle();
   }
 
   Future<int> addSchedule(
