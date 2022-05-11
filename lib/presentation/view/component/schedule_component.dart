@@ -22,8 +22,9 @@ class ScheduleComponent extends StatelessWidget {
   final bool _isModified;
   final VoidCallback _onPressedSave;
   final VoidCallback _onDiscard;
+  final FocusNode _focusNode = FocusNode();
 
-  const ScheduleComponent({
+  ScheduleComponent({
     final Key? key,
     required final String appBarText,
     required final String title,
@@ -63,83 +64,90 @@ class ScheduleComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(_appBarText),
-        centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.close),
-          onPressed: () async => await _closeView(context),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ElevatedButton(
-              child: const Text(ScheduleComponentConstants.save),
-              onPressed: _getSaveCallback(context),
+    return Focus(
+      focusNode: _focusNode,
+      child: GestureDetector(
+        onTap: _focusNode.requestFocus,
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: AppBar(
+            title: Text(_appBarText),
+            centerTitle: true,
+            leading: IconButton(
+              icon: const Icon(Icons.close),
+              onPressed: () async => await _closeView(context),
             ),
-          )
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            TextFormField(
-              initialValue: _title,
-              autofocus: true,
-              decoration: const InputDecoration(
-                hintText: ScheduleComponentConstants.titleHintText,
-                border: OutlineInputBorder(),
-              ),
-              onChanged: _onTitleChanged,
-            ),
-            SwitchListTile(
-              title: const Text(ScheduleComponentConstants.wholeDay),
-              value: _isWholeDay,
-              onChanged: _onWholeDayChanged,
-            ),
-            WidgetFactory.createDatePickerButton(
-              context,
-              ScheduleComponentConstants.start,
-              _startDateTimeText,
-              () {
-                _showDateTimePicker(
-                  context,
-                  _startDateTime,
-                  _startDateTime.year + 100,
-                  _isWholeDay,
-                  _onStartDateTimeChanged,
-                );
-              },
-            ),
-            WidgetFactory.createDatePickerButton(
-              context,
-              ScheduleComponentConstants.end,
-              _endDateTimeText,
-              () {
-                _showDateTimePicker(
-                  context,
-                  _endDateTime,
-                  _startDateTime.year + 100,
-                  _isWholeDay,
-                  _onEndDateTimeChanged,
-                );
-              },
-            ),
-            Expanded(
-              child: TextFormField(
-                initialValue: _description,
-                decoration: const InputDecoration(
-                  hintText: ScheduleComponentConstants.descriptionHintText,
-                  border: OutlineInputBorder(),
+            actions: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                  child: const Text(ScheduleComponentConstants.save),
+                  onPressed: _getSaveCallback(context),
                 ),
-                keyboardType: TextInputType.multiline,
-                maxLines: null,
-                onChanged: _onDescriptionChanged,
-              ),
+              )
+            ],
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                TextFormField(
+                  initialValue: _title,
+                  autofocus: true,
+                  decoration: const InputDecoration(
+                    hintText: ScheduleComponentConstants.titleHintText,
+                    border: OutlineInputBorder(),
+                  ),
+                  onChanged: _onTitleChanged,
+                ),
+                SwitchListTile(
+                  title: const Text(ScheduleComponentConstants.wholeDay),
+                  value: _isWholeDay,
+                  onChanged: _onWholeDayChanged,
+                ),
+                WidgetFactory.createDatePickerButton(
+                  context,
+                  ScheduleComponentConstants.start,
+                  _startDateTimeText,
+                  () {
+                    _showDateTimePicker(
+                      context,
+                      _startDateTime,
+                      _startDateTime.year + 100,
+                      _isWholeDay,
+                      _onStartDateTimeChanged,
+                    );
+                  },
+                ),
+                WidgetFactory.createDatePickerButton(
+                  context,
+                  ScheduleComponentConstants.end,
+                  _endDateTimeText,
+                  () {
+                    _showDateTimePicker(
+                      context,
+                      _endDateTime,
+                      _startDateTime.year + 100,
+                      _isWholeDay,
+                      _onEndDateTimeChanged,
+                    );
+                  },
+                ),
+                Expanded(
+                  child: TextFormField(
+                    initialValue: _description,
+                    decoration: const InputDecoration(
+                      hintText: ScheduleComponentConstants.descriptionHintText,
+                      border: OutlineInputBorder(),
+                    ),
+                    keyboardType: TextInputType.multiline,
+                    maxLines: null,
+                    onChanged: _onDescriptionChanged,
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
