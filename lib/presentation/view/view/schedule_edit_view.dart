@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:schedule_management_app/domain/provider/schedule_edit_providers.dart';
+import 'package:schedule_management_app/presentation/presenter/schedule_edit_presenter.dart';
 import 'package:schedule_management_app/presentation/view/component/schedule_component.dart';
 import 'package:schedule_management_app/presentation/view/constants/text_constants.dart';
 
@@ -30,6 +32,55 @@ class ScheduleEditView extends HookConsumerWidget {
       isModified: viewModel.isModified,
       onPressedSave: () async => await presenter.save(ref),
       onDiscard: () => presenter.refreshState(ref),
+      child: TextButton(
+        child: const Text(
+          TextConstants.scheduleEditViewDeleteTitle,
+          maxLines: 1,
+        ),
+        onPressed: () {
+          _showDeletePopup(context, presenter, viewModel.scheduleId);
+        },
+      ),
     );
+  }
+
+  Future<void> _showDeletePopup(
+    final BuildContext context,
+    final ScheduleEditPresenter presenter,
+    final int scheduleId,
+  ) async {
+    var isDeleted = false;
+
+    final popup = showCupertinoModalPopup(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoActionSheet(
+          title: const Text(TextConstants.scheduleEditViewDeleteTitle),
+          message: const Text(TextConstants.scheduleEditViewDeleteMessage),
+          actions: [
+            CupertinoActionSheetAction(
+              onPressed: () {
+                Navigator.of(context).pop();
+                isDeleted = true;
+              },
+              child: const Text(TextConstants.scheduleEditViewDeleteConfirm),
+            ),
+            CupertinoActionSheetAction(
+              onPressed: () => Navigator.pop(context),
+              child: const Text(TextConstants.scheduleEditViewDeleteCancel),
+            ),
+          ],
+        );
+      },
+    );
+
+    await popup;
+
+    if (!isDeleted) {
+      return;
+    }
+
+    await presenter.deleteSchedule(scheduleId);
+    Navigator.pop(context);
   }
 }

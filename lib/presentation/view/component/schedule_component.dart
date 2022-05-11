@@ -22,6 +22,7 @@ class ScheduleComponent extends StatelessWidget {
   final bool _isModified;
   final Function _onPressedSave;
   final VoidCallback _onDiscard;
+  final Widget? _child;
   final FocusNode _focusNode = FocusNode();
 
   ScheduleComponent({
@@ -43,6 +44,7 @@ class ScheduleComponent extends StatelessWidget {
     required final bool isModified,
     required final Function onPressedSave,
     required final VoidCallback onDiscard,
+    final Widget? child,
   })  : _appBarText = appBarText,
         _title = title,
         _onTitleChanged = onTitleChanged,
@@ -60,6 +62,7 @@ class ScheduleComponent extends StatelessWidget {
         _isModified = isModified,
         _onPressedSave = onPressedSave,
         _onDiscard = onDiscard,
+        _child = child,
         super(key: key);
 
   @override
@@ -143,6 +146,9 @@ class ScheduleComponent extends StatelessWidget {
                     keyboardType: TextInputType.multiline,
                     maxLines: null,
                     onChanged: _onDescriptionChanged,
+                  ),
+                  SizedBox(
+                    child: _child,
                   ),
                 ],
               ),

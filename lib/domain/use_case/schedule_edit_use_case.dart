@@ -43,6 +43,10 @@ class ScheduleEditUseCase {
     );
   }
 
+  Future<void> deleteSchedule(int scheduleId) async {
+    await _repository.deleteSchedule(scheduleId);
+  }
+
   void refreshState(final WidgetRef ref) {
     ref.refresh(scheduleEditStateProvider);
   }
