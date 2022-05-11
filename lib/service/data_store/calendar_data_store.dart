@@ -34,7 +34,10 @@ class CalendarDataStore extends _$CalendarDataStore {
   }
 
   Future<List<Schedule>> getDayScheduleEntries(final DateTime dateTime) {
-    return (select(schedules)..where((tbl) => tbl.startDateTime.dateEquals(dateTime))).get();
+    return (select(schedules)
+      ..where((tbl) => tbl.startDateTime.dateEquals(dateTime))
+      ..orderBy([(u) => OrderingTerm(expression: u.startDateTime, mode: OrderingMode.asc)]))
+        .get();
   }
 
   Future<Schedule> getScheduleEntry(final int scheduleId) {
