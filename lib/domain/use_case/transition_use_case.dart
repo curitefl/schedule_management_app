@@ -34,7 +34,11 @@ class TransitionUseCase {
     );
   }
 
-  void showScheduleEditView(final BuildContext context, final int scheduleId, final DateTime selectedDateTime) async {
+  Future<void> showScheduleEditView(
+    final BuildContext context,
+    final int scheduleId,
+    final DateTime selectedDateTime,
+  ) async {
     final schedule = await _repository.getScheduleEntry(scheduleId);
 
     _scheduleEditState.set(

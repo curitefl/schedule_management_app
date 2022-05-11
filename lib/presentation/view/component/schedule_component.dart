@@ -20,7 +20,7 @@ class ScheduleComponent extends StatelessWidget {
   final ValueChanged<String> _onDescriptionChanged;
   final bool _canSave;
   final bool _isModified;
-  final VoidCallback _onPressedSave;
+  final Function _onPressedSave;
   final VoidCallback _onDiscard;
   final FocusNode _focusNode = FocusNode();
 
@@ -41,7 +41,7 @@ class ScheduleComponent extends StatelessWidget {
     required final ValueChanged<String> onDescriptionChanged,
     required final bool canSave,
     required final bool isModified,
-    required final VoidCallback onPressedSave,
+    required final Function onPressedSave,
     required final VoidCallback onDiscard,
   })  : _appBarText = appBarText,
         _title = title,
@@ -195,8 +195,8 @@ class ScheduleComponent extends StatelessWidget {
       return null;
     }
 
-    return () {
-      _onPressedSave();
+    return () async {
+      await _onPressedSave();
       Navigator.pop(context);
       _onDiscard();
     };

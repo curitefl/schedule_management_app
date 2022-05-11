@@ -29,7 +29,7 @@ class ScheduleCreateView extends HookConsumerWidget {
       onDescriptionChanged: presenter.setDescription,
       canSave: viewModel.canSave,
       isModified: viewModel.isModified,
-      onPressedSave: () => presenter.save(ref),
+      onPressedSave: () async => await presenter.save(ref),
       onDiscard: () => presenter.refreshState(ref),
     );
   }

@@ -29,13 +29,13 @@ class CalendarDataStore extends _$CalendarDataStore {
   @override
   int get schemaVersion => 1;
 
-  Future<List<Schedule>> getMonthScheduleEntries(final DateTime dateTime) {
-    return (select(schedules)..where((tbl) => tbl.startDateTime.dateYearMonthEquals(dateTime)))
+  Future<List<Schedule>> getMonthScheduleEntries(final DateTime dateTime) async {
+    return await (select(schedules)..where((tbl) => tbl.startDateTime.dateYearMonthEquals(dateTime)))
         .get();
   }
 
-  Future<List<Schedule>> getDayScheduleEntries(final DateTime dateTime) {
-    return (select(schedules)
+  Future<List<Schedule>> getDayScheduleEntries(final DateTime dateTime) async {
+    return await (select(schedules)
           ..where((tbl) => tbl.startDateTime.dateEquals(dateTime))
           ..orderBy([
             (entry) => OrderingTerm(expression: entry.isWholeDay, mode: OrderingMode.desc),
@@ -44,8 +44,8 @@ class CalendarDataStore extends _$CalendarDataStore {
         .get();
   }
 
-  Future<Schedule> getScheduleEntry(final int scheduleId) {
-    return (select(schedules)..where((tbl) => tbl.id.equals(scheduleId))).getSingle();
+  Future<Schedule> getScheduleEntry(final int scheduleId) async {
+    return await (select(schedules)..where((tbl) => tbl.id.equals(scheduleId))).getSingle();
   }
 
   Future<int> addSchedule(
@@ -54,8 +54,8 @@ class CalendarDataStore extends _$CalendarDataStore {
     final DateTime startDateTime,
     final DateTime endDateTime,
     final String description,
-  ) {
-    return into(schedules).insert(
+  ) async {
+    return await into(schedules).insert(
       SchedulesCompanion(
         title: Value(title),
         isWholeDay: Value(isWholeDay),
@@ -73,8 +73,8 @@ class CalendarDataStore extends _$CalendarDataStore {
     final DateTime startDateTime,
     final DateTime endDateTime,
     final String description,
-  ) {
-    return (update(schedules)..where((tbl) => tbl.id.equals(schedule.id))).write(
+  ) async {
+    return await (update(schedules)..where((tbl) => tbl.id.equals(schedule.id))).write(
       SchedulesCompanion(
         title: Value(title),
         isWholeDay: Value(isWholeDay),
@@ -85,8 +85,8 @@ class CalendarDataStore extends _$CalendarDataStore {
     );
   }
 
-  Future<void> deleteSchedule(final Schedule schedule) {
-    return (delete(schedules)..where((tbl) => tbl.id.equals(schedule.id))).go();
+  Future<void> deleteSchedule(final Schedule schedule) async {
+    await (delete(schedules)..where((tbl) => tbl.id.equals(schedule.id))).go();
   }
 }
 

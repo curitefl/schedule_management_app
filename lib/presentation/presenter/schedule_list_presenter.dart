@@ -10,7 +10,11 @@ class ScheduleListPresenter {
     _transitionUseCase.showScheduleCreateView(context, selectedDateTime);
   }
 
-  void showScheduleEditView(final BuildContext context, final int scheduleId, final DateTime selectedDateTime) {
-    _transitionUseCase.showScheduleEditView(context, scheduleId, selectedDateTime);
+  Future<void> showScheduleEditView(
+    final BuildContext context,
+    final int scheduleId,
+    final DateTime selectedDateTime,
+  ) async {
+    await _transitionUseCase.showScheduleEditView(context, scheduleId, selectedDateTime);
   }
 }

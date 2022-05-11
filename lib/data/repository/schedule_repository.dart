@@ -5,16 +5,16 @@ class ScheduleRepository {
 
   ScheduleRepository(final this._calendarDataStore);
 
-  Future<List<Schedule>> getMonthScheduleEntries(final DateTime dateTime) {
-    return _calendarDataStore.getMonthScheduleEntries(dateTime);
+  Future<List<Schedule>> getMonthScheduleEntries(final DateTime dateTime) async {
+    return await _calendarDataStore.getMonthScheduleEntries(dateTime);
   }
 
-  Future<List<Schedule>> getDayScheduleEntries(final DateTime dateTime) {
-    return _calendarDataStore.getDayScheduleEntries(dateTime);
+  Future<List<Schedule>> getDayScheduleEntries(final DateTime dateTime) async {
+    return await _calendarDataStore.getDayScheduleEntries(dateTime);
   }
 
-  Future<Schedule> getScheduleEntry(final int scheduleId) {
-    return _calendarDataStore.getScheduleEntry(scheduleId);
+  Future<Schedule> getScheduleEntry(final int scheduleId) async {
+    return await _calendarDataStore.getScheduleEntry(scheduleId);
   }
 
   Future<void> addSchedule(
@@ -23,12 +23,12 @@ class ScheduleRepository {
     final DateTime startDateTime,
     final DateTime endDateTime,
     final String description,
-  ) {
-    return _calendarDataStore.addSchedule(
+  ) async {
+    await _calendarDataStore.addSchedule(
         title, isWholeDay, startDateTime, endDateTime, description);
   }
 
-  Future<int> updateSchedule(
+  Future<void> updateSchedule(
     final int scheduleId,
     final String title,
     final bool isWholeDay,
@@ -36,17 +36,14 @@ class ScheduleRepository {
     final DateTime endDateTime,
     final String description,
   ) async {
-    final schedule = await _getSchedule(scheduleId);
-    return _calendarDataStore.updateSchedule(
+    final schedule = await getScheduleEntry(scheduleId);
+
+    await _calendarDataStore.updateSchedule(
         schedule, title, isWholeDay, startDateTime, endDateTime, description);
   }
 
-  Future<void> deleteSchedule(final int id) async {
-    final schedule = await _getSchedule(id);
-    return _calendarDataStore.deleteSchedule(schedule);
-  }
-
-  Future<Schedule> _getSchedule(final int scheduleId) {
-    return _calendarDataStore.getScheduleEntry(scheduleId);
+  Future<void> deleteSchedule(final int scheduleId) async {
+    final schedule = await getScheduleEntry(scheduleId);
+    await _calendarDataStore.deleteSchedule(schedule);
   }
 }

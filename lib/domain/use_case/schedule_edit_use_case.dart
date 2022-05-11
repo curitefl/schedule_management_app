@@ -32,8 +32,8 @@ class ScheduleEditUseCase {
     _state.setDescription(description);
   }
 
-  Future<void> save() {
-    return _repository.updateSchedule(
+  Future<void> save() async {
+    await _repository.updateSchedule(
       _viewModel.scheduleId,
       _viewModel.title,
       _viewModel.isWholeDay,

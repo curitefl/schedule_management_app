@@ -34,11 +34,11 @@ class ScheduleCreatePresenter {
     _useCase.setWholeDay(isWholeDay);
   }
 
-  void save(final WidgetRef ref) async {
+  Future<void> save(final WidgetRef ref) async {
     await _useCase.save();
-    _calendarUseCase.reloadState();
+    await _calendarUseCase.reloadState();
     _useCase.refreshState(ref);
-    _scheduleListUseCase.reloadState();
+    await _scheduleListUseCase.reloadState();
   }
 
   void refreshState(final WidgetRef ref) {
