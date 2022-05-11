@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:schedule_management_app/domain/provider/schedule_list_providers.dart';
@@ -69,7 +70,7 @@ class ScheduleListView extends HookConsumerWidget {
                 Container(
                   height: 50.0,
                   width: 5.0,
-                  color: Colors.blue,
+                  color: viewModel.scheduleElements[index].isWholeDay ?  Colors.redAccent : Colors.blue,
                 ),
                 Expanded(
                   child: Align(
