@@ -37,18 +37,24 @@ class ScheduleEditView extends HookConsumerWidget {
           TextConstants.scheduleEditViewDeleteTitle,
           maxLines: 1,
         ),
-        onPressed: () {
-          _showDeletePopup(context, presenter, viewModel.scheduleId);
+        onPressed: () async {
+          final isDiscard = await _showDeletePopup(context, presenter, viewModel.scheduleId);
+
+          if(isDiscard) {
+            Navigator.pop(context);
+          }
         },
       ),
     );
   }
 
-  Future<void> _showDeletePopup(
+  Future<bool> _showDeletePopup(
     final BuildContext context,
     final ScheduleEditPresenter presenter,
     final int scheduleId,
   ) async {
+    var isDiscard = false;
+
     await showCupertinoModalPopup(
       context: context,
       builder: (BuildContext context) {
@@ -60,7 +66,7 @@ class ScheduleEditView extends HookConsumerWidget {
               onPressed: () async {
                 await presenter.deleteSchedule(scheduleId);
                 Navigator.pop(context);
-                Navigator.pop(context);
+                isDiscard = true;
               },
               child: const Text(TextConstants.scheduleEditViewDeleteConfirm),
             ),
@@ -72,5 +78,6 @@ class ScheduleEditView extends HookConsumerWidget {
         );
       },
     );
+    return isDiscard;
   }
 }
