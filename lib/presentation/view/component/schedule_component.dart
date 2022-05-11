@@ -89,52 +89,52 @@ class ScheduleComponent extends StatelessWidget {
           ),
           body: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                TextFormField(
-                  initialValue: _title,
-                  autofocus: true,
-                  decoration: const InputDecoration(
-                    hintText: ScheduleComponentConstants.titleHintText,
-                    border: OutlineInputBorder(),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  TextFormField(
+                    initialValue: _title,
+                    autofocus: true,
+                    decoration: const InputDecoration(
+                      hintText: ScheduleComponentConstants.titleHintText,
+                      border: OutlineInputBorder(),
+                    ),
+                    onChanged: _onTitleChanged,
                   ),
-                  onChanged: _onTitleChanged,
-                ),
-                SwitchListTile(
-                  title: const Text(ScheduleComponentConstants.wholeDay),
-                  value: _isWholeDay,
-                  onChanged: _onWholeDayChanged,
-                ),
-                WidgetFactory.createDatePickerButton(
-                  context,
-                  ScheduleComponentConstants.start,
-                  _startDateTimeText,
-                  () {
-                    _showDateTimePicker(
-                      context,
-                      _startDateTime,
-                      _startDateTime.year + 100,
-                      _isWholeDay,
-                      _onStartDateTimeChanged,
-                    );
-                  },
-                ),
-                WidgetFactory.createDatePickerButton(
-                  context,
-                  ScheduleComponentConstants.end,
-                  _endDateTimeText,
-                  () {
-                    _showDateTimePicker(
-                      context,
-                      _endDateTime,
-                      _startDateTime.year + 100,
-                      _isWholeDay,
-                      _onEndDateTimeChanged,
-                    );
-                  },
-                ),
-                Expanded(
-                  child: TextFormField(
+                  SwitchListTile(
+                    title: const Text(ScheduleComponentConstants.wholeDay),
+                    value: _isWholeDay,
+                    onChanged: _onWholeDayChanged,
+                  ),
+                  WidgetFactory.createDatePickerButton(
+                    context,
+                    ScheduleComponentConstants.start,
+                    _startDateTimeText,
+                    () {
+                      _showDateTimePicker(
+                        context,
+                        _startDateTime,
+                        _startDateTime.year + 100,
+                        _isWholeDay,
+                        _onStartDateTimeChanged,
+                      );
+                    },
+                  ),
+                  WidgetFactory.createDatePickerButton(
+                    context,
+                    ScheduleComponentConstants.end,
+                    _endDateTimeText,
+                    () {
+                      _showDateTimePicker(
+                        context,
+                        _endDateTime,
+                        _startDateTime.year + 100,
+                        _isWholeDay,
+                        _onEndDateTimeChanged,
+                      );
+                    },
+                  ),
+                  TextFormField(
                     initialValue: _description,
                     decoration: const InputDecoration(
                       hintText: ScheduleComponentConstants.descriptionHintText,
@@ -144,8 +144,8 @@ class ScheduleComponent extends StatelessWidget {
                     maxLines: null,
                     onChanged: _onDescriptionChanged,
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
