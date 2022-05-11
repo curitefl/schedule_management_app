@@ -17,7 +17,7 @@ class ScheduleCreateUseCase {
   }
 
   void setStartDateTime(final DateTime startDateTime) {
-    _state.setEndDateTime(startDateTime);
+    _state.setStartDateTime(startDateTime);
   }
 
   void setEndDateTime(final DateTime endDateTime) {
