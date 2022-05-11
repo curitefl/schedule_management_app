@@ -1,5 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:schedule_management_app/domain/calculator/datetime_calculator.dart';
 import 'package:schedule_management_app/presentation/view/constants/text_constants.dart';
 import 'package:schedule_management_app/presentation/view/view_model/schedule_edit_view_model.dart';
 
@@ -44,36 +45,26 @@ class ScheduleEditState extends StateNotifier<ScheduleEditViewModel> {
   }
 
   void setStartDateTime(final DateTime startDateTime) {
-    final dateTimeText = _getDateTimeText(startDateTime.toLocal(), state.isWholeDay);
-
-    if (startDateTime.isBefore(state.endDateTime)) {
-      state = state.copyWith(
-        startDateTime: startDateTime,
-        startDateTimeText: dateTimeText,
-        canSave: true,
-        isModified: true,
-      );
-      return;
-    }
-
-    final endTime = state.isWholeDay ? startDateTime : startDateTime.add(const Duration(hours: 1));
+    final clampedEndDateTime = DateTimeCalculator.getClampedEndDateTime(startDateTime, state.endDateTime);
 
     state = state.copyWith(
       startDateTime: startDateTime,
-      startDateTimeText: dateTimeText,
-      endDateTime: endTime,
-      endDateTimeText: _getDateTimeText(endTime, state.isWholeDay),
+      startDateTimeText: _getDateTimeText(startDateTime, state.isWholeDay),
+      endDateTime: clampedEndDateTime,
+      endDateTimeText: _getDateTimeText(clampedEndDateTime, state.isWholeDay),
       canSave: true,
       isModified: true,
     );
   }
 
   void setEndDateTime(final DateTime endDateTime) {
-    final endDateTimeUtc = endDateTime.toUtc();
-    final dateTimeText = _getDateTimeText(endDateTime, state.isWholeDay);
+    final clampedStartDateTime = DateTimeCalculator.getClampedStartDateTime(state.startDateTime, endDateTime);
+
     state = state.copyWith(
-      endDateTime: endDateTimeUtc,
-      endDateTimeText: dateTimeText,
+      startDateTime: clampedStartDateTime,
+      startDateTimeText: _getDateTimeText(clampedStartDateTime, state.isWholeDay),
+      endDateTime: endDateTime,
+      endDateTimeText: _getDateTimeText(endDateTime, state.isWholeDay),
       canSave: true,
       isModified: true,
     );

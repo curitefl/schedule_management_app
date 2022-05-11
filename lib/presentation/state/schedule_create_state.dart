@@ -1,5 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:schedule_management_app/domain/calculator/datetime_calculator.dart';
 import 'package:schedule_management_app/presentation/view/constants/text_constants.dart';
 import 'package:schedule_management_app/presentation/view/view_model/schedule_create_view_model.dart';
 
@@ -46,27 +47,25 @@ class ScheduleCreateState extends StateNotifier<ScheduleCreateViewModel> {
   }
 
   void setStartDateTime(final DateTime startDateTime) {
-    final dateTimeText = _getDateTimeText(startDateTime.toLocal(), state.isWholeDay);
-
-    if (startDateTime.isBefore(state.endDateTime)) {
-      state = state.copyWith(startDateTime: startDateTime, startDateTimeText: dateTimeText);
-      return;
-    }
-
-    final endTime = state.isWholeDay ? startDateTime : startDateTime.add(const Duration(hours: 1));
+    final clampedEndDateTime = DateTimeCalculator.getClampedEndDateTime(startDateTime, state.endDateTime);
 
     state = state.copyWith(
       startDateTime: startDateTime,
-      startDateTimeText: dateTimeText,
-      endDateTime: endTime,
-      endDateTimeText: _getDateTimeText(endTime, state.isWholeDay),
+      startDateTimeText: _getDateTimeText(startDateTime, state.isWholeDay),
+      endDateTime: clampedEndDateTime,
+      endDateTimeText: _getDateTimeText(clampedEndDateTime, state.isWholeDay),
     );
   }
 
   void setEndDateTime(final DateTime endDateTime) {
-    final endDateTimeUtc = endDateTime.toUtc();
-    final dateTimeText = _getDateTimeText(endDateTime, state.isWholeDay);
-    state = state.copyWith(endDateTime: endDateTimeUtc, endDateTimeText: dateTimeText);
+    final clampedStartDateTime = DateTimeCalculator.getClampedStartDateTime(state.startDateTime, endDateTime);
+
+    state = state.copyWith(
+      startDateTime: clampedStartDateTime,
+      startDateTimeText: _getDateTimeText(clampedStartDateTime, state.isWholeDay),
+      endDateTime: endDateTime,
+      endDateTimeText: _getDateTimeText(endDateTime, state.isWholeDay),
+    );
   }
 
   void setDescription(final String description) {
