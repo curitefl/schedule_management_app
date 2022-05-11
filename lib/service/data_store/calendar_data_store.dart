@@ -30,7 +30,7 @@ class CalendarDataStore extends _$CalendarDataStore {
   int get schemaVersion => 1;
 
   Future<List<Schedule>> getMonthScheduleEntries(final DateTime dateTime) {
-    return (select(schedules)..where((tbl) => tbl.startDateTime.dateEquals(dateTime))).get();
+    return (select(schedules)..where((tbl) => tbl.startDateTime.dateYearMonthEquals(dateTime))).get();
   }
 
   Future<List<Schedule>> getDayScheduleEntries(final DateTime dateTime) {
