@@ -1,5 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:schedule_management_app/domain/provider/calendar_providers.dart';
+import 'package:schedule_management_app/domain/provider/schedule_list_providers.dart';
 import 'package:schedule_management_app/domain/use_case/schedule_create_use_case.dart';
 import 'package:schedule_management_app/presentation/presenter/schedule_create_presenter.dart';
 import 'package:schedule_management_app/presentation/state/schedule_create_state.dart';
@@ -13,7 +14,7 @@ final scheduleCreateStateProvider =
     return ScheduleCreateState(
       ScheduleCreateViewModel(
         maximumYear: now.year + 100,
-        selectedDay: now,
+        selectedDateTime: now,
         title: '',
         isWholeDay: false,
         startDateTime: now,
@@ -37,8 +38,8 @@ final scheduleCreateUseCaseProvider = Provider(
 
 final scheduleCreatePresenterProvider = Provider(
   (ref) => ScheduleCreatePresenter(
-    ref.watch(scheduleCreateStateProvider.notifier),
     ref.watch(scheduleCreateUseCaseProvider),
     ref.watch(calendarUseCaseProvider),
+    ref.watch(scheduleListUseCaseProvider),
   ),
 );

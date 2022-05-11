@@ -16,6 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ScheduleListElementModel {
+  int get scheduleId => throw _privateConstructorUsedError;
   bool get isWholeDay => throw _privateConstructorUsedError;
   DateTime get startDateTime => throw _privateConstructorUsedError;
   DateTime get endDateTime => throw _privateConstructorUsedError;
@@ -33,7 +34,8 @@ abstract class $ScheduleListElementModelCopyWith<$Res> {
           $Res Function(ScheduleListElementModel) then) =
       _$ScheduleListElementModelCopyWithImpl<$Res>;
   $Res call(
-      {bool isWholeDay,
+      {int scheduleId,
+      bool isWholeDay,
       DateTime startDateTime,
       DateTime endDateTime,
       List<String> dateTimeTexts,
@@ -51,6 +53,7 @@ class _$ScheduleListElementModelCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? scheduleId = freezed,
     Object? isWholeDay = freezed,
     Object? startDateTime = freezed,
     Object? endDateTime = freezed,
@@ -58,6 +61,10 @@ class _$ScheduleListElementModelCopyWithImpl<$Res>
     Object? scheduleTitle = freezed,
   }) {
     return _then(_value.copyWith(
+      scheduleId: scheduleId == freezed
+          ? _value.scheduleId
+          : scheduleId // ignore: cast_nullable_to_non_nullable
+              as int,
       isWholeDay: isWholeDay == freezed
           ? _value.isWholeDay
           : isWholeDay // ignore: cast_nullable_to_non_nullable
@@ -90,7 +97,8 @@ abstract class _$ScheduleListElementModelCopyWith<$Res>
       __$ScheduleListElementModelCopyWithImpl<$Res>;
   @override
   $Res call(
-      {bool isWholeDay,
+      {int scheduleId,
+      bool isWholeDay,
       DateTime startDateTime,
       DateTime endDateTime,
       List<String> dateTimeTexts,
@@ -111,6 +119,7 @@ class __$ScheduleListElementModelCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? scheduleId = freezed,
     Object? isWholeDay = freezed,
     Object? startDateTime = freezed,
     Object? endDateTime = freezed,
@@ -118,6 +127,10 @@ class __$ScheduleListElementModelCopyWithImpl<$Res>
     Object? scheduleTitle = freezed,
   }) {
     return _then(_ScheduleListElementModel(
+      scheduleId: scheduleId == freezed
+          ? _value.scheduleId
+          : scheduleId // ignore: cast_nullable_to_non_nullable
+              as int,
       isWholeDay: isWholeDay == freezed
           ? _value.isWholeDay
           : isWholeDay // ignore: cast_nullable_to_non_nullable
@@ -146,13 +159,16 @@ class __$ScheduleListElementModelCopyWithImpl<$Res>
 
 class _$_ScheduleListElementModel implements _ScheduleListElementModel {
   const _$_ScheduleListElementModel(
-      {required this.isWholeDay,
+      {required this.scheduleId,
+      required this.isWholeDay,
       required this.startDateTime,
       required this.endDateTime,
       required final List<String> dateTimeTexts,
       required this.scheduleTitle})
       : _dateTimeTexts = dateTimeTexts;
 
+  @override
+  final int scheduleId;
   @override
   final bool isWholeDay;
   @override
@@ -171,7 +187,7 @@ class _$_ScheduleListElementModel implements _ScheduleListElementModel {
 
   @override
   String toString() {
-    return 'ScheduleListElementModel(isWholeDay: $isWholeDay, startDateTime: $startDateTime, endDateTime: $endDateTime, dateTimeTexts: $dateTimeTexts, scheduleTitle: $scheduleTitle)';
+    return 'ScheduleListElementModel(scheduleId: $scheduleId, isWholeDay: $isWholeDay, startDateTime: $startDateTime, endDateTime: $endDateTime, dateTimeTexts: $dateTimeTexts, scheduleTitle: $scheduleTitle)';
   }
 
   @override
@@ -179,6 +195,8 @@ class _$_ScheduleListElementModel implements _ScheduleListElementModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _ScheduleListElementModel &&
+            const DeepCollectionEquality()
+                .equals(other.scheduleId, scheduleId) &&
             const DeepCollectionEquality()
                 .equals(other.isWholeDay, isWholeDay) &&
             const DeepCollectionEquality()
@@ -194,6 +212,7 @@ class _$_ScheduleListElementModel implements _ScheduleListElementModel {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      const DeepCollectionEquality().hash(scheduleId),
       const DeepCollectionEquality().hash(isWholeDay),
       const DeepCollectionEquality().hash(startDateTime),
       const DeepCollectionEquality().hash(endDateTime),
@@ -209,12 +228,15 @@ class _$_ScheduleListElementModel implements _ScheduleListElementModel {
 
 abstract class _ScheduleListElementModel implements ScheduleListElementModel {
   const factory _ScheduleListElementModel(
-      {required final bool isWholeDay,
+      {required final int scheduleId,
+      required final bool isWholeDay,
       required final DateTime startDateTime,
       required final DateTime endDateTime,
       required final List<String> dateTimeTexts,
       required final String scheduleTitle}) = _$_ScheduleListElementModel;
 
+  @override
+  int get scheduleId => throw _privateConstructorUsedError;
   @override
   bool get isWholeDay => throw _privateConstructorUsedError;
   @override

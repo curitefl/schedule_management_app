@@ -1,12 +1,12 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'schedule_create_view_model.freezed.dart';
+part 'schedule_edit_view_model.freezed.dart';
 
 @freezed
-abstract class ScheduleCreateViewModel with _$ScheduleCreateViewModel {
-  const factory ScheduleCreateViewModel({
+abstract class ScheduleEditViewModel with _$ScheduleEditViewModel {
+  const factory ScheduleEditViewModel({
+    required final int scheduleId,
     required final int maximumYear,
-    required final DateTime selectedDateTime,
     required final String title,
     required final bool isWholeDay,
     required final DateTime startDateTime,
@@ -16,5 +16,5 @@ abstract class ScheduleCreateViewModel with _$ScheduleCreateViewModel {
     required final String description,
     required final bool canSave,
     required final bool isModified,
-  }) = _ScheduleCreateViewModel;
+  }) = _ScheduleEditViewModel;
 }

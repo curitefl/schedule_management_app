@@ -16,7 +16,10 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ScheduleListViewModel {
-  DateTime get selectedDay => throw _privateConstructorUsedError;
+  DateTime get selectedDateTime => throw _privateConstructorUsedError;
+  String get selectedDateTimeText => throw _privateConstructorUsedError;
+  String get weekDayText => throw _privateConstructorUsedError;
+  Color get weekDayColor => throw _privateConstructorUsedError;
   List<ScheduleListElementModel> get scheduleElements =>
       throw _privateConstructorUsedError;
 
@@ -31,7 +34,11 @@ abstract class $ScheduleListViewModelCopyWith<$Res> {
           $Res Function(ScheduleListViewModel) then) =
       _$ScheduleListViewModelCopyWithImpl<$Res>;
   $Res call(
-      {DateTime selectedDay, List<ScheduleListElementModel> scheduleElements});
+      {DateTime selectedDateTime,
+      String selectedDateTimeText,
+      String weekDayText,
+      Color weekDayColor,
+      List<ScheduleListElementModel> scheduleElements});
 }
 
 /// @nodoc
@@ -45,14 +52,29 @@ class _$ScheduleListViewModelCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? selectedDay = freezed,
+    Object? selectedDateTime = freezed,
+    Object? selectedDateTimeText = freezed,
+    Object? weekDayText = freezed,
+    Object? weekDayColor = freezed,
     Object? scheduleElements = freezed,
   }) {
     return _then(_value.copyWith(
-      selectedDay: selectedDay == freezed
-          ? _value.selectedDay
-          : selectedDay // ignore: cast_nullable_to_non_nullable
+      selectedDateTime: selectedDateTime == freezed
+          ? _value.selectedDateTime
+          : selectedDateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      selectedDateTimeText: selectedDateTimeText == freezed
+          ? _value.selectedDateTimeText
+          : selectedDateTimeText // ignore: cast_nullable_to_non_nullable
+              as String,
+      weekDayText: weekDayText == freezed
+          ? _value.weekDayText
+          : weekDayText // ignore: cast_nullable_to_non_nullable
+              as String,
+      weekDayColor: weekDayColor == freezed
+          ? _value.weekDayColor
+          : weekDayColor // ignore: cast_nullable_to_non_nullable
+              as Color,
       scheduleElements: scheduleElements == freezed
           ? _value.scheduleElements
           : scheduleElements // ignore: cast_nullable_to_non_nullable
@@ -69,7 +91,11 @@ abstract class _$ScheduleListViewModelCopyWith<$Res>
       __$ScheduleListViewModelCopyWithImpl<$Res>;
   @override
   $Res call(
-      {DateTime selectedDay, List<ScheduleListElementModel> scheduleElements});
+      {DateTime selectedDateTime,
+      String selectedDateTimeText,
+      String weekDayText,
+      Color weekDayColor,
+      List<ScheduleListElementModel> scheduleElements});
 }
 
 /// @nodoc
@@ -85,14 +111,29 @@ class __$ScheduleListViewModelCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? selectedDay = freezed,
+    Object? selectedDateTime = freezed,
+    Object? selectedDateTimeText = freezed,
+    Object? weekDayText = freezed,
+    Object? weekDayColor = freezed,
     Object? scheduleElements = freezed,
   }) {
     return _then(_ScheduleListViewModel(
-      selectedDay: selectedDay == freezed
-          ? _value.selectedDay
-          : selectedDay // ignore: cast_nullable_to_non_nullable
+      selectedDateTime: selectedDateTime == freezed
+          ? _value.selectedDateTime
+          : selectedDateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      selectedDateTimeText: selectedDateTimeText == freezed
+          ? _value.selectedDateTimeText
+          : selectedDateTimeText // ignore: cast_nullable_to_non_nullable
+              as String,
+      weekDayText: weekDayText == freezed
+          ? _value.weekDayText
+          : weekDayText // ignore: cast_nullable_to_non_nullable
+              as String,
+      weekDayColor: weekDayColor == freezed
+          ? _value.weekDayColor
+          : weekDayColor // ignore: cast_nullable_to_non_nullable
+              as Color,
       scheduleElements: scheduleElements == freezed
           ? _value.scheduleElements
           : scheduleElements // ignore: cast_nullable_to_non_nullable
@@ -107,12 +148,21 @@ class _$_ScheduleListViewModel
     with DiagnosticableTreeMixin
     implements _ScheduleListViewModel {
   const _$_ScheduleListViewModel(
-      {required this.selectedDay,
+      {required this.selectedDateTime,
+      required this.selectedDateTimeText,
+      required this.weekDayText,
+      required this.weekDayColor,
       required final List<ScheduleListElementModel> scheduleElements})
       : _scheduleElements = scheduleElements;
 
   @override
-  final DateTime selectedDay;
+  final DateTime selectedDateTime;
+  @override
+  final String selectedDateTimeText;
+  @override
+  final String weekDayText;
+  @override
+  final Color weekDayColor;
   final List<ScheduleListElementModel> _scheduleElements;
   @override
   List<ScheduleListElementModel> get scheduleElements {
@@ -122,7 +172,7 @@ class _$_ScheduleListViewModel
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ScheduleListViewModel(selectedDay: $selectedDay, scheduleElements: $scheduleElements)';
+    return 'ScheduleListViewModel(selectedDateTime: $selectedDateTime, selectedDateTimeText: $selectedDateTimeText, weekDayText: $weekDayText, weekDayColor: $weekDayColor, scheduleElements: $scheduleElements)';
   }
 
   @override
@@ -130,7 +180,10 @@ class _$_ScheduleListViewModel
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'ScheduleListViewModel'))
-      ..add(DiagnosticsProperty('selectedDay', selectedDay))
+      ..add(DiagnosticsProperty('selectedDateTime', selectedDateTime))
+      ..add(DiagnosticsProperty('selectedDateTimeText', selectedDateTimeText))
+      ..add(DiagnosticsProperty('weekDayText', weekDayText))
+      ..add(DiagnosticsProperty('weekDayColor', weekDayColor))
       ..add(DiagnosticsProperty('scheduleElements', scheduleElements));
   }
 
@@ -140,7 +193,13 @@ class _$_ScheduleListViewModel
         (other.runtimeType == runtimeType &&
             other is _ScheduleListViewModel &&
             const DeepCollectionEquality()
-                .equals(other.selectedDay, selectedDay) &&
+                .equals(other.selectedDateTime, selectedDateTime) &&
+            const DeepCollectionEquality()
+                .equals(other.selectedDateTimeText, selectedDateTimeText) &&
+            const DeepCollectionEquality()
+                .equals(other.weekDayText, weekDayText) &&
+            const DeepCollectionEquality()
+                .equals(other.weekDayColor, weekDayColor) &&
             const DeepCollectionEquality()
                 .equals(other.scheduleElements, scheduleElements));
   }
@@ -148,7 +207,10 @@ class _$_ScheduleListViewModel
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(selectedDay),
+      const DeepCollectionEquality().hash(selectedDateTime),
+      const DeepCollectionEquality().hash(selectedDateTimeText),
+      const DeepCollectionEquality().hash(weekDayText),
+      const DeepCollectionEquality().hash(weekDayColor),
       const DeepCollectionEquality().hash(scheduleElements));
 
   @JsonKey(ignore: true)
@@ -160,12 +222,21 @@ class _$_ScheduleListViewModel
 
 abstract class _ScheduleListViewModel implements ScheduleListViewModel {
   const factory _ScheduleListViewModel(
-          {required final DateTime selectedDay,
+          {required final DateTime selectedDateTime,
+          required final String selectedDateTimeText,
+          required final String weekDayText,
+          required final Color weekDayColor,
           required final List<ScheduleListElementModel> scheduleElements}) =
       _$_ScheduleListViewModel;
 
   @override
-  DateTime get selectedDay => throw _privateConstructorUsedError;
+  DateTime get selectedDateTime => throw _privateConstructorUsedError;
+  @override
+  String get selectedDateTimeText => throw _privateConstructorUsedError;
+  @override
+  String get weekDayText => throw _privateConstructorUsedError;
+  @override
+  Color get weekDayColor => throw _privateConstructorUsedError;
   @override
   List<ScheduleListElementModel> get scheduleElements =>
       throw _privateConstructorUsedError;

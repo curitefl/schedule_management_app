@@ -1,6 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:schedule_management_app/data/repository/schedule_repository.dart';
 import 'package:schedule_management_app/domain/provider/repository_providers.dart';
+import 'package:schedule_management_app/domain/provider/schedule_list_providers.dart';
 import 'package:schedule_management_app/domain/provider/transition_providers.dart';
 import 'package:schedule_management_app/domain/use_case/calendar_use_case.dart';
 import 'package:schedule_management_app/presentation/presenter/calendar_presenter.dart';
@@ -17,7 +18,7 @@ final calendarUseCaseProvider = Provider(
   (ref) => CalendarUseCase(
     ref.watch(scheduleRepositoryProvider),
     ref.watch(calendarStateProvider.notifier),
-  )..refreshViewModel(),
+  )..reloadState(),
 );
 
 final calendarStateProvider = StateNotifierProvider<CalendarState, CalendarViewModel>(
@@ -37,6 +38,7 @@ final calendarStateProvider = StateNotifierProvider<CalendarState, CalendarViewM
 final calendarPresenterProvider = Provider(
   (ref) => CalendarPresenter(
     ref.watch(calendarUseCaseProvider),
+    ref.watch(scheduleListUseCaseProvider),
     ref.watch(transitionUseCaseProvider),
   ),
 );

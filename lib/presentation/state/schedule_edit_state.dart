@@ -2,40 +2,36 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:schedule_management_app/domain/calculator/datetime_calculator.dart';
 import 'package:schedule_management_app/presentation/view/constants/text_constants.dart';
-import 'package:schedule_management_app/presentation/view/view_model/schedule_create_view_model.dart';
+import 'package:schedule_management_app/presentation/view/view_model/schedule_edit_view_model.dart';
 
-class ScheduleCreateState extends StateNotifier<ScheduleCreateViewModel> {
-  ScheduleCreateState(final ScheduleCreateViewModel state) : super(state);
+class ScheduleEditState extends StateNotifier<ScheduleEditViewModel> {
+  ScheduleEditState(final ScheduleEditViewModel state) : super(state);
 
-  ScheduleCreateViewModel get viewModel => state;
+  ScheduleEditViewModel get viewModel => state;
 
-  void setSelectedDay(final DateTime dateTime) {
-    final now = DateTime.now();
-
-    final adjustedDateTime = DateTime(
-      dateTime.year,
-      dateTime.month,
-      dateTime.day,
-      now.hour,
-      now.minute,
-    );
-
-    final startDateTime = _getQuarteredDateTime(adjustedDateTime);
-    final endDateTime = startDateTime;
-
+  void set(
+    int scheduleId,
+    String title,
+    bool isWholeDay,
+    DateTime startDateTime,
+    DateTime endDateTime,
+    String description,
+  ) {
     state = state.copyWith(
-      selectedDateTime: startDateTime,
+      scheduleId: scheduleId,
+      maximumYear: startDateTime.year + 100,
+      title: title,
+      isWholeDay: isWholeDay,
       startDateTime: startDateTime,
       endDateTime: endDateTime,
-      startDateTimeText: _getDateTimeText(startDateTime, state.isWholeDay),
-      endDateTimeText: _getDateTimeText(endDateTime, state.isWholeDay),
+      startDateTimeText: _getDateTimeText(startDateTime, isWholeDay),
+      endDateTimeText: _getDateTimeText(endDateTime, isWholeDay),
+      description: description,
     );
   }
 
   void setTitle(final String title) {
-    state = state.copyWith(title: title);
-    _updateCanSave();
-    _updateIsModified();
+    state = state.copyWith(title: title, canSave: true, isModified: true);
   }
 
   void setWholeDay(final bool isWholeDay) {
@@ -43,6 +39,8 @@ class ScheduleCreateState extends StateNotifier<ScheduleCreateViewModel> {
       isWholeDay: isWholeDay,
       startDateTimeText: _getDateTimeText(state.startDateTime, isWholeDay),
       endDateTimeText: _getDateTimeText(state.endDateTime, isWholeDay),
+      canSave: true,
+      isModified: true,
     );
   }
 
@@ -54,6 +52,8 @@ class ScheduleCreateState extends StateNotifier<ScheduleCreateViewModel> {
       startDateTimeText: _getDateTimeText(startDateTime, state.isWholeDay),
       endDateTime: clampedEndDateTime,
       endDateTimeText: _getDateTimeText(clampedEndDateTime, state.isWholeDay),
+      canSave: true,
+      isModified: true,
     );
   }
 
@@ -65,27 +65,17 @@ class ScheduleCreateState extends StateNotifier<ScheduleCreateViewModel> {
       startDateTimeText: _getDateTimeText(clampedStartDateTime, state.isWholeDay),
       endDateTime: endDateTime,
       endDateTimeText: _getDateTimeText(endDateTime, state.isWholeDay),
+      canSave: true,
+      isModified: true,
     );
   }
 
   void setDescription(final String description) {
-    state = state.copyWith(description: description);
-    _updateCanSave();
-    _updateIsModified();
-  }
-
-  void _updateCanSave() {
-    final canSave = state.title.isNotEmpty && state.description.isNotEmpty;
-    state = state.copyWith(canSave: canSave);
-  }
-
-  void _updateIsModified() {
-    final isModified = state.title.isNotEmpty || state.description.isNotEmpty;
-    state = state.copyWith(isModified: isModified);
-  }
-
-  DateTime _getQuarteredDateTime(final DateTime dateTime) {
-    return dateTime.add(Duration(minutes: 15 - dateTime.minute % 15));
+    state = state.copyWith(
+      description: description,
+      canSave: true,
+      isModified: true,
+    );
   }
 
   String _getDateTimeText(final DateTime dateTime, final bool isWholeDay) {

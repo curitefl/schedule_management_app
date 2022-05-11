@@ -4,6 +4,7 @@ import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
+import 'package:schedule_management_app/service/data_store/deep_date_time_expressions.dart';
 
 part 'calendar_data_store.g.dart';
 
@@ -28,31 +29,23 @@ class CalendarDataStore extends _$CalendarDataStore {
   @override
   int get schemaVersion => 1;
 
-  Future<Schedule> getScheduleById(final int id) {
-    return (select(schedules)..where((tbl) => tbl.id.equals(id))).getSingle();
-  }
-
-  Future<List<Schedule>> getMonthScheduleEntries(final int year, final int month) {
-    return (select(schedules)
-          ..where((tbl) {
-            final isEqualYear = tbl.startDateTime.year.equals(year);
-            final isEqualMonth = tbl.startDateTime.month.equals(month);
-            final result = isEqualYear & isEqualMonth;
-            return result;
-          }))
+  Future<List<Schedule>> getMonthScheduleEntries(final DateTime dateTime) async {
+    return await (select(schedules)..where((tbl) => tbl.startDateTime.dateYearMonthEquals(dateTime)))
         .get();
   }
 
-  Future<List<Schedule>> getDayScheduleEntries(final int year, final int month, final int day) {
-    return (select(schedules)
-          ..where((tbl) {
-            final isEqualYear = tbl.startDateTime.year.equals(year);
-            final isEqualMonth = tbl.startDateTime.month.equals(month);
-            final isEqualDay = tbl.startDateTime.day.equals(day);
-            final result = isEqualYear & isEqualMonth & isEqualDay;
-            return result;
-          }))
+  Future<List<Schedule>> getDayScheduleEntries(final DateTime dateTime) async {
+    return await (select(schedules)
+          ..where((tbl) => tbl.startDateTime.dateEquals(dateTime))
+          ..orderBy([
+            (entry) => OrderingTerm(expression: entry.isWholeDay, mode: OrderingMode.desc),
+            (entry) => OrderingTerm(expression: entry.startDateTime, mode: OrderingMode.asc)
+          ]))
         .get();
+  }
+
+  Future<Schedule> getScheduleEntry(final int scheduleId) async {
+    return await (select(schedules)..where((tbl) => tbl.id.equals(scheduleId))).getSingle();
   }
 
   Future<int> addSchedule(
@@ -61,8 +54,8 @@ class CalendarDataStore extends _$CalendarDataStore {
     final DateTime startDateTime,
     final DateTime endDateTime,
     final String description,
-  ) {
-    return into(schedules).insert(
+  ) async {
+    return await into(schedules).insert(
       SchedulesCompanion(
         title: Value(title),
         isWholeDay: Value(isWholeDay),
@@ -80,8 +73,8 @@ class CalendarDataStore extends _$CalendarDataStore {
     final DateTime startDateTime,
     final DateTime endDateTime,
     final String description,
-  ) {
-    return (update(schedules)..where((tbl) => tbl.id.equals(schedule.id))).write(
+  ) async {
+    return await (update(schedules)..where((tbl) => tbl.id.equals(schedule.id))).write(
       SchedulesCompanion(
         title: Value(title),
         isWholeDay: Value(isWholeDay),
@@ -92,8 +85,8 @@ class CalendarDataStore extends _$CalendarDataStore {
     );
   }
 
-  Future deleteSchedule(final Schedule schedule) {
-    return (delete(schedules)..where((tbl) => tbl.id.equals(schedule.id))).go();
+  Future<void> deleteSchedule(final Schedule schedule) async {
+    await (delete(schedules)..where((tbl) => tbl.id.equals(schedule.id))).go();
   }
 }
 

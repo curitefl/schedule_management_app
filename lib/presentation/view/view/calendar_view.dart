@@ -29,66 +29,66 @@ class CalendarView extends HookConsumerWidget {
           Stack(
             children: [
               TableCalendar(
-                  eventLoader: presenter.getEventsForDay,
-                  locale: CalendarConstants.calendarLocale,
-                  firstDay: CalendarConstants.calendarFirstDay,
-                  lastDay: CalendarConstants.calendarEndDay,
-                  focusedDay: viewModel.focusedDay,
-                  currentDay: viewModel.currentDay,
-                  startingDayOfWeek: StartingDayOfWeek.monday,
-                  daysOfWeekHeight: 20.0,
-                  headerStyle: HeaderStyle(
-                    titleTextFormatter: (date, locale) {
-                      return DateFormat(TextConstants.calendarDateFormat).format(date);
-                    },
-                    titleCentered: true,
-                    formatButtonVisible: false,
-                    leftChevronVisible: false,
-                    rightChevronIcon: const Icon(Icons.arrow_drop_down),
+                eventLoader: presenter.getEventsForDay,
+                firstDay: CalendarConstants.calendarFirstDay,
+                lastDay: CalendarConstants.calendarEndDay,
+                focusedDay: viewModel.focusedDay,
+                currentDay: viewModel.currentDay,
+                startingDayOfWeek: StartingDayOfWeek.monday,
+                daysOfWeekHeight: 20.0,
+                headerStyle: HeaderStyle(
+                  titleTextFormatter: (date, locale) {
+                    return DateFormat(TextConstants.calendarDateFormat).format(date);
+                  },
+                  titleCentered: true,
+                  formatButtonVisible: false,
+                  leftChevronVisible: false,
+                  rightChevronVisible: false,
+                  headerMargin: const EdgeInsets.all(8.0),
+                ),
+                calendarStyle: const CalendarStyle(
+                  todayDecoration: BoxDecoration(
+                    color: Colors.blue,
+                    shape: BoxShape.circle,
                   ),
-                  calendarStyle: const CalendarStyle(
-                    todayDecoration: BoxDecoration(
-                      color: Colors.blue,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                  calendarBuilders: CalendarBuilders(
-                    dowBuilder: (BuildContext context, DateTime day) {
-                      final dayOfWeek = DateFormat.E(CalendarConstants.calendarLocale).format(day);
-                      return Center(
-                        child: Text(
-                          dayOfWeek,
-                          style: TextStyle(
-                            color: _textColor(day),
-                          ),
+                ),
+                calendarBuilders: CalendarBuilders(
+                  dowBuilder: (BuildContext context, DateTime day) {
+                    final dayOfWeek = DateFormat.E(CalendarConstants.calendarLocale).format(day);
+                    return Center(
+                      child: Text(
+                        dayOfWeek,
+                        style: TextStyle(
+                          color: _textColor(day),
                         ),
-                      );
-                    },
-                    defaultBuilder: (BuildContext context, DateTime day, DateTime focusedDay) {
-                      final date = day.day.toString();
-                      return Center(
-                        child: Text(
-                          date,
-                          style: TextStyle(
-                            color: _textColor(day),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                  onHeaderTapped: (_) {
-                    showMonthPicker(context: context, initialDate: viewModel.focusedDay).then(
-                      (date) async {
-                        await presenter.focusMonth(date);
-                      },
+                      ),
                     );
                   },
-                  onDaySelected: (selectedDay, focusedDay) async {
-                    await presenter.showScheduleListView(context, selectedDay);
+                  defaultBuilder: (BuildContext context, DateTime day, DateTime focusedDay) {
+                    return Center(
+                      child: Text(
+                        '${day.day}',
+                        style: TextStyle(
+                          color: _textColor(day),
+                        ),
+                      ),
+                    );
                   },
-                  onPageChanged: (dateTime) async {
-                    await presenter.focusMonth(dateTime);
-                  }),
+                ),
+                onHeaderTapped: (_) {
+                  showMonthPicker(context: context, initialDate: viewModel.focusedDay).then(
+                    (date) async {
+                      await presenter.focusMonth(date);
+                    },
+                  );
+                },
+                onDaySelected: (selectedDay, focusedDay) async {
+                  await presenter.showScheduleListView(context, selectedDay);
+                },
+                onPageChanged: (dateTime) async {
+                  await presenter.focusMonth(dateTime);
+                },
+              ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: OutlinedButton(

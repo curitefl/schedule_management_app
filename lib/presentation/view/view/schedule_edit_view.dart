@@ -1,20 +1,19 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:schedule_management_app/domain/provider/schedule_create_providers.dart';
+import 'package:schedule_management_app/domain/provider/schedule_edit_providers.dart';
 import 'package:schedule_management_app/presentation/view/component/schedule_component.dart';
 import 'package:schedule_management_app/presentation/view/constants/text_constants.dart';
 
-class ScheduleCreateView extends HookConsumerWidget {
-  const ScheduleCreateView({final Key? key}) : super(key: key);
+class ScheduleEditView extends HookConsumerWidget {
+  const ScheduleEditView({Key? key}) : super(key: key);
 
   @override
-  Widget build(final BuildContext context, final WidgetRef ref) {
-    final viewModel = ref.watch(scheduleCreateStateProvider);
-    final presenter = ref.watch(scheduleCreatePresenterProvider);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final viewModel = ref.watch(scheduleEditStateProvider);
+    final presenter = ref.watch(scheduleEditPresenterProvider);
 
     return ScheduleComponent(
-      appBarText: TextConstants.scheduleCreateViewAppBarTitle,
+      appBarText: TextConstants.scheduleEditViewAppBarTitle,
       title: viewModel.title,
       onTitleChanged: presenter.setTitle,
       isWholeDay: viewModel.isWholeDay,
