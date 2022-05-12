@@ -15,7 +15,7 @@ class CalendarUseCase {
   CalendarUseCase(final this._repository, final this._state);
 
   Future<void> reloadState() async {
-    _eventHashMap ??= LinkedHashMap<DateTime, List<String>>(
+    _eventHashMap = LinkedHashMap<DateTime, List<String>>(
       equals: isSameDay,
       hashCode: _getHashCode,
     );

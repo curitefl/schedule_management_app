@@ -40,6 +40,12 @@ class ScheduleEditPresenter {
     await _calendarUseCase.reloadState();
   }
 
+  Future<void> deleteSchedule(final int scheduleId) async {
+    await _useCase.deleteSchedule(scheduleId);
+    await _scheduleListUseCase.reloadState();
+    await _calendarUseCase.reloadState();
+  }
+
   void refreshState(final WidgetRef ref) {
     _useCase.refreshState(ref);
   }

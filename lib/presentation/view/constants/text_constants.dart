@@ -11,6 +11,10 @@ class TextConstants {
 
   // 予定編集画面
   static const String scheduleEditViewAppBarTitle = '予定編集';
+  static const String scheduleEditViewDeleteTitle = 'この予定を削除';
+  static const String scheduleEditViewDeleteMessage = '本当にこの日の予定を削除しますか？';
+  static const String scheduleEditViewDeleteConfirm = '削除';
+  static const String scheduleEditViewDeleteCancel = 'キャンセル';
 
   // 日別予定一覧画面
   static const String scheduleListViewDateFormat = 'yyyy/MM/dd (E)';
