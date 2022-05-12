@@ -52,8 +52,15 @@ class ScheduleListView extends HookConsumerWidget {
       content: SizedBox(
         height: MediaQuery.of(context).size.height / 2.0,
         width: MediaQuery.of(context).size.width - 24.0,
-        child: ListView.builder(
+        child: ListView.separated(
+          padding: const EdgeInsets.all(8.0),
           itemCount: viewModel.scheduleElements.length,
+          separatorBuilder: (BuildContext context, int index) {
+            return const SizedBox(
+              height: 8.0,
+              child: Divider(height: 8.0,),
+            );
+          },
           itemBuilder: (BuildContext context, int index) {
             return Row(
               children: [
@@ -70,7 +77,8 @@ class ScheduleListView extends HookConsumerWidget {
                 Container(
                   height: 50.0,
                   width: 5.0,
-                  color: viewModel.scheduleElements[index].isWholeDay ?  Colors.redAccent : Colors.blue,
+                  color:
+                      viewModel.scheduleElements[index].isWholeDay ? Colors.redAccent : Colors.blue,
                 ),
                 Expanded(
                   child: Align(
@@ -81,8 +89,8 @@ class ScheduleListView extends HookConsumerWidget {
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                       ),
-                      onPressed: () {
-                        presenter.showScheduleEditView(
+                      onPressed: () async {
+                        await presenter.showScheduleEditView(
                             context,
                             viewModel.scheduleElements[index].scheduleId,
                             viewModel.selectedDateTime);

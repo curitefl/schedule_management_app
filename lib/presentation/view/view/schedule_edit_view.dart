@@ -32,18 +32,26 @@ class ScheduleEditView extends HookConsumerWidget {
       isModified: viewModel.isModified,
       onPressedSave: () async => await presenter.save(ref),
       onDiscard: () => presenter.refreshState(ref),
-      child: TextButton(
-        child: const Text(
-          TextConstants.scheduleEditViewDeleteTitle,
-          maxLines: 1,
-        ),
-        onPressed: () async {
-          final isDiscard = await _showDeletePopup(context, presenter, viewModel.scheduleId);
+      child: ListTile(
+        title: OutlinedButton(
+          child: const Text(
+            TextConstants.scheduleEditViewDeleteTitle,
+            maxLines: 1,
+            style: TextStyle(color: Colors.red),
+          ),
+          style: OutlinedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+          ),
+          onPressed: () async {
+            final isDiscard = await _showDeletePopup(context, presenter, viewModel.scheduleId);
 
-          if(isDiscard) {
-            Navigator.pop(context);
-          }
-        },
+            if (isDiscard) {
+              Navigator.pop(context);
+            }
+          },
+        ),
       ),
     );
   }
@@ -53,9 +61,7 @@ class ScheduleEditView extends HookConsumerWidget {
     final ScheduleEditPresenter presenter,
     final int scheduleId,
   ) async {
-    var isDiscard = false;
-
-    await showCupertinoModalPopup(
+    final isDiscard = await showCupertinoModalPopup(
       context: context,
       builder: (BuildContext context) {
         return CupertinoActionSheet(
@@ -63,21 +69,21 @@ class ScheduleEditView extends HookConsumerWidget {
           message: const Text(TextConstants.scheduleEditViewDeleteMessage),
           actions: [
             CupertinoActionSheetAction(
+              isDestructiveAction: true,
               onPressed: () async {
                 await presenter.deleteSchedule(scheduleId);
-                Navigator.pop(context);
-                isDiscard = true;
+                Navigator.pop(context, true);
               },
               child: const Text(TextConstants.scheduleEditViewDeleteConfirm),
             ),
-            CupertinoActionSheetAction(
-              onPressed: () => Navigator.pop(context),
-              child: const Text(TextConstants.scheduleEditViewDeleteCancel),
-            ),
           ],
+          cancelButton: CupertinoActionSheetAction(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text(TextConstants.scheduleEditViewDeleteCancel),
+          ),
         );
       },
     );
-    return isDiscard;
+    return isDiscard ?? false;
   }
 }
