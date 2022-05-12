@@ -104,11 +104,14 @@ class ScheduleComponent extends StatelessWidget {
                     ),
                     onChanged: _onTitleChanged,
                   ),
-                  SwitchListTile(
+                  ListTile(
                     title: const Text(ScheduleComponentConstants.wholeDay),
-                    value: _isWholeDay,
-                    onChanged: _onWholeDayChanged,
+                    trailing: Switch(
+                      value: _isWholeDay,
+                      onChanged: _onWholeDayChanged,
+                    ),
                   ),
+                  const Divider(height: 8.0,),
                   WidgetFactory.createDatePickerButton(
                     context,
                     ScheduleComponentConstants.start,
@@ -123,6 +126,7 @@ class ScheduleComponent extends StatelessWidget {
                       );
                     },
                   ),
+                  const Divider(height: 8.0,),
                   WidgetFactory.createDatePickerButton(
                     context,
                     ScheduleComponentConstants.end,
